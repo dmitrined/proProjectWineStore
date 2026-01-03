@@ -1,0 +1,372 @@
+[
+    {
+        "id": "e4d3f1a2-b5c6-7d8e-9f0a-1b2c3d4e5f6a",
+        "name": "Spätburgunder trocken",
+        "slug": "spaetburgunder-trocken",
+        "price": 12.50,
+        "description": "Ein kräftiger Spätburgunder mit Aromen von Kirschen und Beeren. Ideal zu dunklem Fleisch und Käse.",
+        "short_description": "Kräftiger Rotwein mit Beerenaromen.",
+        "image": "https://placehold.co/600x800/png?text=Rotwein+1",
+        "images": [
+            {
+                "src": "https://placehold.co/600x800/png?text=Rotwein+1",
+                "alt": "Spätburgunder Flasche"
+            }
+        ],
+        "type": "Rotwein",
+        "grapeVariety": "Spätburgunder",
+        "year": 2021,
+        "alcohol": "13.5%",
+        "acidity": "5.2 g/l",
+        "sugar": "2.0 g/l",
+        "location": "Vulkanfelsen",
+        "quality_level": "Qualitätswein",
+        "flavor": "Trocken",
+        "soil": "Vulkangestein",
+        "producer": "Weingut Fellfacher",
+        "temp": "16-18°C",
+        "rating": 4.8,
+        "recommended_dishes": [
+            "Rinderbraten",
+            "Wildgerichte",
+            "Hartkäse"
+        ],
+        "tags": [
+            "Bestseller",
+            "Premium"
+        ]
+    },
+    {
+        "id": "f5e4d2c3-a1b2-8c9d-0e1f-2a3b4c5d6e7f",
+        "name": "Riesling Kabinett",
+        "slug": "riesling-kabinett",
+        "price": 9.90,
+        "description": "Fruchtiger Riesling mit feiner Säure und Noten von Pfirsich und Aprikose.",
+        "short_description": "Fruchtig-frischer Weißwein.",
+        "image": "https://placehold.co/600x800/png?text=Weisswein+1",
+        "images": [
+            {
+                "src": "https://placehold.co/600x800/png?text=Weisswein+1",
+                "alt": "Riesling Flasche"
+            }
+        ],
+        "type": "Weißwein",
+        "grapeVariety": "Riesling",
+        "year": 2022,
+        "alcohol": "11.5%",
+        "acidity": "7.5 g/l",
+        "sugar": "4.5 g/l",
+        "location": "Sonnenberg",
+        "quality_level": "Prädikatswein",
+        "flavor": "Feinherb",
+        "soil": "Schiefer",
+        "producer": "Weingut Fellfacher",
+        "temp": "8-10°C",
+        "rating": 4.5,
+        "recommended_dishes": [
+            "Asiatische Küche",
+            "Fisch",
+            "Geflügel"
+        ],
+        "tags": [
+            "Sommerwein"
+        ]
+    },
+    {
+        "id": "a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d",
+        "name": "Grauburgunder Edition",
+        "slug": "grauburgunder-edition",
+        "price": 14.00,
+        "description": "Eleganter Grauburgunder mit Schmelz und nussigen Nuancen. Langes Lagerungspotenzial.",
+        "short_description": "Eleganter Weißwein mit Schmelz.",
+        "image": "https://placehold.co/600x800/png?text=Weisswein+2",
+        "images": [
+            {
+                "src": "https://placehold.co/600x800/png?text=Weisswein+2",
+                "alt": "Grauburgunder Flasche"
+            }
+        ],
+        "type": "Weißwein",
+        "grapeVariety": "Grauburgunder",
+        "year": 2022,
+        "alcohol": "13.0%",
+        "acidity": "5.8 g/l",
+        "sugar": "3.0 g/l",
+        "location": "Herrenberg",
+        "quality_level": "Qualitätswein",
+        "flavor": "Trocken",
+        "soil": "Löss",
+        "producer": "Weingut Fellfacher",
+        "temp": "10-12°C",
+        "rating": 4.7,
+        "recommended_dishes": [
+            "Kalb",
+            "Pilzgerichte",
+            "Pasta"
+        ]
+    },
+    {
+        "id": "b2c3d4e5-f6a7-8b9c-0d1e-2f3a4b5c6d7e",
+        "name": "Rosé Saignée",
+        "slug": "rose-saignee",
+        "price": 8.50,
+        "description": "Frischer Rosé aus dem Saftabzug. Beerig, leicht und ideal für warme Tage.",
+        "short_description": "Leichter Sommer-Rosé.",
+        "image": "https://placehold.co/600x800/png?text=Rose+1",
+        "images": [
+            {
+                "src": "https://placehold.co/600x800/png?text=Rose+1",
+                "alt": "Rosé Flasche"
+            }
+        ],
+        "type": "Roséwein",
+        "grapeVariety": "Cuvée",
+        "year": 2023,
+        "alcohol": "12.0%",
+        "acidity": "6.0 g/l",
+        "sugar": "5.5 g/l",
+        "location": "Tal",
+        "quality_level": "Qualitätswein",
+        "flavor": "Trocken",
+        "soil": "Sandstein",
+        "producer": "Weingut Fellfacher",
+        "temp": "8-10°C",
+        "rating": 4.3,
+        "recommended_dishes": [
+            "Salate",
+            "Grillgemüse",
+            "Melone"
+        ],
+        "tags": [
+            "Terrassenwein",
+            "Neu"
+        ]
+    },
+    {
+        "id": "c3d4e5f6-a7b8-9c0d-1e2f-3a4b5c6d7e8f",
+        "name": "Muskateller Sekt",
+        "slug": "muskateller-sekt",
+        "price": 15.00,
+        "description": "Prickelnder Genuss mit dem typischen Duft von Muskatnuss und Holunderblüte. Flaschengärung.",
+        "short_description": "Aromatischer Sekt mit Muskatnote.",
+        "image": "https://placehold.co/600x800/png?text=Sekt+1",
+        "images": [
+            {
+                "src": "https://placehold.co/600x800/png?text=Sekt+1",
+                "alt": "Sekt Flasche"
+            }
+        ],
+        "type": "Sekt",
+        "grapeVariety": "Muskateller",
+        "year": 2021,
+        "alcohol": "12.5%",
+        "acidity": "6.5 g/l",
+        "sugar": "12.0 g/l",
+        "location": "Weinberg",
+        "quality_level": "Sekt b.A.",
+        "flavor": "Trocken",
+        "soil": "Kalkmergel",
+        "producer": "Weingut Fellfacher",
+        "temp": "6-8°C",
+        "rating": 4.9,
+        "recommended_dishes": [
+            "Aperitif",
+            "Desserts",
+            "Feierlichkeiten"
+        ],
+        "tags": [
+            "Geschenkidee"
+        ]
+    },
+    {
+        "id": "d4e5f6a7-b8c9-0d1e-2f3a-4b5c6d7e8f9a",
+        "name": "Lemberger Barrique",
+        "slug": "lemberger-barrique",
+        "price": 18.00,
+        "description": "Im kleinen Holzfass gereifter Lemberger. Komplex, würzig mit Noten von Vanille und dunkler Schokolade.",
+        "short_description": "Würziger Rotwein aus dem Barrique.",
+        "image": "https://placehold.co/600x800/png?text=Rotwein+2",
+        "images": [
+            {
+                "src": "https://placehold.co/600x800/png?text=Rotwein+2",
+                "alt": "Lemberger Flasche"
+            }
+        ],
+        "type": "Rotwein",
+        "grapeVariety": "Lemberger",
+        "year": 2020,
+        "alcohol": "14.0%",
+        "acidity": "5.0 g/l",
+        "sugar": "1.5 g/l",
+        "location": "Steillage",
+        "quality_level": "Qualitätswein",
+        "flavor": "Trocken",
+        "soil": "Gipskeuper",
+        "producer": "Weingut Fellfacher",
+        "temp": "16-18°C",
+        "rating": 5.0,
+        "recommended_dishes": [
+            "Lamm",
+            "Wild",
+            "Kräftiger Käse"
+        ],
+        "tags": [
+            "Premium",
+            "Lagerfähig"
+        ]
+    },
+    {
+        "id": "e5f6a7b8-c9d0-1e2f-3a4b-5c6d7e8f9a0b",
+        "name": "Weißburgunder Classic",
+        "slug": "weissburgunder-classic",
+        "price": 8.90,
+        "description": "Ein unkomplizierter Begleiter für jeden Tag. Harmonisch und ausgewogen.",
+        "short_description": "Harmonischer Alltagswein.",
+        "image": "https://placehold.co/600x800/png?text=Weisswein+3",
+        "images": [
+            {
+                "src": "https://placehold.co/600x800/png?text=Weisswein+3",
+                "alt": "Weißburgunder Flasche"
+            }
+        ],
+        "type": "Weißwein",
+        "grapeVariety": "Weißburgunder",
+        "year": 2023,
+        "alcohol": "12.5%",
+        "acidity": "5.5 g/l",
+        "sugar": "4.0 g/l",
+        "location": "Ebene",
+        "quality_level": "Qualitätswein",
+        "flavor": "Halbtrocken",
+        "soil": "Lösslehm",
+        "producer": "Weingut Fellfacher",
+        "temp": "10-12°C",
+        "rating": 4.2,
+        "recommended_dishes": [
+            "Brotzeit",
+            "Spargel",
+            "Salate"
+        ]
+    },
+    {
+        "id": "f6a7b8c9-d0e1-2f3a-4b5c-6d7e8f9a0b1c",
+        "name": "Alkoholfrei Prickelnd",
+        "slug": "alkoholfrei-prickelnd",
+        "price": 7.50,
+        "description": "Die alkoholfreie Alternative zum Sekt. Erfrischend und fruchtig ohne Reue.",
+        "short_description": "Erfrischend und alkoholfrei.",
+        "image": "https://placehold.co/600x800/png?text=Alkoholfrei",
+        "images": [
+            {
+                "src": "https://placehold.co/600x800/png?text=Alkoholfrei",
+                "alt": "Alkoholfrei Flasche"
+            }
+        ],
+        "type": "Alkoholfrei",
+        "grapeVariety": "Cuvée",
+        "year": 2023,
+        "alcohol": "0.0%",
+        "location": "Weinbiet",
+        "flavor": "Süß",
+        "producer": "Weingut Fellfacher",
+        "temp": "6-8°C",
+        "rating": 4.0,
+        "recommended_dishes": [
+            "Solo",
+            "Fruchtsalate"
+        ],
+        "tags": [
+            "Alkoholfrei"
+        ]
+    },
+    {
+        "id": "a7b8c9d0-e1f2-3a4b-5c6d-7e8f9a0b1c2d",
+        "name": "Probierpaket 'Querbeet'",
+        "slug": "probierpaket-querbeet",
+        "price": 45.00,
+        "description": "Entdecken Sie die Vielfalt unserer Weine. Das Paket enthält je eine Flasche Riesling, Spätburgunder, Rosé, Grauburgunder, Sekt und Lemberger.",
+        "short_description": "6 ausgewählte Weine zum Probieren.",
+        "image": "https://placehold.co/600x800/png?text=Paket",
+        "images": [
+            {
+                "src": "https://placehold.co/600x800/png?text=Paket",
+                "alt": "Weinpaket"
+            }
+        ],
+        "type": "Paket",
+        "grapeVariety": "Gemischt",
+        "year": 2023,
+        "producer": "Weingut Fellfacher",
+        "rating": 4.9,
+        "tags": [
+            "Geschenkidee",
+            "Bestseller"
+        ]
+    },
+    {
+        "id": "b8c9d0e1-f2a3-4b5c-6d7e-8f9a0b1c2d3e",
+        "name": "Chardonnay Reserve",
+        "slug": "chardonnay-reserve",
+        "price": 16.50,
+        "description": "Kraftvoller Chardonnay mit internationalem Stil. Cremig, mit Noten von Butter und exotischen Früchten.",
+        "short_description": "Cremiger, internationaler Chardonnay.",
+        "image": "https://placehold.co/600x800/png?text=Weisswein+4",
+        "images": [
+            {
+                "src": "https://placehold.co/600x800/png?text=Weisswein+4",
+                "alt": "Chardonnay Flasche"
+            }
+        ],
+        "type": "Weißwein",
+        "grapeVariety": "Chardonnay",
+        "year": 2021,
+        "alcohol": "13.5%",
+        "acidity": "5.0 g/l",
+        "sugar": "2.5 g/l",
+        "location": "Kalkofen",
+        "quality_level": "Qualitätswein",
+        "flavor": "Trocken",
+        "soil": "Kalkstein",
+        "producer": "Weingut Fellfacher",
+        "temp": "12-14°C",
+        "rating": 4.6,
+        "recommended_dishes": [
+            "Meeresfrüchte",
+            "Helle Soßen",
+            "Geflügel"
+        ]
+    },
+    {
+        "id": "c9d0e1f2-a3b4-5c6d-7e8f-9a0b1c2d3e4f",
+        "name": "Sauvignon Blanc",
+        "slug": "sauvignon-blanc",
+        "price": 11.00,
+        "description": "Spritzig und aromatisch mit typischen Noten von Stachelbeere und grünem Apfel.",
+        "short_description": "Aromatischer Sauvignon Blanc.",
+        "image": "https://placehold.co/600x800/png?text=Weisswein+5",
+        "images": [
+            {
+                "src": "https://placehold.co/600x800/png?text=Weisswein+5",
+                "alt": "Sauvignon Blanc Flasche"
+            }
+        ],
+        "type": "Weißwein",
+        "grapeVariety": "Sauvignon Blanc",
+        "year": 2022,
+        "alcohol": "12.0%",
+        "acidity": "7.0 g/l",
+        "sugar": "4.0 g/l",
+        "location": "Nordhang",
+        "quality_level": "Qualitätswein",
+        "flavor": "Trocken",
+        "soil": "Kies",
+        "producer": "Weingut Fellfacher",
+        "temp": "8-10°C",
+        "rating": 4.4,
+        "recommended_dishes": [
+            "Ziegenkäse",
+            "Sushi",
+            "Vegetarische Gerichte"
+        ]
+    }
+]

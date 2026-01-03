@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@config "../tailwind.config.js";
+
+@source "../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: #ffffff;
+  --foreground: #111111;
+  --wine-gold: #c5a059;
+  --wine-dark: #111111;
+  --wine-slate: #444444;
+  --wine-red: #8b0000;
+}
+
+.dark {
+  --background: #111111;
+  --foreground: #ffffff;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-wine-gold: var(--wine-gold);
+  --color-wine-dark: var(--wine-dark);
+  --color-wine-slate: var(--wine-slate);
+  --color-wine-red: var(--wine-red);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-serif: 'Playfair Display', serif;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), Arial, sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+h1, h2, h3, h4, .serif {
+  font-family: var(--font-serif);
+}
