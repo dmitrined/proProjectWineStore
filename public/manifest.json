@@ -1,11 +1,11 @@
 {
     "name": "Fellbacher Weingärtner",
-    "short_name": "Fellbacher",
+    "short_name": "ProProject",
     "description": "Premium wines from Fellbach, Germany. Tradition redefined.",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#000000",
-    "theme_color": "#000000",
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff",
     "icons": [
         {
             "src": "/icons/icon-192.png",

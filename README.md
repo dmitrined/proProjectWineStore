@@ -38,7 +38,7 @@
 - `components/`: UI-компоненты.
 
 ```text
-fellbacher-wines/
+proProjectWineStore/
 ├── app/                                # Маршрутизация (App Router)
 │   ├── (aboutUs)/                      # Информация о компании
 │   │   ├── whoWeAre/page.tsx           # О нас

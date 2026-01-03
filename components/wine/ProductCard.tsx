@@ -31,7 +31,10 @@ export default function ProductCard({ product }: ProductCardProps) {
 
     // Сторы
     const toggleWishlist = useWishlistStore(state => state.toggleWishlist);
-    const wishlist = useWishlistStore(state => state.wishlist);
+    // Optimized selector: only re-render if includes(id) changes
+    const isFavorite = useWishlistStore(
+        React.useCallback((state) => state.wishlist.includes(product.id), [product.id])
+    );
     const addToCart = useCartStore(state => state.addToCart);
 
     const { isLoggedIn, setAuthModalOpen } = useAuth();
@@ -43,7 +46,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
     const isWine = isWineItem(product);
     const isEvent = !isWine;
-    const isFavorite = wishlist.includes(product.id);
+
 
     return (
         <motion.div

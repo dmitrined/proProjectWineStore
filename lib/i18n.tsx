@@ -582,17 +582,17 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     /**
      * Смена языка с сохранением в браузере.
      */
-    const handleSetLanguage = (lang: Language) => {
+    const handleSetLanguage = React.useCallback((lang: Language) => {
         setLanguage(lang);
         localStorage.setItem('language', lang);
         document.documentElement.lang = lang; // Важно для SEO и доступности
-    };
+    }, []);
 
     /**
      * Функция перевода (Translation).
      * Поддерживает вставку динамических параметров через фигурные скобки, напр. {count}.
      */
-    const t = (key: string, params?: { [key: string]: string | number }) => {
+    const t = React.useCallback((key: string, params?: { [key: string]: string | number }) => {
         const translation = translations[key];
 
         // Если ключ не найден, выводим сам ключ для отладки
@@ -610,10 +610,16 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
             });
         }
         return text;
-    };
+    }, [language]);
+
+    const contextValue = React.useMemo(() => ({
+        language,
+        setLanguage: handleSetLanguage,
+        t
+    }), [language, handleSetLanguage, t]);
 
     return (
-        <LanguageContext.Provider value={{ language, setLanguage: handleSetLanguage, t }}>
+        <LanguageContext.Provider value={contextValue}>
             {children}
         </LanguageContext.Provider>
     );
