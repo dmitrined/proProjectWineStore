@@ -97,11 +97,13 @@ const translations: Translations = {
     feature_curation_desc: { de: "Jede Flasche wird von unseren Kellermeistern auf Echtheit geprüft.", en: "Every bottle is verified by our master cellarmen for authenticity." },
     feature_delivery_title: { de: "Schnelle Lieferung", en: "Fast Delivery" },
     feature_delivery_desc: { de: "Sichere Verpackung und schneller Transport in ganz Europa.", en: "Secure packaging and rapid transit across Europe." },
-    type_red: { de: "Edle Rotweine", en: "Fine Red Wines" },
-    type_white: { de: "Frische Weißweine", en: "Crisp White Wines" },
-    type_rose: { de: "Fruchtige Roséweine", en: "Fruity Rosé Wines" },
-    type_sparkling: { de: "Prickelnder Sekt", en: "Sparkling Sekt" },
-    type_alcohol_free: { de: "Alkoholfreier Genuss", en: "Alcohol-Free Pleasure" },
+    wine_type_red: { de: "Rotwein", en: "Red Wine" },
+    wine_type_white: { de: "Weißwein", en: "White Wine" },
+    wine_type_rose: { de: "Roséwein", en: "Rosé Wine" },
+    wine_type_sparkling: { de: "Sekt", en: "Sparkling Wine" },
+    wine_type_alcohol_free: { de: "Alkoholfrei", en: "Alcohol-Free" },
+    wine_type_package: { de: "Weinpaket", en: "Wine Package" },
+    wine_type_other: { de: "Sonstiges", en: "Other" },
 
     // Catalog Page (Каталог)
     catalog_title: { de: "Der Katalog", en: "The Catalog" },
@@ -489,9 +491,6 @@ const translations: Translations = {
     booking_ticket: { de: "Ticket", en: "Ticket" },
 
     // Wine Types & UI (Типы вин и интерфейс)
-    wine_type_rose: { de: "Roséwein", en: "Rosé Wine" },
-    wine_type_sparkling: { de: "Prickelnde Weine", en: "Sparkling Wines" },
-    wine_type_alcohol_free: { de: "Alkoholfreie Weine", en: "Alcohol Free Wines" },
     wine_type_all: { de: "Alle", en: "All" },
     image_not_available: { de: "Bild nicht verfügbar", en: "Image not available" },
 

@@ -72,12 +72,12 @@ function CatalogContent() {
         if (category) {
             result = result.filter(p => {
                 const typeMap: Record<string, string> = {
-                    'rot': 'Rotwein',
-                    'weiss': 'Weißwein',
-                    'rose': 'Roséwein',
-                    'prickelndes': 'Sekt',
-                    'weinpakete': 'Paket',
-                    'alkoholfrei': 'Alkoholfrei'
+                    'rot': 'red',
+                    'weiss': 'white',
+                    'rose': 'rose',
+                    'prickelndes': 'sparkling',
+                    'weinpakete': 'package',
+                    'alkoholfrei': 'alcohol_free'
                 };
 
                 // 1. Check mapped type
@@ -154,9 +154,21 @@ function CatalogContent() {
     // --- 3. Active Filters Data ---
     const activeFiltersData = useMemo(() => {
         const list = [];
-        if (category) list.push({ key: 'category', label: t('filter_category'), value: category, displayValue: category });
+        if (category) {
+            const typeMap: Record<string, string> = {
+                'rot': 'red',
+                'weiss': 'white',
+                'rose': 'rose',
+                'prickelndes': 'sparkling',
+                'weinpakete': 'package',
+                'alkoholfrei': 'alcohol_free'
+            };
+            const technicalType = typeMap[category];
+            const displayValue = technicalType ? t('wine_type_' + technicalType) : category;
+            list.push({ key: 'category', label: t('filter_category'), value: category, displayValue });
+        }
         if (tag) list.push({ key: 'tag', label: t('filter_tag'), value: tag, displayValue: tag });
-        if (type) list.push({ key: 'type', label: t('product_type'), value: type, displayValue: type });
+        if (type) list.push({ key: 'type', label: t('product_type'), value: type, displayValue: t('wine_type_' + type) });
         if (grape) list.push({ key: 'grape', label: t('filter_grape'), value: grape, displayValue: grape });
         if (flavor) list.push({ key: 'flavor', label: t('product_characteristic_flavor'), value: flavor, displayValue: t(`flavor_${flavor.toLowerCase()}`) });
         if (quality) {

@@ -17,12 +17,18 @@ interface WineDetailHeaderProps {
  * Компонент заголовка с названием и основной информацией.
  */
 export const WineDetailHeader: React.FC<WineDetailHeaderProps> = ({
+    type,
     name,
     grapeVariety,
     t
 }) => {
     return (
         <div className="mb-6 md:mb-8">
+            {/* Тип вина */}
+            <p className="text-sm md:text-base font-black text-wine-gold uppercase tracking-[0.2em] mb-2 md:mb-4">
+                {t('wine_type_' + type)}
+            </p>
+
             {/* Название вина */}
             <h1 className="text-4xl md:text-6xl font-black text-wine-dark dark:text-white mb-3 md:mb-4 serif leading-tight">
                 {name}
