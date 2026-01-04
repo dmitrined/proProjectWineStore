@@ -1,7 +1,7 @@
 /**
- * Назначение файла: Страница программы лояльности (Loyalty Program).
- * Зависимости: i18n, Lucide Icons.
- * Особенности: Client Component, отображение баланса баллов, истории активности, доступных наград.
+ * НАЗНАЧЕНИЕ: Страница программы лояльности (Loyalty Program).
+ * ЗАВИСИМИСТИ: i18n, Lucide React, HeroUI.
+ * ОСОБЕННОСТИ: Просмотр баланса баллов, доступных наград и истории активностей.
  */
 
 "use client";
@@ -14,9 +14,9 @@ export default function LoyaltyPage() {
     const { t } = useTranslation();
 
     const rewards = [
-        { id: 1, title: "10% Rabatt Gutschein", points: 250, description: "Gültig für Ihren nächsten Einkauf ab 50€." },
-        { id: 2, title: "Exklusive Weinprobe", points: 750, description: "Einladung für 2 Personen zur monatlichen Keller-Verkostung." },
-        { id: 3, title: "Flasche Edition 'L'", points: 1500, description: "Eine limitierte Magnumflasche aus unserem Privatkeller." },
+        { id: 1, title: t("loyalty_reward_coupon"), points: 250, description: t("loyalty_reward_coupon_desc") },
+        { id: 2, title: t("loyalty_reward_tasting"), points: 750, description: t("loyalty_reward_tasting_desc") },
+        { id: 3, title: t("loyalty_reward_bottle"), points: 1500, description: t("loyalty_reward_bottle_desc") },
     ];
 
     return (
@@ -78,9 +78,9 @@ export default function LoyaltyPage() {
 
                             <div className="space-y-6">
                                 {[
-                                    { title: "Einkauf im Weinladen", date: "15. Dez 2023", points: "+85" },
-                                    { title: "Besuch: Adventszauber", date: "12. Dez 2023", points: "+50" },
-                                    { title: "Online Bestellung #4592", date: "02. Dez 2023", points: "+112" },
+                                    { title: t("loyalty_history_shop"), date: "15. Dez 2023", points: "+85" },
+                                    { title: t("loyalty_history_event"), date: "12. Dez 2023", points: "+50" },
+                                    { title: t("loyalty_history_online") + " #4592", date: "02. Dez 2023", points: "+112" },
                                 ].map((item, idx) => (
                                     <div key={idx} className="flex items-center justify-between py-4 border-b border-zinc-50 dark:border-zinc-800 last:border-0 hover:bg-zinc-50 dark:hover:bg-zinc-800/50 -mx-4 px-4 rounded-xl transition-colors cursor-pointer group">
                                         <div className="flex flex-col">
@@ -143,15 +143,15 @@ export default function LoyaltyPage() {
                             <ul className="space-y-3 mb-6">
                                 <li className="flex items-center gap-2 text-xs text-zinc-400">
                                     <div className="w-1 h-1 bg-wine-gold rounded-full" />
-                                    10% auf alle Online-Bestellungen
+                                    {t("loyalty_benefit_discount")}
                                 </li>
                                 <li className="flex items-center gap-2 text-xs text-zinc-400">
                                     <div className="w-1 h-1 bg-wine-gold rounded-full" />
-                                    Versandkostenfreie Lieferung
+                                    {t("loyalty_benefit_shipping")}
                                 </li>
                                 <li className="flex items-center gap-2 text-xs text-zinc-400">
                                     <div className="w-1 h-1 bg-wine-gold rounded-full" />
-                                    Exklusiver Vorabzugriff auf neue Jahrgänge
+                                    {t("loyalty_benefit_access")}
                                 </li>
                             </ul>
                             <div className="flex items-center gap-2 text-zinc-500 hover:text-white cursor-pointer transition-colors pt-4 border-t border-white/5">

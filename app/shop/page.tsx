@@ -1,10 +1,7 @@
 /**
- * Назначение: Страница каталога вин (Shop).
- * Зависимости: HeroUI, Lucide React, i18n Context, Wines Context, FilterBar.
- * Особенности:
- * - Client Component (useSearchParams).
- * - "Умный поиск" (Fuzzy search).
- * - Динамическая фильтрация через URL.
+ * НАЗНАЧЕНИЕ: Страница каталога вин (Shop).
+ * ЗАВИСИМОСТИ: HeroUI, Lucide React, i18n Context, Wines Context, SidebarFilters.
+ * ОСОБЕННОСТИ: Client Component (useSearchParams), Динамическая фильтрация через URL.
  */
 
 "use client";
@@ -15,10 +12,11 @@ import { SlidersHorizontal } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
 import { useWinesStore } from '@/lib/store/useWinesStore';
 import { useUIStore } from '@/lib/store/useUIStore';
+import { Wine } from '@/lib/types/wine';
 
 import ProductCard from '@/components/wine/ProductCard';
 import WineCardSkeleton from '@/components/ui/Skeletons/WineCardSkeleton';
-import { SidebarFilters } from '@/components/wine/SidebarFilters';
+import SidebarFilters from '@/components/wine/SidebarFilters';
 import { ActiveFilters } from '@/components/wine/ActiveFilters';
 
 function CatalogContent() {
@@ -26,7 +24,7 @@ function CatalogContent() {
     const router = useRouter();
     const pathname = usePathname();
 
-    // Zustand Store
+    // Состояние хранилища (Zustand)
     const { wines: allProducts, isLoading, error, fetchProducts } = useWinesStore();
 
     // Загрузка данных при монтировании, если они еще не загружены
@@ -39,7 +37,7 @@ function CatalogContent() {
     const searchParams = useSearchParams();
     const toggleFilter = useUIStore((state) => state.toggleFilter);
 
-    // --- 1. Parse URL Params ---
+    // --- 1. Парсинг параметров URL ---
     const searchQuery = searchParams.get('search') || '';
     const category = searchParams.get('category');
     const tag = searchParams.get('tag');
@@ -53,22 +51,24 @@ function CatalogContent() {
         router.push(`${pathname}?${newParams.toString()}`);
     };
 
-    // --- 2. Filter & Sort Logic (Unified) ---
+    // --- 2. Логика фильтрации и сортировки ---
     const filteredProducts = useMemo(() => {
-        let result = allProducts.filter(p => (p as any).grapeVariety !== undefined);
+        // Фильтруем только вина (наличие сорта винограда)
+        let result = allProducts.filter(p => 'grapeVariety' in p) as Wine[];
 
-        // 2.1 Search (Name, Description, Grape)
+        // 2.1 Поиск (Название, Описание, Сорт)
         if (searchQuery) {
             const query = searchQuery.toLowerCase();
-            result = result.filter(p =>
-                (p as any).name?.toLowerCase().includes(query) ||
-                (p as any).title?.toLowerCase().includes(query) ||
-                (p as any).description?.toLowerCase().includes(query) ||
-                ((p as any).grapeVariety && (p as any).grapeVariety.toLowerCase().includes(query))
-            );
+            result = result.filter(p => {
+                const name = (p.name || '').toLowerCase();
+                const description = (p.description || '').toLowerCase();
+                const grape = (p.grapeVariety || '').toLowerCase();
+
+                return name.includes(query) || description.includes(query) || grape.includes(query);
+            });
         }
 
-        // 2.2 Category
+        // 2.2 Категория
         if (category) {
             result = result.filter(p => {
                 const typeMap: Record<string, string> = {
@@ -80,13 +80,13 @@ function CatalogContent() {
                     'alkoholfrei': 'alcohol_free'
                 };
 
-                // 1. Check mapped type
-                if (typeMap[category] && (p as any).type === typeMap[category]) {
+                // 1. Проверка по маппингу типов
+                if (typeMap[category] && p.type === typeMap[category]) {
                     return true;
                 }
 
-                // 2. Check type directly (case insensitive)
-                if ((p as any).type?.toLowerCase() === category.toLowerCase()) {
+                // 2. Прямая проверка типа
+                if (p.type?.toLowerCase() === category.toLowerCase()) {
                     return true;
                 }
 
@@ -94,51 +94,55 @@ function CatalogContent() {
             });
         }
 
-        // 2.3 Tag
+        // 2.3 Теги
         if (tag) {
             result = result.filter(p => {
-                if ((p as any).tags && Array.isArray((p as any).tags)) {
-                    return (p as any).tags.some((t: any) => t.slug === tag);
+                if (p.tags && Array.isArray(p.tags)) {
+                    // Теги хранятся как массив строк, проверяем наличие (кейс-независимо для надежности)
+                    return p.tags.some((t) => t.toLowerCase() === tag.toLowerCase());
                 }
                 return false;
             });
         }
 
-        // 2.4 Type (Mapped type from determineType)
+        // 2.4 Тип продукта
         if (type) {
-            result = result.filter(p => (p as any).type === type);
+            result = result.filter(p => p.type === type);
         }
 
-        // 2.5 Grape (Only for Wines)
+        // 2.5 Сорт винограда (только для вин)
         if (grape) {
-            result = result.filter(p => (p as any).grapeVariety === grape);
+            result = result.filter(p => p.grapeVariety === grape);
         }
 
-        // 2.6 Flavor (Only for Wines)
+        // 2.6 Вкус (только для вин)
         if (flavor) {
-            result = result.filter(p => (p as any).flavor?.toLowerCase() === flavor.toLowerCase());
+            result = result.filter(p => p.flavor?.toLowerCase() === flavor.toLowerCase());
         }
 
-        // 2.7 Quality Level
+        // 2.7 Уровень качества / Серия
         if (quality) {
             const q = quality.toLowerCase();
             const isEdition = q.includes('edition');
             const letter = isEdition ? q.split(' ').pop()?.replace(/[><]/g, '') : '';
 
             result = result.filter(p => {
-                const pq = (p as any).quality_level?.toLowerCase() || '';
+                const pq = p.quality_level?.toLowerCase() || '';
+                // Проверяем поле edition если оно есть
+                const ped = p.edition?.toLowerCase() || '';
+
                 if (q === 'literweine') return pq.includes('liter');
-                if (isEdition && letter) return pq.includes('edition') && pq.includes(letter);
-                return pq.includes(q);
+                if (isEdition && letter) {
+                    return (pq.includes('edition') && pq.includes(letter)) || (ped.includes('edition') && ped.includes(letter));
+                }
+                return pq.includes(q) || ped.includes(q);
             });
         }
 
-        // 2.5 Sort
+        // 2.8 Сортировка
         result.sort((a, b) => {
-            // Get price helper
-            const getPrice = (item: any) => typeof item.price === 'number' ? item.price : parseFloat(item.price || '0');
-            // Get date helper (for newest) - Year or Date
-            const getDate = (item: any) => item.year || (item.date ? new Date(item.date).getFullYear() : 0);
+            const getPrice = (item: Wine) => typeof item.price === 'number' ? item.price : parseFloat(item.price || '0');
+            const getDate = (item: Wine) => item.year || 0;
 
             switch (sortBy) {
                 case 'price_asc': return getPrice(a) - getPrice(b);
@@ -151,7 +155,7 @@ function CatalogContent() {
         return result;
     }, [allProducts, searchQuery, category, tag, type, grape, flavor, quality, sortBy]);
 
-    // --- 3. Active Filters Data ---
+    // --- 3. Данные для активных фильтров ---
     const activeFiltersData = useMemo(() => {
         const list = [];
         if (category) {
@@ -182,7 +186,7 @@ function CatalogContent() {
         <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 pt-32 pb-20">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-                {/* Header */}
+                {/* Заголовок страницы */}
                 <div className="mb-8 md:mb-12">
                     <h1 className="text-4xl md:text-5xl font-black text-wine-dark dark:text-white mb-4">
                         {t("catalog_title")}
@@ -194,12 +198,12 @@ function CatalogContent() {
 
                 <div className="flex flex-col lg:flex-row gap-8">
 
-                    {/* Sidebar Filters (Dynamic) */}
+                    {/* Боковые фильтры (Динамические) */}
                     <SidebarFilters products={allProducts} />
 
-                    {/* Main Content (Right Column on Desktop) */}
+                    {/* Основной контент */}
                     <div className="flex-1">
-                        {/* Mobile Filter Toggle (Only visible on small screens) */}
+                        {/* Переключатель мобильных фильтров */}
                         <div className="lg:hidden sticky top-20 z-40 bg-zinc-50/90 dark:bg-zinc-950/90 backdrop-blur-md py-4 mb-6 border-b border-zinc-200 dark:border-zinc-800">
                             <button
                                 onClick={() => toggleFilter()}
@@ -215,10 +219,10 @@ function CatalogContent() {
                             </button>
                         </div>
 
-                        {/* Active Filters */}
+                        {/* Активные фильтры */}
                         <ActiveFilters
                             filters={activeFiltersData}
-                            onRemove={(key, value) => {
+                            onRemove={(key, _value) => {
                                 const params = new URLSearchParams(searchParams.toString());
                                 params.delete(key);
                                 updateParams(params);

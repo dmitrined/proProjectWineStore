@@ -1,8 +1,10 @@
 /**
- * Назначение файла: Контекст для работы с историей заказов (Orders Context).
- * Зависимости: AuthContext.
- * Особенности: Хранение истории заказов в LocalStorage, инициализация мок-данных, привязка к статусу авторизации.
+ * НАЗНАЧЕНИЕ: Контекст для работы с историей заказов (Orders Context).
+ * ЗАВИСИМОСТИ: AuthContext.
+ * ОСОБЕННОСТИ: Хранение истории заказов в LocalStorage, инициализация мок-данных, привязка к статусу авторизации.
  */
+
+"use client";
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useAuth } from './AuthContext';
@@ -35,43 +37,74 @@ const OrdersContext = createContext<OrdersContextType | undefined>(undefined);
  * Провайдер истории заказов.
  */
 export const OrdersProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [orders, setOrders] = useState<Order[]>([]);
+    // Инициализация из localStorage для избежания лишнего рендера
+    const [orders, setOrders] = useState<Order[]>(() => {
+        if (typeof window !== 'undefined') {
+            const savedOrders = localStorage.getItem('orders');
+            if (savedOrders) {
+                try {
+                    return JSON.parse(savedOrders);
+                } catch (e) {
+                    console.error('Ошибка загрузки истории заказов:', e);
+                }
+            }
+
+            // Если заказов нет, проверяем авторизацию для создания демо-заказа
+            const savedUser = localStorage.getItem('user');
+            if (savedUser) {
+                const initialOrders: Order[] = [
+                    {
+                        id: 'ORD-2023-001',
+                        date: '2023-10-15',
+                        total: 89.70,
+                        status: 'Delivered',
+                        items: [
+                            { wineId: '1', name: 'MERLOT GOLDBERG', quantity: 3, price: 29.90 }
+                        ]
+                    }
+                ];
+                localStorage.setItem('orders', JSON.stringify(initialOrders));
+                return initialOrders;
+            }
+        }
+        return [];
+    });
+
     const { isLoggedIn } = useAuth();
 
-    // Загрузка истории при монтировании или смене статуса входа
+    // Синхронизация при смене статуса входа
     useEffect(() => {
-        const savedOrders = localStorage.getItem('orders');
-        if (savedOrders) {
-            try {
-                setOrders(JSON.parse(savedOrders));
-            } catch (e) {
-                console.error('Ошибка загрузки истории заказов:', e);
-            }
-        } else if (isLoggedIn) {
-            // Создание демонстрационного заказа для активного пользователя
-            const initialOrders: Order[] = [
-                {
-                    id: 'ORD-2023-001',
-                    date: '2023-10-15',
-                    total: 89.70,
-                    status: 'Delivered',
-                    items: [
-                        { wineId: '1', name: 'MERLOT GOLDBERG', quantity: 3, price: 29.90 }
-                    ]
-                }
-            ];
-            setOrders(initialOrders);
-            localStorage.setItem('orders', JSON.stringify(initialOrders));
-        }
-    }, [isLoggedIn]);
-
-    // Сброс заказов при выходе из системы (безопасность)
-    useEffect(() => {
-        if (!isLoggedIn) {
+        if (!isLoggedIn && orders.length > 0) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setOrders([]);
             localStorage.removeItem('orders');
+        } else if (isLoggedIn && orders.length === 0) {
+            const savedOrders = localStorage.getItem('orders');
+            if (savedOrders) {
+                try {
+                    // eslint-disable-next-line react-hooks/set-state-in-effect
+                    setOrders(JSON.parse(savedOrders));
+                } catch (e) {
+                    console.error(e);
+                }
+            } else {
+                const initialOrders: Order[] = [
+                    {
+                        id: 'ORD-2023-001',
+                        date: '2023-10-15',
+                        total: 89.70,
+                        status: 'Delivered',
+                        items: [
+                            { wineId: '1', name: 'MERLOT GOLDBERG', quantity: 3, price: 29.90 }
+                        ]
+                    }
+                ];
+                // eslint-disable-next-line react-hooks/set-state-in-effect
+                setOrders(initialOrders);
+                localStorage.setItem('orders', JSON.stringify(initialOrders));
+            }
         }
-    }, [isLoggedIn]);
+    }, [isLoggedIn, orders.length]);
 
     /**
      * Регистрация нового заказа.

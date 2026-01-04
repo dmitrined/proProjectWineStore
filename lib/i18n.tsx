@@ -1,18 +1,14 @@
 "use client";
 /**
- * Назначение файла: Система международной локализации (i18n).
- * Зависимости: React Context.
- * Особенности: Client Component, поддержка DE (немецкий) и EN (английский), сохранение выбора в localStorage.
+ * НАЗНАЧЕНИЕ: Система международной локализации (i18n).
+ * ЗАВИСИМОСТИ: React Context.
+ * ОСОБЕННОСТИ: Client Component, поддержка DE (немецкий) и EN (английский), сохранение выбора в localStorage.
  */
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-// Доступные языки
 type Language = 'de' | 'en';
 
-/**
- * Интерфейс словаря переводов.
- */
 interface Translations {
     [key: string]: {
         de: string;
@@ -20,7 +16,6 @@ interface Translations {
     };
 }
 
-// Словарь строк для всех разделов интерфейса
 const translations: Translations = {
     // Header & Nav (Навигация и верхняя панель)
     nav_catalog: { de: "Katalog", en: "Catalog" },
@@ -88,6 +83,20 @@ const translations: Translations = {
     cart_checkout: { de: "Zur Kasse", en: "Checkout" },
     add_to_cart: { de: "In den Warenkorb", en: "Add to Cart" },
     added_to_cart: { de: "Hinzugefügt", en: "Added" },
+    cart_page_title: { de: "Mein Warenkorb", en: "My Shopping Cart" },
+    cart_item_quantity: { de: "Menge", en: "Quantity" },
+    cart_subtotal: { de: "Zwischensumme", en: "Subtotal" },
+    cart_shipping: { de: "Versand", en: "Shipping" },
+    cart_tax_included: { de: "inkl. MwSt.", en: "incl. VAT" },
+    cart_empty_cta: { de: "Jetzt einkaufen", en: "Shop Now" },
+    cart_summary: { de: "Bestellübersicht", en: "Order Summary" },
+    remove_item: { de: "Entfernen", en: "Remove" },
+    cart_price: { de: "Preis", en: "Price" },
+    // ВКУСОВЫЕ ПРОФИЛИ
+    flavor_halbtrocken: { de: "Halbtrocken", en: "Off-dry" },
+    flavor_lieblich: { de: "Lieblich", en: "Sweet" },
+    flavor_brut: { de: "Brut", en: "Brut" },
+    flavor_extra_brut: { de: "Extra Brut", en: "Extra Brut" },
     featured_title: { de: "Exklusive Auswahl", en: "Featured Selection" },
     featured_subtitle: { de: "Die Wahl unserer Sommeliers für diese Saison. Handverlesen, hoch bewertet und außergewöhnlich verarbeitet.", en: "Our sommelier's choice for this season. Hand-picked, highly rated, and exceptionally crafted." },
     view_all: { de: "Alle Weine anzeigen", en: "View All Wines" },
@@ -164,6 +173,7 @@ const translations: Translations = {
     results_count: { de: "{count} Weine", en: "{count} Wines" },
     stock_instock: { de: "Verfügbar", en: "In Stock" },
     stock_outofstock: { de: "Ausverkauft", en: "Out of Stock" },
+    product_sale: { de: "ANGEBOT", en: "SALE" },
 
     // Detail Page (Детали вина)
     back_to_collection: { de: "Zurück zur Kollektion", en: "Back to collection" },
@@ -526,6 +536,18 @@ const translations: Translations = {
     syncing: { de: "Synchronisierung...", en: "Syncing..." },
     api_error: { de: "Fehler beim Laden der Daten aus der Datenbank.", en: "Error loading data from the database." },
     api_empty: { de: "Momentan sind keine Produkte im Katalog verfügbar.", en: "There are currently no products available in the catalog." },
+    loyalty_reward_coupon: { de: "10% Rabatt Gutschein", en: "10% Discount Voucher" },
+    loyalty_reward_coupon_desc: { de: "Gültig für Ihren nächsten Einkauf ab 50€.", en: "Valid for your next purchase over €50." },
+    loyalty_reward_tasting: { de: "Exklusive Weinprobe", en: "Exclusive Wine Tasting" },
+    loyalty_reward_tasting_desc: { de: "Einladung für 2 Personen zur monatlichen Keller-Verkostung.", en: "Invitation for 2 people to the monthly cellar tasting." },
+    loyalty_reward_bottle: { de: "Flasche Edition 'L'", en: "Bottle Edition 'L'" },
+    loyalty_reward_bottle_desc: { de: "Eine limitierte Magnumflasche aus unserem Privatkeller.", en: "A limited magnum bottle from our private cellar." },
+    loyalty_benefit_discount: { de: "10% auf alle Online-Bestellungen", en: "10% discount on all online orders" },
+    loyalty_benefit_shipping: { de: "Versandkostenfreie Lieferung", en: "Free shipping" },
+    loyalty_benefit_access: { de: "Exklusiver Vorabzugriff auf neue Jahrgänge", en: "Exclusive early access to new vintages" },
+    loyalty_history_shop: { de: "Einkauf im Weinladen", en: "Purchase in Wine Store" },
+    loyalty_history_event: { de: "Besuch: Adventszauber", en: "Visit: Advent Magic" },
+    loyalty_history_online: { de: "Online Bestellung", en: "Online Order" },
 
     // AI Sommelier
     ai_title: { de: "AI Sommelier", en: "AI Sommelier" },
@@ -566,17 +588,19 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
  * Провайдер языка для обертки всего приложения.
  */
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    // Состояние текущего языка (по умолчанию немецкий)
-    const [language, setLanguage] = useState<Language>('de');
-
-    // Предварительная загрузка языка из localStorage при монтировании
-    useEffect(() => {
-        const savedLang = localStorage.getItem('language') as Language;
-        if (savedLang && (savedLang === 'de' || savedLang === 'en')) {
-            setLanguage(savedLang);
-            document.documentElement.lang = savedLang;
+    // Состояние текущего языка (с инициализацией из localStorage)
+    const [language, setLanguage] = useState<Language>(() => {
+        if (typeof window !== 'undefined') {
+            const savedLang = localStorage.getItem('language') as Language;
+            if (savedLang === 'de' || savedLang === 'en') return savedLang;
         }
-    }, []);
+        return 'de';
+    });
+
+    // Обновление атрибута lang при изменении языка
+    useEffect(() => {
+        document.documentElement.lang = language;
+    }, [language]);
 
     /**
      * Смена языка с сохранением в браузере.

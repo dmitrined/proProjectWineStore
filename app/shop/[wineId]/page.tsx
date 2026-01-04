@@ -1,16 +1,16 @@
 /**
- * Назначение файла: Детальная страница вина (Wine Detail).
- * Зависимости: HeroUI, Lucide React, i18n Context, Wines Context.
- * Особенности: Client Component, Динамическая маршрутизация ([wineId]), Скелетоны.
+ * НАЗНАЧЕНИЕ: Детальная страница вина (Wine Detail Page).
+ * ЗАВИСИМОСТИ: HeroUI, Lucide React, i18n, Zustand Stores.
+ * ОСОБЕННОСТИ: Динамическая маршрутизация, использование скелетонов при загрузке, Mobile-first.
  */
 
 "use client";
-
 
 import React from 'react';
 import { useParams } from 'next/navigation';
 import { ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
+import { Wine } from '@/lib/types/wine';
 import { WineDetailImage } from '@/components/wine/WineDetailImage';
 import { WineDetailHeader } from '@/components/wine/WineDetailHeader';
 import { WineDetailExperience } from '@/components/wine/WineDetailExperience';
@@ -25,27 +25,36 @@ import WineDetailSkeleton from '@/components/ui/Skeletons/WineDetailSkeleton';
 
 
 export default function WineDetailPage() {
+    const { wineId } = useParams();
     const { t } = useTranslation();
 
-    // Migrated from WishlistContext
-    const toggleWishlist = useWishlistStore(state => state.toggleWishlist);
-    const isInWishlist = useWishlistStore(state => state.isInWishlist);
-
-    // Migrated from CartContext
+    // Сторы (Zustand)
+    const { wines: allProducts, isLoading, fetchProducts } = useWinesStore();
     const addToCart = useCartStore(state => state.addToCart);
+    const toggleWishlist = useWishlistStore(state => state.toggleWishlist);
 
-    const { getWineById, isLoading, fetchProducts, wines: allProducts } = useWinesStore();
+    // Состояние избранного
+    const isFavorite = useWishlistStore(
+        React.useCallback((state) => state.wishlist.includes(wineId as string), [wineId])
+    );
+
     const { isLoggedIn, setAuthModalOpen } = useAuth();
-    const params = useParams();
-    const wineId = params.wineId as string;
     const [mounted, setMounted] = React.useState(false);
 
-    // Ensure hydration consistency
+    // Обеспечение согласованности гидратации
     React.useEffect(() => {
         setMounted(true);
     }, []);
 
-    const wine = getWineById(wineId);
+    // Поиск конкретного вина
+    const wine = React.useMemo(() => {
+        const item = allProducts.find((p) => p.id === wineId);
+        // Проверяем что это именно вино (наличие сорта винограда)
+        if (item && 'grapeVariety' in item) {
+            return item as Wine;
+        }
+        return undefined;
+    }, [allProducts, wineId]);
 
     // Загрузка продуктов если они еще не загружены (например при прямом переходе по ссылке)
     React.useEffect(() => {
@@ -56,7 +65,6 @@ export default function WineDetailPage() {
 
     if (!mounted) return null;
 
-    const isFavorite = wine ? isInWishlist(wine.id) : false;
 
     // Если данные еще грузятся, показываем скелетон
     if (isLoading && !wine) {
@@ -118,18 +126,10 @@ export default function WineDetailPage() {
                             wine={wine}
                             isFavorite={isFavorite}
                             onAddToCart={(id) => {
-                                if (isLoggedIn) {
-                                    addToCart(id);
-                                } else {
-                                    setAuthModalOpen(true);
-                                }
+                                addToCart(id);
                             }}
                             onToggleWishlist={(id) => {
-                                if (isLoggedIn) {
-                                    toggleWishlist(id);
-                                } else {
-                                    setAuthModalOpen(true);
-                                }
+                                toggleWishlist(id);
                             }}
                             premiumPriceLabel={t("premium_price")}
                             addToCartLabel={t("add_to_cart")}

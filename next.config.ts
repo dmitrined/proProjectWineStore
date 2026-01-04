@@ -1,7 +1,7 @@
 /**
- * Назначение файла: Конфигурация Next.js.
- * Зависимости: next-pwa.
- * Особенности: Поддержка PWA, автоматическая генерация Service Worker.
+ * НАЗНАЧЕНИЕ: Конфигурация Next.js.
+ * ЗАВИСИМОСТИ: next-pwa.
+ * ОСОБЕННОСТИ: Поддержка PWA, автоматическая генерация Service Worker, оптимизация изображений.
  */
 
 import type { NextConfig } from "next";
@@ -34,8 +34,7 @@ const nextConfig: NextConfig = {
   turbopack: {},
 };
 
-
-
-export default withPWA(nextConfig as any);
+// @ts-expect-error - next-pwa types are slightly incompatible with latest NextConfig
+export default withPWA(nextConfig);
 
 

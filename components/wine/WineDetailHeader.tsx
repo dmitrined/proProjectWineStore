@@ -1,12 +1,12 @@
 /**
- * Назначение файла: Заголовок детальной страницы вина (Wine Detail Header).
- * Зависимости: React.
- * Особенности: Отображение названия, сорта винограда, артикула и категорий.
+ * НАЗНАЧЕНИЕ: Заголовок детальной страницы вина (Wine Detail Header).
+ * ЗАВИСИМОСТИ: React, i18n.
+ * ОСОБЕННОСТИ: Отображение названия, типа вина и сорта винограда.
  */
 
 import React from 'react';
 
-interface WineDetailHeaderProps {
+interface Props {
     type: string;
     name: string;
     grapeVariety: string;
@@ -16,7 +16,7 @@ interface WineDetailHeaderProps {
 /**
  * Компонент заголовка с названием и основной информацией.
  */
-export const WineDetailHeader: React.FC<WineDetailHeaderProps> = ({
+export const WineDetailHeader: React.FC<Props> = ({
     type,
     name,
     grapeVariety,

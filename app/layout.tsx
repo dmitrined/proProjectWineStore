@@ -11,7 +11,6 @@ import { Providers } from "./providers";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import BottomNav from "@/components/layout/BottomNav";
-import MobileMenu from "@/components/layout/Header/MobileMenu";
 
 
 // Настройка современного шрифта без засечек Geist
@@ -80,9 +79,6 @@ export default function RootLayout({
           </main>
           {/* Глобальный футер с контактной информацией */}
           <Footer />
-
-          {/* Глобальное мобильное меню */}
-          <MobileMenu />
 
           {/* Нижняя навигация для мобильных устройств */}
           <BottomNav />

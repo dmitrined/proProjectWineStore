@@ -1,7 +1,7 @@
 /**
- * Назначение файла: Главная страница приложения (Home Page).
- * Зависимости: WineCard, useWinesStore, useAuth, i18n, Lucide Icons, events data.
- * Особенности: Client Component, Hero-секция, подборки событий, преимущества компании.
+ * НАЗНАЧЕНИЕ: Главная страница приложения (Home Page).
+ * ЗАВИСИМОСТИ: WineCard, useWinesStore, useAuth, i18n, Lucide Icons, events data.
+ * ОСОБЕННОСТИ: Клиентский компонент, Hero-секция, подборки событий, преимущества компании.
  */
 
 "use client";

@@ -6,7 +6,7 @@
 
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Search, User as UserIcon, Heart, ShoppingCart } from "@/app/icon-sets";
 
 interface HeaderActionsProps {
@@ -37,6 +37,13 @@ const HeaderActions: React.FC<HeaderActionsProps> = ({
     onWishlistClick,
     cartButtonRef,
 }) => {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setMounted(true);
+    }, []);
+
     return (
         <div className="flex items-center gap-2 md:gap-4">
             {/* Поиск */}
@@ -53,7 +60,7 @@ const HeaderActions: React.FC<HeaderActionsProps> = ({
                 onClick={onUserClick}
             >
                 <UserIcon className="w-5 h-5 md:w-6 md:h-6" />
-                {isLoggedIn && (
+                {mounted && isLoggedIn && (
                     <span className="absolute top-2 right-2 w-2 h-2 bg-green-500 rounded-full border-2 border-white dark:border-zinc-950"></span>
                 )}
             </button>
@@ -64,7 +71,7 @@ const HeaderActions: React.FC<HeaderActionsProps> = ({
                 className="p-2 md:p-3 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-full transition-all text-zinc-600 dark:text-zinc-400 hover:text-wine-gold relative"
             >
                 <Heart className="w-5 h-5 md:w-6 md:h-6" />
-                {wishlistCount > 0 && (
+                {mounted && wishlistCount > 0 && (
                     <span className="absolute top-1 right-1 bg-wine-gold text-white text-[10px] font-black w-4 h-4 flex items-center justify-center rounded-full border-2 border-white dark:border-zinc-950 animate-in zoom-in">
                         {wishlistCount}
                     </span>
@@ -79,7 +86,7 @@ const HeaderActions: React.FC<HeaderActionsProps> = ({
                     className="p-2 md:p-3 hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-full transition-all text-zinc-600 dark:text-zinc-400 hover:text-wine-gold relative"
                 >
                     <ShoppingCart className="w-5 h-5 md:w-6 md:h-6" />
-                    {cartCount > 0 && (
+                    {mounted && cartCount > 0 && (
                         <span className="absolute top-1 right-1 bg-wine-gold text-white text-[10px] font-black w-4 h-4 flex items-center justify-center rounded-full border-2 border-white dark:border-zinc-950 animate-in zoom-in">
                             {cartCount}
                         </span>

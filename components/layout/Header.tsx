@@ -1,101 +1,106 @@
 /**
- * Назначение файла: Главный компонент шапки сайта (Header).
- * Зависимости: HeroUI, Lucide Icons, useTranslation, useCartStore, useUIStore.
- * Особенности: Прозрачный фон при скролле, выпадающие меню, интеграция с корзиной и поиском.
+ * НАЗНАЧЕНИЕ: Главный компонент шапки сайта (Header).
+ * ЗАВИСИМОСТИ: Lucide Icons, useTranslation, useCartStore, useUIStore, useWinesStore, useAuth.
+ * ОСОБЕННОСТИ: Прозрачный фон при скролле, выпадающие меню, интеграция с корзиной и поиском.
  */
 
 "use client";
 
 import React, { useState, useEffect, useRef } from "react";
-import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
-import {
-  Search,
-  ShoppingBag,
-  User,
-  Menu,
-  X,
-  ChevronDown,
-  Heart,
-  Phone,
-  MapPin,
-  Clock
-} from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useTranslation } from "@/lib/i18n";
-import { useWishlistStore } from "@/lib/store/useWishlistStore";
 import { useCartStore } from "@/lib/store/useCartStore";
-import { useAuth } from "@/lib/contexts/AuthContext";
+import { useUIStore } from "@/lib/store/useUIStore";
 import { useWinesStore } from "@/lib/store/useWinesStore";
-import AuthModal from "../login/AuthModal";
+import { useAuth } from "@/lib/contexts/AuthContext";
+import { useWishlistStore } from "@/lib/store/useWishlistStore";
+
+// Импорт суб-компонентов
 import TopBar from "./Header/TopBar";
 import Navigation from "./Header/Navigation";
 import HeaderActions from "./Header/HeaderActions";
 import CartDropdown from "./Header/CartDropdown";
 import SearchOverlay from "./Header/SearchOverlay";
+import MobileMenu from "./Header/MobileMenu";
 import Logo from "./Logo";
+import AuthModal from "../login/AuthModal";
 
-
-
-
-const Header: React.FC = () => {
-  // Хуки для перевода, состояния списков и данных пользователя
+/**
+ * Главный компонент шапки.
+ */
+export default function Header() {
   const { language, setLanguage, t } = useTranslation();
-
-  // Zustand Stores
-  const wishlist = useWishlistStore(state => state.wishlist);
-
-  const getItemCount = useCartStore(state => state.getItemCount);
-  const items = useCartStore(state => state.items);
-  const removeFromCart = useCartStore(state => state.removeFromCart);
-  const updateQuantity = useCartStore(state => state.updateQuantity);
-
-  const { isLoggedIn, user, isAuthModalOpen, setAuthModalOpen } = useAuth();
-  const { wines, fetchProducts } = useWinesStore();
-
-  // Загрузка продуктов если они еще не загружены (для расчета цен в корзине и т.д.)
-  useEffect(() => {
-    if (wines.length === 0) {
-      fetchProducts();
-    }
-  }, [fetchProducts, wines.length]);
-
-  // Состояния для управления открытием различных меню и модалок
-  const [searchOpen, setSearchOpen] = useState(false); // Прямой поиск
-
-  const [moreMenuOpen, setMoreMenuOpen] = useState(false); // Выпадающее меню "Магазин"
-  const [cartDropdownOpen, setCartDropdownOpen] = useState(false); // Предпросмотр корзины
-  const [searchTerm, setSearchTerm] = useState(""); // Текст поиска
-
   const router = useRouter();
 
-  // Рефы для отслеживания кликов вне области меню (для их закрытия)
+  // Состояния из Zustand
+  const { items, removeFromCart, updateQuantity, getTotalPrice } = useCartStore();
+  const { wines, fetchProducts } = useWinesStore();
+  const { wishlist } = useWishlistStore();
+  const { } = useUIStore();
+  const { isLoggedIn, isAuthModalOpen, setAuthModalOpen } = useAuth();
+
+  // Локальные состояния UI
+  const [scrolled, setScrolled] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [cartDropdownOpen, setCartDropdownOpen] = useState(false);
+
+  // Состояния открытия меню (для десктопа)
+  const [moreMenuOpen, setMoreMenuOpen] = useState(false);
+  const [eventsMenuOpen, setEventsMenuOpen] = useState(false);
+  const [aboutMenuOpen, setAboutMenuOpen] = useState(false);
+  const [contactMenuOpen, setContactMenuOpen] = useState(false);
+
+  // Рефы для клика вне области
   const moreMenuRef = useRef<HTMLDivElement>(null);
+  const eventsMenuRef = useRef<HTMLDivElement>(null);
+  const aboutMenuRef = useRef<HTMLDivElement>(null);
+  const contactMenuRef = useRef<HTMLDivElement>(null);
   const cartDropdownRef = useRef<HTMLDivElement>(null);
   const cartButtonRef = useRef<HTMLButtonElement>(null);
 
-  const [eventsMenuOpen, setEventsMenuOpen] = useState(false);
-  const eventsMenuRef = useRef<HTMLDivElement>(null);
+  // Количество товаров и общая сумма
+  const cartCount = items.reduce((total, item) => total + item.quantity, 0);
+  const totalPrice = getTotalPrice();
 
-  const [aboutMenuOpen, setAboutMenuOpen] = useState(false);
-  const aboutMenuRef = useRef<HTMLDivElement>(null);
+  // Эффект скролла
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
-  const [contactMenuOpen, setContactMenuOpen] = useState(false);
-  const contactMenuRef = useRef<HTMLDivElement>(null);
+  // Загрузка продуктов (если нужно)
+  useEffect(() => {
+    if (wines.length === 0) fetchProducts();
+  }, [fetchProducts, wines.length]);
 
-  // --- Данные навигации ---
-  // Группы ссылок для различных секций меню (Магазин, События, О нас, Контакты)
-  const navigationItems = [
-    { label: t("nav_loyalty"), path: "/loyalty" },
-  ];
+  // Click Outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Node;
+      if (moreMenuRef.current && !moreMenuRef.current.contains(target)) setMoreMenuOpen(false);
+      if (eventsMenuRef.current && !eventsMenuRef.current.contains(target)) setEventsMenuOpen(false);
+      if (aboutMenuRef.current && !aboutMenuRef.current.contains(target)) setAboutMenuOpen(false);
+      if (contactMenuRef.current && !contactMenuRef.current.contains(target)) setContactMenuOpen(false);
+      if (cartDropdownRef.current && !cartDropdownRef.current.contains(target) &&
+        cartButtonRef.current && !cartButtonRef.current.contains(target)) {
+        setCartDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
+  // Данные категорий
   const shopCategories = [
-    { label: t("nav_red_wines"), path: "/shop?category=rot" },
-    { label: t("nav_white_wines"), path: "/shop?category=weiss" },
+    { label: t("nav_red_wines"), path: "/shop?category=red" },
+    { label: t("nav_white_wines"), path: "/shop?category=white" },
     { label: t("wine_type_rose"), path: "/shop?category=rose" },
     { label: t("nav_shop_federle"), path: "/shop?category=federle" },
     { label: t("nav_shop_vfb"), path: "/shop?tag=vfb" },
-    { label: t("nav_shop_packages"), path: "/shop?category=weinpakete" },
-    { label: t("wine_type_sparkling"), path: "/shop?category=prickelndes" },
+    { label: t("nav_shop_packages"), path: "/shop?category=package" },
+    { label: t("wine_type_sparkling"), path: "/shop?category=sparkling" },
     { label: t("nav_shop_alles_gewoehnlich"), path: "/shop?category=magnum-sondereditionen" },
     { label: t("nav_shop_vouchers"), path: "/shop?category=gutscheine" },
     { label: t("nav_shop_presents"), path: "/shop?category=geschenke" },
@@ -120,39 +125,10 @@ const Header: React.FC = () => {
     { label: t("contact_jobs"), path: "/contact" },
   ];
 
-  // Эффект Click Outside: закрывает все открытые меню, если клик произошел вне их области.
-  // Это обеспечивает UX, привычный для пользователей веба (закрытие по клику в пустоту).
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (moreMenuRef.current && !moreMenuRef.current.contains(event.target as Node)) {
-        setMoreMenuOpen(false);
-      }
-      if (eventsMenuRef.current && !eventsMenuRef.current.contains(event.target as Node)) {
-        setEventsMenuOpen(false);
-      }
-      if (aboutMenuRef.current && !aboutMenuRef.current.contains(event.target as Node)) {
-        setAboutMenuOpen(false);
-      }
-      if (contactMenuRef.current && !contactMenuRef.current.contains(event.target as Node)) {
-        setContactMenuOpen(false);
-      }
-      if (
-        cartDropdownRef.current &&
-        !cartDropdownRef.current.contains(event.target as Node) &&
-        cartButtonRef.current &&
-        !cartButtonRef.current.contains(event.target as Node)
-      ) {
-        setCartDropdownOpen(false);
-      }
-    };
+  const navigationItems = [
+    { label: t("nav_loyalty"), path: "/loyalty" },
+  ];
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  // Обработчик отправки поискового запроса
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (searchTerm.trim()) {
@@ -161,26 +137,18 @@ const Header: React.FC = () => {
     }
   };
 
-  // Вычисление общей стоимости корзины "на лету"
-  const totalPrice = useCartStore(state => state.getTotalPrice());
-
   return (
     <>
-      {/* Верхняя тонкая полоса с выбором языка и промо-текстом (скрыта на мобильных) */}
       <div className="hidden md:block">
         <TopBar t={t} language={language} setLanguage={setLanguage} />
       </div>
 
-
-      <header className="sticky top-0 z-50 bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-200 dark:border-zinc-800 px-4 md:px-10">
+      <header className={`sticky top-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/80 dark:bg-zinc-950/80 backdrop-blur-xl border-b border-zinc-200 dark:border-zinc-800" : "bg-transparent"
+        } px-4 md:px-10`}>
         <div className="max-w-7xl mx-auto">
           <div className="flex items-center justify-between py-4 md:py-6">
             <div className="flex items-center gap-8">
-              {/* Логотип компании */}
               <Logo />
-
-
-              {/* Основная навигация (Десктоп) */}
               <Navigation
                 t={t}
                 moreMenuOpen={moreMenuOpen}
@@ -204,31 +172,25 @@ const Header: React.FC = () => {
             </div>
 
             <div className="relative">
-              {/* Кнопки действий: Поиск, Аккаунт, Избранное, Корзина */}
               <HeaderActions
                 isLoggedIn={isLoggedIn}
                 wishlistCount={wishlist.length}
-                cartCount={getItemCount()}
+                cartCount={cartCount}
                 searchOpen={searchOpen}
                 setSearchOpen={setSearchOpen}
                 cartDropdownOpen={cartDropdownOpen}
                 setCartDropdownOpen={setCartDropdownOpen}
-                onUserClick={() =>
-                  isLoggedIn ? router.push("/dashboard") : setAuthModalOpen(true)
-                }
-                onWishlistClick={() =>
-                  isLoggedIn ? router.push("/dashboard?tab=wishlist") : setAuthModalOpen(true)
-                }
+                onUserClick={() => isLoggedIn ? router.push("/dashboard") : setAuthModalOpen(true)}
+                onWishlistClick={() => isLoggedIn ? router.push("/shop") : router.push("/shop")} // Wishlist usually on shop or account
                 cartButtonRef={cartButtonRef}
               />
 
-              {/* Всплывающее окно предпросмотра корзины */}
               {cartDropdownOpen && (
                 <CartDropdown
                   t={t}
                   items={items}
                   wines={wines}
-                  getItemCount={getItemCount}
+                  getItemCount={() => cartCount}
                   totalPrice={totalPrice}
                   updateQuantity={updateQuantity}
                   removeFromCart={removeFromCart}
@@ -240,7 +202,6 @@ const Header: React.FC = () => {
           </div>
         </div>
 
-        {/* Оверлей полноэкранного поиска */}
         {searchOpen && (
           <SearchOverlay
             t={t}
@@ -252,14 +213,8 @@ const Header: React.FC = () => {
         )}
       </header>
 
-
-
-
-
-      {/* Модальное окно входа / регистрации */}
       <AuthModal isOpen={isAuthModalOpen} onClose={() => setAuthModalOpen(false)} />
+      <MobileMenu />
     </>
   );
-};
-
-export default Header;
+}

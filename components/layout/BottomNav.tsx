@@ -1,7 +1,7 @@
 /**
- * Назначение файла: Компонент нижней навигации для мобильных устройств (Mobile Bottom Nav).
- * Зависимости: Lucide Icons, useCartStore, useTranslation, Framer Motion, useUIStore.
- * Особенности: Отображается только на мобильных (md:hidden), поддержка индикатора активной страницы и счетчика корзины.
+ * НАЗНАЧЕНИЕ: Компонент нижней навигации для мобильных устройств (Mobile Bottom Nav).
+ * ЗАВИСИМОСТИ: Lucide Icons, useCartStore, useTranslation, Framer Motion, useUIStore.
+ * ОСОБЕННОСТИ: Отображается только на мобильных (md:hidden), поддержка счетчика корзины и индикатора активной страницы.
  */
 
 "use client";
@@ -26,14 +26,12 @@ interface NavItem {
 /**
  * Панель навигации, фиксированная в нижней части экрана.
  */
-const BottomNav: React.FC = () => {
+export default function BottomNav() {
     const pathname = usePathname();
     const { t } = useTranslation();
     const toggleMobileMenu = useUIStore((state) => state.toggleMobileMenu);
-    const { items } = useCartStore();
+    const { } = useCartStore();
 
-    // Общее количество товаров в корзине
-    const cartCount = items.reduce((acc, item) => acc + item.quantity, 0);
 
     // Определение структуры навигации
     const navItems: NavItem[] = [
@@ -123,6 +121,4 @@ const BottomNav: React.FC = () => {
             </nav>
         </div>
     );
-};
-
-export default BottomNav;
+}

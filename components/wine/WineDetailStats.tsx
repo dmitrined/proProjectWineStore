@@ -1,14 +1,14 @@
 /**
- * Назначение файла: Технические характеристики вина (Wine Tech Stats).
- * Зависимости: React, Lucide React (Percent, Droplets, FlaskConical), типы Wine.
- * Особенности: Отображение уровня алкоголя, кислотности и сахара в виде карточек.
+ * НАЗНАЧЕНИЕ: Технические характеристики вина (Wine Tech Stats).
+ * ЗАВИСИМОСТИ: Lucide Icons, типы Wine.
+ * ОСОБЕННОСТИ: Отображение алкоголя, кислотности и сахара.
  */
 
 import React from 'react';
 import { Wine } from '@/lib/types/wine';
 import { Percent, Droplets, FlaskConical } from 'lucide-react';
 
-interface WineDetailStatsProps {
+interface Props {
     wine: Wine;
     t: (key: string) => string;
 }
@@ -16,7 +16,7 @@ interface WineDetailStatsProps {
 /**
  * Блок с основными характеристиками вина (алкоголь, сахар, кислотность).
  */
-export const WineDetailStats: React.FC<WineDetailStatsProps> = ({ wine, t }) => {
+export const WineDetailStats: React.FC<Props> = ({ wine, t }) => {
     // Поиск атрибутов: Алкоголь, Сахар, Кислотность
     const alcohol = wine.alcohol;
     const sugar = wine.sugar;

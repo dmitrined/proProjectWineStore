@@ -1,10 +1,12 @@
 /**
- * Назначение файла: Контекст авторизации (Authentication Context).
- * Зависимости: React Context, useCartStore.
- * Особенности: Управление состоянием пользователя, вход, регистрация, выход, хранение сессии в LocalStorage.
+ * НАЗНАЧЕНИЕ: Контекст авторизации (Authentication Context).
+ * ЗАВИСИМОСТИ: React Context, useCartStore.
+ * ОСОБЕННОСТИ: Управление состоянием пользователя, вход, регистрация, выход, хранение сессии в LocalStorage.
  */
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
+"use client";
+
+import React, { createContext, useContext, useState } from 'react';
 import { useCartStore } from '@/lib/store/useCartStore';
 
 // Интерфейс данных пользователя
@@ -38,20 +40,22 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
  * Провайдер авторизации, оборачивающий всё приложение.
  */
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    const [user, setUser] = useState<User | null>(null);
-    const [isAuthModalOpen, setAuthModalOpen] = useState(false);
-
-    // Восстановление сессии при первой загрузке
-    useEffect(() => {
-        const savedUser = localStorage.getItem('user');
-        if (savedUser) {
-            try {
-                setUser(JSON.parse(savedUser));
-            } catch (e) {
-                console.error('Ошибка парсинга данных пользователя:', e);
+    // Инициализация пользователя из localStorage (на стороне клиента)
+    const [user, setUser] = useState<User | null>(() => {
+        if (typeof window !== 'undefined') {
+            const savedUser = localStorage.getItem('user');
+            if (savedUser) {
+                try {
+                    return JSON.parse(savedUser);
+                } catch (e) {
+                    console.error('Ошибка парсинга данных пользователя:', e);
+                }
             }
         }
-    }, []);
+        return null;
+    });
+
+    const [isAuthModalOpen, setAuthModalOpen] = useState(false);
 
     /**
      * Функция входа (имитация/Mock).

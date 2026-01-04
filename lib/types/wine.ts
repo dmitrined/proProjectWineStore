@@ -10,6 +10,8 @@ export interface Wine {
 
     // КОММЕРЧЕСКИЕ ДАННЫЕ
     price: number;          // Цена. В Java/DB лучше использовать тип Decimal/BigDecimal
+    sale?: boolean;         // Флаг распродажи
+    sale_price?: number;    // Цена со скидкой
     description: string;    // Развернутое описание для страницы товара
     short_description: string; // Короткое описание для карточек в каталоге
     image: string;          // Основная ссылка на изображение
@@ -22,14 +24,14 @@ export interface Wine {
 
     // ВИННЫЕ ХАРАКТЕРИСТИКИ (Техническая карта)
     grapeVariety: string;   // Сорт винограда (например, "Spätburgunder")
-    year: number;           // Год урожая
+    year?: number;           // Год урожая
     alcohol?: string;       // Крепость (например, "13.5%")
     acidity?: string;       // Кислотность в г/л
     sugar?: string;         // Сахар в г/л
     flavor?: string;        // Вкусовой профиль (Trocken, Halbtrocken и т.д.)
     quality_level?: string; // Классификация (VDP, Qualitätswein)
     edition?: string;       // Особая серия (Edition P, Edition C,)
-    
+
     // ТЕРРУАР И ПРОИСХОЖДЕНИЕ
     location?: string;      // Название виноградника (например, "Fellbacher Lämmler")
     soil?: string;          // Тип почвы (например, "Gipskeuper")

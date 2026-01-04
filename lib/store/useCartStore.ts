@@ -1,13 +1,12 @@
 /**
- * Назначение файла: Хранилище (Store) для управления корзиной покупок.
- * Зависимости: Zustand, LocalStorage, useWinesStore.
- * Особенности: Персистентность (сохранение между сессиями), расчет итоговой суммы, управление количеством товаров.
+ * НАЗНАЧЕНИЕ: Глобальное состояние корзины и логика расчетов.
+ * ЗАВИСИМОСТИ: Zustand, Persist Middleware, useWinesStore.
+ * ОСОБЕННОСТИ: Client Component, Persist Middleware (localStorage), автоматический расчет итогов.
  */
 
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { useWinesStore } from './useWinesStore';
-import { Wine } from '@/lib/types/wine';
 
 // Интерфейс элемента корзины
 export interface CartItem {
@@ -101,9 +100,14 @@ export const useCartStore = create<CartState>()(
                     if (!product) return total;
 
                     // Безопасное получение цены для вина или мероприятия
-                    const price = 'price' in product
+                    let price = 'price' in product
                         ? (typeof product.price === 'number' ? product.price : parseFloat(product.price))
                         : 0;
+
+                    // Если есть распродажа, используем sale_price
+                    if ('sale' in product && product.sale && 'sale_price' in product && product.sale_price) {
+                        price = product.sale_price;
+                    }
 
                     return total + (price * item.quantity);
                 }, 0);

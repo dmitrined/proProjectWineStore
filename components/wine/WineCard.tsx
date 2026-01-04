@@ -1,12 +1,12 @@
 /**
- * Назначение файла: Компонент карточки вина (Wine Card).
- * Зависимости: Lucide Icons, useCartStore, useWishlistStore, useTranslation, useAuth.
- * Особенности: Отображение цены за литр, статус доставки, управление количеством в корзине, избранное.
+ * НАЗНАЧЕНИЕ: Компонент карточки вина (Wine Card).
+ * ЗАВИСИМОСТИ: Lucide Icons, useCartStore, useWishlistStore, useTranslation, useAuth.
+ * ОСОБЕННОСТИ: Отображение цены за литр, статус доставки, управление количеством в корзине, избранное.
  */
 
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Heart, ShoppingCart, Plus, Minus } from 'lucide-react';
 import Link from 'next/link';
 import { Wine } from '@/lib/types/wine';
@@ -15,14 +15,14 @@ import { useWishlistStore } from '@/lib/store/useWishlistStore';
 import { useCartStore } from '@/lib/store/useCartStore';
 import { useAuth } from '@/lib/contexts/AuthContext';
 
-interface WineCardProps {
+interface Props {
     wine: Wine;
 }
 
 /**
  * Карточка вина для списков и каталога.
  */
-const WineCard: React.FC<WineCardProps> = ({ wine }) => {
+export default function WineCard({ wine }: Props) {
     const { t } = useTranslation();
 
     // Состояние избранного
@@ -30,17 +30,22 @@ const WineCard: React.FC<WineCardProps> = ({ wine }) => {
     const wishlist = useWishlistStore(state => state.wishlist);
 
     // Состояние корзины
-    const items = useCartStore(state => state.items);
+    const cartItem = useCartStore(
+        React.useCallback((state) => state.items.find(item => item.id === wine.id), [wine.id])
+    );
     const addToCart = useCartStore(state => state.addToCart);
-    const isInCart = useCartStore(state => state.isInCart);
     const updateQuantity = useCartStore(state => state.updateQuantity);
 
     const { isLoggedIn, setAuthModalOpen } = useAuth();
     const [imageError, setImageError] = useState(false);
+    const [mounted, setMounted] = useState(false);
 
-    const isFavorite = wishlist.includes(wine.id);
-    const inCart = isInCart(wine.id);
-    const cartItem = items.find(item => item.id === wine.id);
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+    const isFavorite = mounted && wishlist.includes(wine.id);
+    const inCart = mounted && !!cartItem;
 
     return (
         <div className="group relative bg-white dark:bg-zinc-900 overflow-hidden rounded-[2rem] md:rounded-[2.5rem] border border-zinc-100 dark:border-zinc-800 hover:shadow-2xl transition-all duration-500 flex flex-col h-full">
@@ -68,17 +73,33 @@ const WineCard: React.FC<WineCardProps> = ({ wine }) => {
                     )}
                 </Link>
 
+                {/* Год урожая */}
+                {(mounted ? wine.year : true) && (
+                    <div className="absolute top-2 left-2 md:top-6 md:left-6 z-10">
+                        <div className="px-2.5 py-1 md:px-3 md:py-1.5 rounded-xl bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md shadow-sm border border-zinc-100 dark:border-zinc-800">
+                            <span className="text-[10px] md:text-sm font-black text-wine-dark dark:text-white serif italic">
+                                {wine.year || 'Year'}
+                            </span>
+                        </div>
+                    </div>
+                )}
+
+                {/* Лейбл Распродажи (на изображении) */}
+                {mounted && wine.sale && (
+                    <div className="absolute bottom-2 right-2 md:bottom-6 md:right-6 z-10 pointer-events-none">
+                        <span className="text-[10px] md:text-sm font-black text-white uppercase tracking-widest bg-red-600 px-2 py-1 md:px-3 md:py-1.5 rounded-lg shadow-xl">
+                            {t('product_sale')}
+                        </span>
+                    </div>
+                )}
+
                 {/* Кнопка "В избранное" (поверх изображения) */}
                 <div className="absolute top-2 right-2 md:top-6 md:right-6 z-10">
                     <button
                         onClick={(e) => {
                             e.preventDefault();
                             e.stopPropagation();
-                            if (isLoggedIn) {
-                                toggleWishlist(wine.id);
-                            } else {
-                                setAuthModalOpen(true);
-                            }
+                            toggleWishlist(wine.id);
                         }}
                         className={`p-2 md:p-3 rounded-2xl transition-all duration-300 backdrop-blur-md ${isFavorite
                             ? 'bg-wine-gold text-white shadow-lg shadow-wine-gold/20 scale-110'
@@ -93,26 +114,49 @@ const WineCard: React.FC<WineCardProps> = ({ wine }) => {
             {/* Секция информации */}
             <div className="p-2.5 md:p-6 flex flex-col flex-grow">
                 <div className="flex-grow">
-                    <p className="text-[9px] md:text-[10px] uppercase tracking-[0.2em] text-wine-gold font-black mb-1 md:mb-2">
-                        {wine.grapeVariety}
-                    </p>
+                    <div className="flex items-center justify-between text-[9px] md:text-[10px] uppercase tracking-[0.2em] font-black mb-1 md:mb-2 min-h-[1rem]">
+                        <span className="text-wine-gold">{wine.grapeVariety}</span>
+                        {mounted && wine.flavor && (
+                            <span className="text-zinc-400 dark:text-zinc-600 font-bold">{t(`flavor_${wine.flavor.toLowerCase()}`)}</span>
+                        )}
+                    </div>
                     <Link href={`/shop/${wine.slug}`}>
-                        <h3 className="text-sm md:text-xl font-bold text-zinc-900 dark:text-white leading-tight mb-1.5 md:mb-3 group-hover:text-wine-gold transition-colors serif">
+                        <h3 className="text-sm md:text-xl font-bold text-zinc-900 dark:text-white leading-tight mb-1 group-hover:text-wine-gold transition-colors serif">
                             {wine.name}
                         </h3>
                     </Link>
+                    <div className="min-h-[1.25rem] mb-1.5 md:mb-3">
+                        {mounted && wine.edition && (
+                            <p className="text-[10px] md:text-xs font-medium text-zinc-400 dark:text-zinc-500 italic">
+                                {wine.edition}
+                            </p>
+                        )}
+                    </div>
                 </div>
 
                 {/* Цена и покупка */}
                 <div className="mt-2 md:mt-6 border-t border-zinc-100 dark:border-zinc-800 pt-2 md:pt-6">
                     <div className="flex flex-col mb-2 md:mb-4">
-                        <span className="text-lg md:text-3xl font-black text-zinc-900 dark:text-white italic serif">
-                            {wine.price.toFixed(2).replace('.', ',')} €
-                        </span>
+                        <div className="flex items-baseline gap-2">
+                            {mounted && wine.sale && wine.sale_price ? (
+                                <>
+                                    <div className="text-red-600 dark:text-red-500 font-black text-lg md:text-3xl italic serif">
+                                        € {wine.sale_price.toFixed(2).replace('.', ',')}
+                                    </div>
+                                    <div className="text-zinc-400 dark:text-zinc-600 font-medium text-xs md:text-sm line-through decoration-red-500/50">
+                                        € {wine.price.toFixed(2).replace('.', ',')}
+                                    </div>
+                                </>
+                            ) : (
+                                <span className="text-lg md:text-3xl font-black text-zinc-900 dark:text-white italic serif">
+                                    € {wine.price.toFixed(2).replace('.', ',')}
+                                </span>
+                            )}
+                        </div>
                         <div className="text-[9px] md:text-[10px] text-zinc-500 font-medium leading-relaxed mt-0.5 md:mt-2 space-y-0.5">
                             <p>{t('product_tax_inc')}</p>
                             <p>
-                                (€ {((wine.price) / 0.75).toFixed(2).replace('.', ',')} {t('product_unit_price')})
+                                (€ {((mounted && wine.sale && wine.sale_price ? wine.sale_price : wine.price) / 0.75).toFixed(2).replace('.', ',')} {t('product_unit_price')})
                             </p>
                             <p>{t('product_shipping_extra')}</p>
                         </div>
@@ -157,13 +201,9 @@ const WineCard: React.FC<WineCardProps> = ({ wine }) => {
                                 onClick={(e) => {
                                     e.preventDefault();
                                     e.stopPropagation();
-                                    if (isLoggedIn) {
-                                        addToCart(wine.id);
-                                    } else {
-                                        setAuthModalOpen(true);
-                                    }
+                                    addToCart(wine.id);
                                 }}
-                                className={`p-2 md:p-4 rounded-lg md:rounded-2xl transition-all duration-300 shadow-xl ${inCart
+                                className={`w-10 h-10 md:w-12 md:h-12 rounded-xl md:rounded-2xl flex items-center justify-center transition-all duration-300 shadow-xl ${inCart
                                     ? 'bg-zinc-900 text-white'
                                     : 'bg-wine-gold hover:bg-zinc-900 text-white'
                                     }`}
@@ -176,6 +216,4 @@ const WineCard: React.FC<WineCardProps> = ({ wine }) => {
             </div>
         </div>
     );
-};
-
-export default WineCard;
+}

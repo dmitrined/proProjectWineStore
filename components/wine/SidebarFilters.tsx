@@ -1,11 +1,7 @@
 /**
- * Назначение файла: Боковая панель фильтров каталога (Sidebar Filters).
- * Зависимости: i18n, next/navigation, Zustand, framer-motion, FilterSection.
- * Особенности: 
- * - Динамическое построение опций на основе данных о продуктах.
- * - Управление состоянием через URL-параметры.
- * - Адаптивность: Боковая панель на десктопе, выезжающее меню (Drawer) на мобильных.
- * - Поддержка сворачивания сайдбара.
+ * НАЗНАЧЕНИЕ: Боковая панель фильтров каталога (Sidebar Filters).
+ * ЗАВИСИМОСТИ: i18n, next/navigation, Zustand, framer-motion, FilterSection.
+ * ОСОБЕННОСТИ: Динамическое построение опций, управление через URL, адаптивность (Mobile Drawer).
  */
 
 "use client";
@@ -20,14 +16,14 @@ import { X, Grid3x3, Grape, ChevronLeft, ChevronRight, Search, SlidersHorizontal
 import { motion, AnimatePresence } from 'framer-motion';
 import { FilterSection } from './FilterSection';
 
-interface SidebarFiltersProps {
+interface Props {
     products: (Wine | Event)[];
 }
 
 /**
  * Компонент сайдбара с фильтрами.
  */
-export function SidebarFilters({ products }: SidebarFiltersProps) {
+export default function SidebarFilters({ products }: Props) {
     const { t } = useTranslation();
     const router = useRouter();
     const pathname = usePathname();
@@ -46,47 +42,49 @@ export function SidebarFilters({ products }: SidebarFiltersProps) {
     const options = useMemo(() => {
         // Категории, соответствующие shopCategories в Header
         const categories = [
-            { name: t('nav_red_wines'), slug: 'rot', type: 'category' },
-            { name: t('nav_white_wines'), slug: 'weiss', type: 'category' },
+            { name: t('nav_red_wines'), slug: 'red', type: 'category' },
+            { name: t('nav_white_wines'), slug: 'white', type: 'category' },
             { name: t('wine_type_rose'), slug: 'rose', type: 'category' },
             { name: t('nav_shop_federle'), slug: 'federle', type: 'category' },
             { name: t('nav_shop_vfb'), slug: 'vfb', type: 'tag' },
-            { name: t('nav_shop_packages'), slug: 'weinpakete', type: 'category' },
-            { name: t('wine_type_sparkling'), slug: 'prickelndes', type: 'category' },
+            { name: t('nav_shop_packages'), slug: 'package', type: 'category' },
+            { name: t('wine_type_sparkling'), slug: 'sparkling', type: 'category' },
             { name: t('nav_shop_alles_gewoehnlich'), slug: 'magnum-sondereditionen', type: 'category' },
             { name: t('nav_shop_vouchers'), slug: 'gutscheine', type: 'category' },
             { name: t('nav_shop_presents'), slug: 'geschenke', type: 'category' },
         ];
 
-        // Список сортов винограда (только для вин)
+        // Список сортов винограда
         const grapes = Array.from(new Set(
             products
-                .filter(p => (p as any).grapeVariety)
-                .map(p => (p as any).grapeVariety)
+                .filter(p => 'grapeVariety' in p)
+                .map(p => (p as Wine).grapeVariety)
         )).filter(Boolean).sort();
 
         // Список вкусов (feinherb, fruchtig, trocken)
         const allowedFlavors = ['feinherb', 'fruchtig', 'trocken'];
         const flavors = Array.from(new Set(
             products
-                .filter(p => (p as any).flavor)
-                .map(p => (p as any).flavor?.toLowerCase())
-        )).filter(f => allowedFlavors.includes(f as string)).sort() as string[];
+                .filter(p => 'flavor' in p && p.flavor)
+                .map(p => (p as Wine).flavor?.toLowerCase())
+        )).filter(f => f && allowedFlavors.includes(f)).sort() as string[];
 
-        // Уровни качества (Edition >C<, >P<, >S<, Literweine)
+        // Уровни качества и Серии (Edition >C<, >P<, >S<, Literweine)
         const allowedQuality = ['edition >c<', 'edition >p<', 'edition >s<', 'literweine'];
         const qualityLevels = Array.from(new Set(
-            products
-                .filter(p => (p as any).quality_level)
-                .map(p => {
-                    const q = (p as any).quality_level?.toLowerCase() || '';
-                    if (q.includes('edition') && q.includes('c')) return 'edition >c<';
-                    if (q.includes('edition') && q.includes('p')) return 'edition >p<';
-                    if (q.includes('edition') && q.includes('s')) return 'edition >s<';
-                    if (q.includes('liter')) return 'literweine';
-                    return q;
-                })
-        )).filter(q => allowedQuality.includes(q as string)).sort() as string[];
+            products.map(p => {
+                if (!('type' in p)) return '';
+                const wine = p as Wine;
+                const q = wine.quality_level?.toLowerCase() || '';
+                const ed = wine.edition?.toLowerCase() || '';
+
+                if ((q + ed).includes('edition') && (q + ed).includes('c')) return 'edition >c<';
+                if ((q + ed).includes('edition') && (q + ed).includes('p')) return 'edition >p<';
+                if ((q + ed).includes('edition') && (q + ed).includes('s')) return 'edition >s<';
+                if (q.includes('liter')) return 'literweine';
+                return '';
+            })
+        )).filter(q => q && allowedQuality.includes(q)).sort() as string[];
 
         // Опции сортировки
         const sorting = [
@@ -144,8 +142,8 @@ export function SidebarFilters({ products }: SidebarFiltersProps) {
         );
     }, [options.grapes, grapeSearch]);
 
-    // --- 3. Рендеринг контента ---
-    const FilterContent = () => (
+    // --- 3. Вспомогательная функция для рендеринга контента ---
+    const renderFilterContent = () => (
         <div className="space-y-2">
             {/* Поиск */}
             <div className="mb-6">
@@ -255,7 +253,7 @@ export function SidebarFilters({ products }: SidebarFiltersProps) {
                     onToggle={() => setExpandedSection(expandedSection === 'flavor' ? null : 'flavor')}
                 >
                     <div className="space-y-2">
-                        {options.flavors.map((flavor: any) => {
+                        {options.flavors.map((flavor: string) => {
                             const flavorKey = `flavor_${flavor.toLowerCase()}`;
                             const displayName = t(flavorKey) !== flavorKey ? t(flavorKey) : flavor;
 
@@ -303,7 +301,7 @@ export function SidebarFilters({ products }: SidebarFiltersProps) {
                         </div>
                     )}
                     <div className="space-y-2 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-zinc-200 dark:scrollbar-thumb-zinc-800">
-                        {filteredGrapes.map((grape: any) => (
+                        {filteredGrapes.map((grape: string) => (
                             <label key={grape} className="flex items-center gap-2 cursor-pointer group">
                                 <input
                                     type="checkbox"
@@ -333,8 +331,8 @@ export function SidebarFilters({ products }: SidebarFiltersProps) {
                     onToggle={() => setExpandedSection(expandedSection === 'quality' ? null : 'quality')}
                 >
                     <div className="space-y-2">
-                        {options.qualityLevels.map((quality: any) => {
-                            let qKey = `quality_${quality.toLowerCase()
+                        {options.qualityLevels.map((quality: string) => {
+                            const qKey = `quality_${quality.toLowerCase()
                                 .replace(/edition >/g, 'edition_')
                                 .replace(/</g, '')
                                 .replace(/>/g, '')
@@ -386,7 +384,7 @@ export function SidebarFilters({ products }: SidebarFiltersProps) {
                 </button>
 
                 <div className="sticky top-32 overflow-hidden">
-                    {!isCollapsed && <FilterContent />}
+                    {!isCollapsed && renderFilterContent()}
                     {isCollapsed && (
                         <div className="flex flex-col items-center gap-4 pt-4">
                             <div className="p-2 rounded-lg bg-wine-gold/10">
@@ -425,7 +423,7 @@ export function SidebarFilters({ products }: SidebarFiltersProps) {
                                     <X className="w-6 h-6 text-zinc-500" />
                                 </button>
                             </div>
-                            <FilterContent />
+                            {renderFilterContent()}
                         </motion.div>
                     </>
                 )}

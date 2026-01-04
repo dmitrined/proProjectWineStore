@@ -8,12 +8,15 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { ShoppingCart, Minus, Plus, Trash, ArrowRight } from "@/app/icon-sets";
+import { Wine } from "@/lib/types/wine";
+import { UnifiedProduct } from "@/lib/store/useWinesStore";
 
 interface CartDropdownProps {
     t: (key: string) => string;
     items: { id: string; quantity: number }[]; // Список товаров в корзине
-    wines: any[]; // Данные о винах для получения цен и изображений
+    wines: UnifiedProduct[]; // Данные о винах для получения цен и изображений
     getItemCount: () => number; // Функция получения общего количества
     totalPrice: number; // Общая стоимость
     updateQuantity: (id: string, delta: number) => void;
@@ -63,15 +66,17 @@ const CartDropdown: React.FC<CartDropdownProps> = ({
                 ) : (
                     <div className="space-y-4 max-h-[40vh] overflow-y-auto no-scrollbar mb-6">
                         {items.map((item) => {
-                            const wine = wines.find((w: any) => w.id === item.id);
+                            const wine = wines.find((w) => w.id === item.id) as Wine | undefined;
                             if (!wine) return null;
                             return (
                                 <div key={item.id} className="flex gap-4 group">
                                     {/* Миниатюра товара */}
                                     <div className="w-12 h-16 bg-zinc-50 dark:bg-zinc-800/50 rounded-xl overflow-hidden flex-shrink-0 flex items-center justify-center p-2 relative">
-                                        <img
+                                        <Image
                                             src={wine.image}
                                             alt={wine.name}
+                                            width={48}
+                                            height={64}
                                             className="h-full w-auto object-contain group-hover:scale-110 transition-transform"
                                         />
                                     </div>
@@ -108,9 +113,22 @@ const CartDropdown: React.FC<CartDropdownProps> = ({
                                                 </button>
                                             </div>
                                             {/* Цена за позицию */}
-                                            <span className="text-xs font-black text-wine-dark dark:text-white serif italic">
-                                                {(wine.price * item.quantity).toFixed(2)} €
-                                            </span>
+                                            <div className="flex flex-col items-end">
+                                                {wine.sale && wine.sale_price ? (
+                                                    <>
+                                                        <span className="text-xs font-black text-red-600 dark:text-red-500 serif italic">
+                                                            {(wine.sale_price * item.quantity).toFixed(2).replace('.', ',')} €
+                                                        </span>
+                                                        <span className="text-[8px] text-zinc-400 line-through">
+                                                            {(wine.price * item.quantity).toFixed(2).replace('.', ',')} €
+                                                        </span>
+                                                    </>
+                                                ) : (
+                                                    <span className="text-xs font-black text-wine-dark dark:text-white serif italic">
+                                                        {(wine.price * item.quantity).toFixed(2).replace('.', ',')} €
+                                                    </span>
+                                                )}
+                                            </div>
                                         </div>
                                     </div>
 
@@ -138,7 +156,7 @@ const CartDropdown: React.FC<CartDropdownProps> = ({
                             {t("cart_total")}
                         </span>
                         <span className="text-xl font-black text-wine-dark dark:text-white serif italic">
-                            {totalPrice.toFixed(2)} €
+                            {totalPrice.toFixed(2).replace('.', ',')} €
                         </span>
                     </div>
                     {/* Кнопка перехода к оформлению */}

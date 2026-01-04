@@ -1,11 +1,7 @@
 /**
- * Назначение: Главная страница раздела "AI Sommelier" (ИИ-Сомелье).
- * Зависимости: React, Framer Motion, HeroUI (иконки), Custom Components (MoodSelector, FoodInput).
- * Особенности:
- * - Пошаговый интерфейс (Wizard pattern): Mood -> Food -> Result.
- * - Анимация переходов между шагами (AnimatePresence).
- * - "Mobile First" дизайн с управлением одной рукой.
- * - Имитация асинхронного запроса к ИИ (Skeleton loading).
+ * НАЗНАЧЕНИЕ: Главная страница раздела "AI Sommelier" (ИИ-Сомелье).
+ * ЗАВИСИМОСТИ: React, Framer Motion, HeroUI, Next.js.
+ * ОСОБЕННОСТИ: Пошаговый интерфейс выбора вина с помощью ИИ, Mobile-first, анимации Framer Motion.
  */
 
 "use client";
@@ -84,28 +80,13 @@ export default function AISommelierPage() {
     const handleAskAI = async () => {
         setState(prev => ({ ...prev, current: 'result', isLoading: true }));
 
-        // Подготовка контекста для ИИ (список доступных вин)
-        // В будущем этот текст будет отправляться в GPT
-        const winesContextString = wines.map(w => {
-            // Безопасное получение полей, так как UnifiedProduct может быть вином или мероприятием
-            const name = 'name' in w ? (w as any).name : ('title' in w ? (w as any).title : 'Товар');
-            const year = 'year' in w ? (w as any).year : '';
-            const type = 'type' in w ? (w as any).type : '';
-            const description = 'description' in w ? (w as any).description : '';
-            return `- ${name} (${year}, ${type}): ${description.substring(0, 100)}...`;
-        }).join('\n');
+        // Имитация формирования промпта для ИИ (для логов или отладки)
+        console.log("Analyzing...", { mood: state.mood, food: state.food });
 
-        console.log("AI Context Prepared:", winesContextString);
-
-        // TODO: Интегрировать POST запрос к /api/recommend после получения API ключей.
-
-        // Симуляция задержки и ответа
+        // Имитация работы ИИ: фильтрация и выбор вин
         setTimeout(() => {
-            // Используем реальные вина для рекомендаций
-            // Если вин нет (ошибка загрузки), вернем пустой массив или заглушку
-            
-            // Фильтруем только вина (исключаем мероприятия), чтобы соответствовать типу Wine[]
-            const sourceWines = wines.filter((w): w is Wine => 'grapeVariety' in w && w.description !== undefined);
+            const sourceWines = wines.filter((w): w is Wine => 'grapeVariety' in w);
+            // Случайный выбор 2-х вин
             const randomWines = [...sourceWines].sort(() => 0.5 - Math.random()).slice(0, 2);
 
             setState(prev => ({

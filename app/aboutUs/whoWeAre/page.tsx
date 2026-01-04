@@ -1,16 +1,9 @@
 "use client";
 
 /**
- * Страница "Wir über uns" (Кто мы).
- * 
- * Назначение:
- * Представляет пользователю историю, философию, ценности и ключевые показатели винодельни.
- * Является важной имиджевой страницей, укрепляющей доверие бренда.
- * 
- * Технологии:
- * - Framer Motion: Использован для плавного появления элементов (секции, статистика) при скролле.
- * - HeroUI / Tailwind: Адаптивная верстка (Mobile First).
- * - i18n: Вся текстовая информация вынесена в словари для поддержки немецкого и английского языков.
+ * НАЗНАЧЕНИЕ: Страница "Wir über uns" (Кто мы).
+ * ЗАВИСИМОСТИ: React, Framer Motion, Lucide React, i18n.
+ * ОСОБЕННОСТИ: Представляет историю и философию винодельни, Mobile-first дизайн, анимации.
  */
 
 import React from 'react';
@@ -83,7 +76,7 @@ export default function WhoWeArePage() {
                         {/* Плавашка с цитатой, скрыта на мобильных, видна на десктопе (hidden md:block) */}
                         <div className="absolute -bottom-6 -right-6 bg-white dark:bg-zinc-900 p-8 rounded-[2rem] shadow-xl border border-zinc-100 dark:border-zinc-800 max-w-xs hidden md:block">
                             <p className="text-wine-dark dark:text-white font-black serif italic text-lg leading-snug">
-                                "{t("about_quote")}"
+                                &quot;{t("about_quote")}&quot;
                             </p>
                         </div>
                     </motion.div>

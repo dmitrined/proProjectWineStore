@@ -1,7 +1,7 @@
 /**
- * Назначение файла: Личный кабинет пользователя (Dashboard).
- * Зависимости: AuthContext, OrdersContext, useWishlistStore, useCartStore, useWinesStore, i18n.
- * Особенности: Client Component, табы (Profile, Wishlist, Cart, Orders), deep linking через URL params.
+ * НАЗНАЧЕНИЕ: Личный кабинет пользователя (Dashboard).
+ * ЗАВИСИМОСТИ: AuthContext, OrdersContext, useWishlistStore, useCartStore, useWinesStore, i18n.
+ * ОСОБЕННОСТИ: Клиентский компонент, табы (Profile, Wishlist, Cart, Orders), поддержка deep linking через URL.
  */
 
 "use client";
@@ -58,10 +58,11 @@ function DashboardContent() {
         }
     }, [wines.length, fetchProducts, isWinesLoading]);
 
-    // Handle deep linking via search params
+    // Обработка глубоких ссылок через параметры поиска
     React.useEffect(() => {
-        if (tabParam === 'wishlist' || tabParam === 'cart' || tabParam === 'orders' || tabParam === 'profile') {
-            setActiveTab(tabParam as any);
+        const validTabs = ['profile', 'wishlist', 'cart', 'orders'];
+        if (tabParam && validTabs.includes(tabParam)) {
+            setActiveTab(tabParam as 'profile' | 'wishlist' | 'cart' | 'orders');
         }
     }, [tabParam]);
 
@@ -215,7 +216,7 @@ function DashboardContent() {
                                             </div>
                                             <div className="flex-grow">
                                                 <h4 className="font-bold text-wine-dark dark:text-white leading-tight">{wine.name}</h4>
-                                                <p className="text-xs text-zinc-500 italic mb-2">{wine.type}</p>
+                                                <p className="text-xs text-zinc-500 italic mb-2">{t('wine_type_' + wine.type)}</p>
                                                 <div className="flex items-center justify-between">
                                                     <span className="font-black text-wine-gold">{wine.price.toFixed(2)} €</span>
                                                     <div className="flex items-center gap-3 bg-zinc-50 dark:bg-zinc-800/50 p-1.5 rounded-xl border border-zinc-100 dark:border-zinc-800">

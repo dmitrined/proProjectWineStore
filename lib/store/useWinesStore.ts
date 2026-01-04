@@ -1,10 +1,15 @@
+/**
+ * НАЗНАЧЕНИЕ: Глобальное состояние вин и мероприятий.
+ * ЗАВИСИМОСТИ: Zustand, Wine type, Event type, JSON Data.
+ * ОСОБЕННОСТИ: Модульный стор, поддержка кэширования (lastFetched).
+ */
+
 import { create } from 'zustand';
 import { Wine } from '@/lib/types/wine';
-import { Event } from '@/lib/types/event'; // Assuming Event type exists
+import { Event } from '@/lib/types/event';
 import productsData from '@/lib/data/products.json';
 import eventsData from '@/lib/data/events.json';
 
-// Объединенный тип
 export type UnifiedProduct = Wine | Event;
 
 // Интерфейс состояния хранилища
@@ -35,7 +40,7 @@ export const useWinesStore = create<WinesState>((set, get) => ({
      * Имитирует асинхронность для совместимости с существующим кодом.
      */
     fetchProducts: async (force = false) => {
-        const { lastFetched, wines } = get();
+        const { wines } = get();
 
         // Если данные уже есть, не перезагружаем (если не force)
         if (!force && wines.length > 0) {
