@@ -95,11 +95,8 @@ proProjectWineStore/
 │   │   ├── WineCard.tsx                # Карточка вина (Zustand hooks)
 │   │   ├── WineFilters.tsx             # Фильтры по типу, цене, региону
 │   │   ├── WineStats.tsx               # Статистика каталога
-│   │   ├── WineDetailImage.tsx         # [Refactored] Изображение вина
-│   │   ├── WineDetailHeader.tsx        # [Refactored] Заголовок и сорт
-│   │   ├── WineDetailExperience.tsx    # [Refactored] Описание вкуса
-│   │   ├── WineDetailStats.tsx         # [Refactored] Характеристики (сахар, алк.)
-│   │   └── WineDetailPurchase.tsx      # [Refactored] Блок покупки
+│   │   ├── WineDetail.tsx              # [Consolidated] Объединенный компонент детальной страницы
+│   │   └── ProductCard.tsx             # Универсальная карточка (Wine | Event)
 │   └── login/                          # Аутентификация
 │       └── AuthModal.tsx               # Модальное окно входа/регистрации
 │

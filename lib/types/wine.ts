@@ -5,7 +5,7 @@
 export interface Wine {
     // ИДЕНТИФИКАЦИЯ
     id: string;             // UUID или уникальная строка. В БД будет Primary Key.
-    name: string;           // Полное название (например, "2022 Pinot Noir trocken")
+    name: string;           // Полное название вина
     slug: string;           // Человекочитаемый URL (например, "pinot-noir-2022")
 
     // КОММЕРЧЕСКИЕ ДАННЫЕ
