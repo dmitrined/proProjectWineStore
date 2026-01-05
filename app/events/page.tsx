@@ -22,7 +22,7 @@ export default function EventsPage() {
     const [isLoading, setIsLoading] = useState(true);
     const router = useRouter();
 
-    const events = getEvents(t);
+    const events = getEvents();
 
     // Симуляция загрузки для отображения скелетонов (улучшает UX и подчеркивает систему скелетонов)
     useEffect(() => {
