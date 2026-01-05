@@ -21,7 +21,7 @@ export default function Home() {
   const { t } = useTranslation();
   const { isLoggedIn, setAuthModalOpen } = useAuth();
   const router = useRouter();
-  const events = getEvents(t);
+  const events = getEvents();
 
 
   return (
