@@ -11,7 +11,7 @@ import { ArrowRight, ShieldCheck, Truck, Award, Calendar, Clock, MapPin, Users, 
 import { useTranslation } from '@/lib/i18n';
 import { useAuth } from '@/lib/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
-import { getEvents } from '@/lib/data/events';
+import { useEvents } from '@/lib/hooks/useEvents';
 import React from 'react';
 
 /**
@@ -21,7 +21,8 @@ export default function Home() {
   const { t } = useTranslation();
   const { isLoggedIn, setAuthModalOpen } = useAuth();
   const router = useRouter();
-  const events = getEvents();
+  const events = useEvents().data || [];
+  const { isLoading: isEventsLoading } = useEvents();
 
 
   return (
@@ -69,7 +70,12 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-            {events.map((event, idx) => (
+            {isEventsLoading ? (
+              // Simple loading state for events
+              [...Array(3)].map((_, i) => (
+                <div key={i} className="h-[500px] bg-zinc-100 dark:bg-zinc-800 rounded-[2.5rem] animate-pulse" />
+              ))
+            ) : events?.map((event, idx) => (
               <div key={event.id} className="group relative flex flex-col bg-white dark:bg-zinc-900 rounded-[2.5rem] overflow-hidden border border-zinc-100 dark:border-zinc-800 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2">
                 {/* Image Container */}
                 <div className="relative h-72 overflow-hidden">

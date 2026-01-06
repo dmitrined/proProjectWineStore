@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { useTranslation } from "@/lib/i18n";
 import { useCartStore } from "@/lib/store/useCartStore";
 import { useUIStore } from "@/lib/store/useUIStore";
-import { useWinesStore } from "@/lib/store/useWinesStore";
+import { useWines } from "@/lib/hooks/useWines";
 import { useAuth } from "@/lib/contexts/AuthContext";
 import { useWishlistStore } from "@/lib/store/useWishlistStore";
 
@@ -33,10 +33,10 @@ export default function Header() {
   const router = useRouter();
 
   // Состояния из Zustand
+  // Состояния из TanStack Query
+  const { data: wines = [] } = useWines();
   const { items, removeFromCart, updateQuantity, getTotalPrice } = useCartStore();
-  const { wines, fetchProducts } = useWinesStore();
   const { wishlist } = useWishlistStore();
-  const { } = useUIStore();
   const { isLoggedIn, isAuthModalOpen, setAuthModalOpen } = useAuth();
 
   // Локальные состояния UI
@@ -61,7 +61,7 @@ export default function Header() {
 
   // Количество товаров и общая сумма
   const cartCount = items.reduce((total, item) => total + item.quantity, 0);
-  const totalPrice = getTotalPrice();
+  const totalPrice = getTotalPrice(wines);
 
   // Эффект скролла
   useEffect(() => {
@@ -70,10 +70,6 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Загрузка продуктов (если нужно)
-  useEffect(() => {
-    if (wines.length === 0) fetchProducts();
-  }, [fetchProducts, wines.length]);
 
   // Click Outside
   useEffect(() => {

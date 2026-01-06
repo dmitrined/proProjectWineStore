@@ -92,7 +92,7 @@ const translations: Translations = {
     cart_summary: { de: "Bestellübersicht", en: "Order Summary" },
     remove_item: { de: "Entfernen", en: "Remove" },
     cart_price: { de: "Preis", en: "Price" },
-    // ВКУСОВЫЕ ПРОФИЛИ
+    // ВКУСОВЫЕ ПРОФИЛИ (Flavor Profiles)
     flavor_halbtrocken: { de: "Halbtrocken", en: "Off-dry" },
     flavor_lieblich: { de: "Lieblich", en: "Sweet" },
     flavor_brut: { de: "Brut", en: "Brut" },
@@ -126,7 +126,7 @@ const translations: Translations = {
     clear_filters: { de: "Alle Filter löschen", en: "Clear all filters" },
     filter_clear_all: { de: "Alle Filter löschen", en: "Clear all filters" },
 
-    // Filters & Sorting (Фильтры и сортировка)
+    // ФИЛЬТРЫ И СОРТИРОВКА (Filters & Sorting)
     filter_category: { de: "Kategorie", en: "Category" },
     filter_grape: { de: "Rebsorte", en: "Grape Variety" },
     filter_tag: { de: "Schlagwort", en: "Tag" },
@@ -175,13 +175,13 @@ const translations: Translations = {
     stock_outofstock: { de: "Ausverkauft", en: "Out of Stock" },
     product_sale: { de: "ANGEBOT", en: "SALE" },
 
-    // Detail Page (Детали вина)
+    // ДЕТАЛЬНАЯ СТРАНИЦА (Wine Details)
     back_to_collection: { de: "Zurück zur Kollektion", en: "Back to collection" },
     experience_title: { de: "Das Erlebnis", en: "The Experience" },
     experience_desc: { de: "Dieser außergewöhnliche Jahrgang der Fellbacher Weingärtner repräsentiert den Gipfel unserer Handwerkskunst. Erwarten Sie ein ausgewogenes Profil, das das Terroir der Region Goldberg ehrt.", en: "This exceptional vintage from Fellbacher Weingärtner represents the pinnacle of our craftsmanship. Expect a balanced profile that honors the terroir of the Goldberg region." },
     stats_alcohol: { de: "Alkohol", en: "Alcohol" },
 
-    // About Us Page (Wir über uns)
+    // О НАС (About Us)
     about_hero_subtitle: { de: "Unsere Geschichte", en: "Our Story" },
     about_hero_title: { de: "Gemeinsam für Qualität", en: "United for Quality" },
     about_hero_desc: { de: "Die Fellbacher Weingärtner eG steht für Tradition, die seit 1858 gepflegt wird. Wir verbinden handwerkliche Perfektion mit moderner Kellertechnik.", en: "Fellbacher Weingärtner eG stands for tradition maintained since 1858. We combine artisanal perfection with modern cellar technology." },
@@ -206,7 +206,7 @@ const translations: Translations = {
     about_value_3_desc: { de: "Wir pflegen unsere Kulturlandschaft für kommende Generationen.", en: "We cultivate our cultural landscape for future generations." },
     quality_guarantee: { de: "AUTHENTISCHE FELLBACHER QUALITÄT GARANTIERT", en: "AUTHENTIC FELLBACHER QUALITY GUARANTEED" },
 
-    // Auth (Авторизация)
+    // АВТОРИЗАЦИЯ (Auth)
     login_title: { de: "Willkommen zurück", en: "Welcome Back" },
     login_subtitle: { de: "Melden Sie sich an, um auf Ihr Konto zuzugreifen", en: "Sign in to access your account" },
     register_title: { de: "Konto erstellen", en: "Create Account" },
@@ -226,7 +226,7 @@ const translations: Translations = {
     social_login_with: { de: "Oder weiter mit", en: "Or continue with" },
     passwords_not_matching: { de: "Passwörter stimmen nicht überein", en: "Passwords do not match" },
 
-    // Our Team Page (Unser Team)
+    // НАША КОМАНДА (Our Team)
     team_hero_title: { de: "Unser Team", en: "Our Team" },
     team_hero_subtitle: { de: "Die Menschen hinter dem Wein", en: "The People Behind the Wine" },
     team_hero_desc: { de: "Lernen Sie die Experten kennen, die mit Leidenschaft und Hingabe für die Qualität unserer Weine sorgen.", en: "Meet the experts who ensure the quality of our wines with passion and dedication." },
@@ -238,7 +238,7 @@ const translations: Translations = {
     team_contact_email: { de: "E-Mail", en: "Email" },
     team_photo_coming_soon: { de: "Foto folgt bald", en: "Photo coming soon" },
 
-    // Next Generation Page (Следующее поколение)
+    // СЛЕДУЮЩЕЕ ПОКОЛЕНИЕ (Next Generation)
     next_gen_hero_title: { de: "Junge Winzer Weine", en: "Young Winemaker Wines" },
     next_gen_hero_subtitle: { de: "Die Jungwinzerkooperation “next Generation” der Fellbacher Weingärtner eG", en: "The young winemaker cooperation “next generation” of Fellbacher Weingärtner eG" },
 
@@ -260,7 +260,7 @@ const translations: Translations = {
         en: "Growing up in Fellbach and present at almost every grape harvest, it was natural for the young members to get a taste of the cooperative's business and actively participate. The passion for wine, the connection to the Fellbach homeland, and the will to make wine accessible to a younger audience characterize next generation. Thus, they set a strong sign for modern wines from the region."
     },
 
-    // Dashboard (Личный кабинет)
+    // ЛИЧНЫЙ КАБИНЕТ (Dashboard)
     dashboard_title: { de: "Mein Konto", en: "My Account" },
     dashboard_welcome: { de: "Willkommen zurück", en: "Welcome back" },
     tab_orders: { de: "Bestellungen", en: "Orders" },
@@ -275,7 +275,7 @@ const translations: Translations = {
     view_details: { de: "Details anzeigen", en: "View Details" },
     logout_confirm: { de: "Möchten Sie sich wirklich abmelden?", en: "Are you sure you want to logout?" },
 
-    // Footer (Подвал)
+    // ПОДВАЛ (Footer)
     footer_shop: { de: "Shop", en: "Shop" },
     footer_help: { de: "Hilfe", en: "Help" },
     footer_company: { de: "Unternehmen", en: "Company" },
@@ -303,7 +303,7 @@ const translations: Translations = {
     footer_office_label: { de: "Bürozeiten", en: "Office Hours" },
     footer_office_hours: { de: "Mo – Fr 8.00 Uhr – 17.00 Uhr", en: "Mon – Fri 8:00 AM – 5:00 PM" },
 
-    // Loyalty System (Программа лояльности)
+    // ПРОГРАММА ЛОЯЛЬНОСТИ (Loyalty)
     loyalty_title: { de: "Genuss-Punkte Programm", en: "Rewards & Loyalty" },
     loyalty_subtitle: { de: "Sammeln Sie Punkte bei jedem Einkauf und sichern Sie sich exklusive Prämien.", en: "Collect points with every purchase and secure exclusive rewards." },
     loyalty_points_balance: { de: "Ihr Punktestand", en: "Your Points Balance" },
@@ -312,7 +312,7 @@ const translations: Translations = {
     loyalty_tier_silver: { de: "Silber-Status", en: "Silver Status" },
     loyalty_tier_gold: { de: "Gold-Status", en: "Gold Status" },
 
-    // Events Page (События)
+    // МЕРОПРИЯТИЯ (Events)
     events_title: { de: "Veranstaltungen & Termine", en: "Events & Appointments" },
     events_subtitle: { de: "Erleben Sie die Welt der Fellbacher Weine hautnah.", en: "Experience the world of Fellbacher wines up close." },
     discover_and_experience: { de: "Entdecken & Erleben", en: "Discover & Experience" },
@@ -484,7 +484,7 @@ const translations: Translations = {
     weinraetsel_winter_special: { de: "Im Winter auch als Glühwein(Rätsel)Tour verfügbar", en: "In winter also available as Mulled Wine (Puzzle) Tour" },
     weinraetsel_winter_desc: { de: "Wenn’s draußen kalt wird, wird’s bei uns gemütlich: Unser Winter-Bollerwagen ist prall gefüllt mit Glühwein, süßen Naschereien und weihnachtlichem Flair.", en: "When it gets cold outside, it gets cozy with us: Our winter handcart is filled with mulled wine, sweet treats, and Christmas flair." },
 
-    // Booking Flow (Бронирование)
+    // БРОНИРОВАНИЕ (Booking Flow)
     booking_title: { de: "Degustation buchen", en: "Book a Tasting" },
     booking_step_1: { de: "Termin wählen", en: "Select Date" },
     booking_step_2: { de: "Personenanzahl", en: "Number of People" },
@@ -500,17 +500,17 @@ const translations: Translations = {
     booking_payment_on_site: { de: "Zahlung vor Ort", en: "Payment on site" },
     booking_ticket: { de: "Ticket", en: "Ticket" },
 
-    // Wine Types & UI (Типы вин и интерфейс)
+    // ТИПЫ ВИН И ИНТЕРФЕЙС (Wine Types & UI)
     wine_type_all: { de: "Alle", en: "All" },
     image_not_available: { de: "Bild nicht verfügbar", en: "Image not available" },
 
-    // Exclusive Selection (Эксклюзивная подборка)
+    // ЭКСКЛЮЗИВНАЯ ПОДБОРКА (Exclusive Selection)
     exclusive_selection_title: { de: "Exklusive Auswahl", en: "Exclusive Selection" },
     exclusive_selection_subtitle: { de: "Die Wahl unserer Sommeliers für diese Saison.", en: "Our sommelier's choice for this season." },
     exclusive_selection_desc: { de: "Handverlesen, hoch bewertet und außergewöhnlich verarbeitet.", en: "Hand-picked, highly-rated and exceptionally crafted." },
     view_collection: { de: "Kollektion ansehen", en: "View Collection" },
 
-    // CTA & Labels (Кнопки и метки)
+    // КНОПКИ И МЕТКИ (CTA & Labels)
     more_info: { de: "Mehr erfahren", en: "Learn More" },
     all_appointments: { de: "Alle Termine", en: "All Appointments" },
     premium_event: { de: "Premium Event", en: "Premium Event" },
@@ -549,7 +549,7 @@ const translations: Translations = {
     loyalty_history_event: { de: "Besuch: Adventszauber", en: "Visit: Advent Magic" },
     loyalty_history_online: { de: "Online Bestellung", en: "Online Order" },
 
-    // AI Sommelier
+    // ИИ-СОМЕЛЬЕ (AI Sommelier)
     ai_title: { de: "AI Sommelier", en: "AI Sommelier" },
     ai_subtitle: { de: "Ihr persönlicher Weinberater", en: "Your personal wine consultant" },
     ai_step_mood: { de: "Wie ist die Stimmung?", en: "What's the vibe?" },

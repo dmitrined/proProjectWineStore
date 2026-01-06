@@ -16,7 +16,7 @@ import { useTranslation } from '@/lib/i18n';
 import { MoodSelector } from '@/components/ai/MoodSelector';
 import { FoodInput } from '@/components/ai/FoodInput';
 import { SommelierChat } from '@/components/ai/SommelierChat';
-import { useWinesStore } from '@/lib/store/useWinesStore';
+import { useWines } from '@/lib/hooks/useWines';
 import { Wine } from '@/lib/types/wine';
 
 // Интерфейс для управления состоянием формы
@@ -31,14 +31,7 @@ interface SommelierStep {
 export default function AISommelierPage() {
     const { t } = useTranslation();
     const router = useRouter();
-    const { wines, fetchProducts } = useWinesStore();
-
-    // Загрузка продуктов если они еще не загружены
-    React.useEffect(() => {
-        if (wines.length === 0) {
-            fetchProducts();
-        }
-    }, [fetchProducts, wines.length]);
+    const { data: wines = [] } = useWines();
 
     const [state, setState] = useState<SommelierStep>({
         current: 'mood',

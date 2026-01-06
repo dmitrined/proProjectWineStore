@@ -6,7 +6,7 @@
 
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { useWinesStore } from './useWinesStore';
+import { UnifiedProduct } from '../types';
 
 // Интерфейс элемента корзины
 export interface CartItem {
@@ -25,7 +25,7 @@ interface CartState {
     clearCart: () => void;
 
     // Вычисляемые значения (геттеры)
-    getTotalPrice: () => number;
+    getTotalPrice: (products: UnifiedProduct[]) => number;
     getItemCount: () => number;
     isInCart: (productId: string) => boolean;
 }
@@ -91,12 +91,11 @@ export const useCartStore = create<CartState>()(
 
             /**
              * Расчет общей стоимости товаров в корзине.
-             * Берет актуальные цены из useWinesStore.
+             * Теперь принимает список продуктов как аргумент.
              */
-            getTotalPrice: () => {
-                const wines = useWinesStore.getState().wines;
+            getTotalPrice: (products: UnifiedProduct[]) => {
                 return get().items.reduce((total, item) => {
-                    const product = wines.find(w => w.id === item.id);
+                    const product = products.find(w => w.id === item.id);
                     if (!product) return total;
 
                     // Безопасное получение цены для вина или мероприятия

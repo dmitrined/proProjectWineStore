@@ -13,15 +13,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingCart, ArrowLeft, Trash2, Plus, Minus, ShieldCheck, Truck, CreditCard } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
 import { useCartStore } from '@/lib/store/useCartStore';
-import { useWinesStore } from '@/lib/store/useWinesStore';
+import { useWines } from '@/lib/hooks/useWines';
 import { Wine } from '@/lib/types/wine';
 
 export default function CartPage() {
     const { t } = useTranslation();
     const { items, updateQuantity, removeFromCart, getTotalPrice } = useCartStore();
-    const { wines: allProducts } = useWinesStore();
+    const { data: allProducts = [] } = useWines();
 
-    const totalPrice = getTotalPrice();
+    const totalPrice = getTotalPrice(allProducts);
     const shippingCost = totalPrice > 100 ? 0 : 6.90;
     const finalTotal = totalPrice + shippingCost;
 

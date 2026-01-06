@@ -10,8 +10,7 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ShoppingCart, Minus, Plus, Trash, ArrowRight } from "@/app/icon-sets";
-import { Wine } from "@/lib/types/wine";
-import { UnifiedProduct } from "@/lib/store/useWinesStore";
+import { Wine, UnifiedProduct } from "@/lib/types";
 
 interface CartDropdownProps {
     t: (key: string) => string;

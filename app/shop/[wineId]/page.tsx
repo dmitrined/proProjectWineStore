@@ -16,7 +16,7 @@ import { useTranslation } from '@/lib/i18n';
 import { useWishlistStore } from '@/lib/store/useWishlistStore';
 import { useCartStore } from '@/lib/store/useCartStore';
 import { useAuth } from '@/lib/contexts/AuthContext';
-import { useWinesStore } from '@/lib/store/useWinesStore';
+import { useWines } from '@/lib/hooks/useWines';
 import WineDetailSkeleton from '@/components/ui/Skeletons/WineDetailSkeleton';
 
 
@@ -24,8 +24,8 @@ export default function WineDetailPage() {
     const { wineId } = useParams();
     const { t } = useTranslation();
 
-    // Сторы (Zustand)
-    const { wines: allProducts, isLoading, fetchProducts } = useWinesStore();
+    // Стор TanStack Query
+    const { data: allProducts = [], isLoading } = useWines();
     const addToCart = useCartStore(state => state.addToCart);
     const toggleWishlist = useWishlistStore(state => state.toggleWishlist);
 
@@ -60,12 +60,6 @@ export default function WineDetailPage() {
         React.useCallback((state) => wine ? state.wishlist.includes(wine.id) : false, [wine])
     );
 
-    // Загрузка продуктов если они еще не загружены (например при прямом переходе по ссылке)
-    React.useEffect(() => {
-        if (allProducts.length === 0) {
-            fetchProducts();
-        }
-    }, [fetchProducts, allProducts.length]);
 
     if (!mounted) return null;
 

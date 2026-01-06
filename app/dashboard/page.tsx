@@ -13,7 +13,7 @@ import { useWishlistStore } from '@/lib/store/useWishlistStore';
 import { useTranslation } from '@/lib/i18n';
 import { Wine } from '@/lib/types';
 import WineCard from '@/components/wine/WineCard';
-import { useWinesStore } from '@/lib/store/useWinesStore';
+import { useWines } from '@/lib/hooks/useWines';
 import { useCartStore } from '@/lib/store/useCartStore';
 import {
     Package,
@@ -34,7 +34,7 @@ function DashboardContent() {
     const tabParam = searchParams.get('tab');
     const { user, logout, isLoggedIn } = useAuth();
     const { orders } = useOrders();
-    const { wines, fetchProducts, isLoading: isWinesLoading } = useWinesStore();
+    const { data: wines = [], isLoading: isWinesLoading } = useWines();
     const wishlist = useWishlistStore(state => state.wishlist);
     // Фильтруем только вина (исключаем события) для отображения в wishlist
     const wishlistedWines = wines.filter((wine): wine is Wine =>
@@ -50,13 +50,6 @@ function DashboardContent() {
     }).filter((item): item is Wine & { quantity: number } => item !== null);
 
     const [activeTab, setActiveTab] = useState<'profile' | 'wishlist' | 'cart' | 'orders'>('profile');
-
-    // Fetch products if not already loaded
-    React.useEffect(() => {
-        if (wines.length === 0 && !isWinesLoading) {
-            fetchProducts();
-        }
-    }, [wines.length, fetchProducts, isWinesLoading]);
 
     // Обработка глубоких ссылок через параметры поиска
     React.useEffect(() => {

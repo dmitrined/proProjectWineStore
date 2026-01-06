@@ -10,7 +10,7 @@ import React, { useMemo, Suspense } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 import { SlidersHorizontal } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
-import { useWinesStore } from '@/lib/store/useWinesStore';
+import { useWines } from '@/lib/hooks/useWines';
 import { useUIStore } from '@/lib/store/useUIStore';
 import { Wine } from '@/lib/types/wine';
 
@@ -24,15 +24,8 @@ function CatalogContent() {
     const router = useRouter();
     const pathname = usePathname();
 
-    // Состояние хранилища (Zustand)
-    const { wines: allProducts, isLoading, error, fetchProducts } = useWinesStore();
-
-    // Загрузка данных при монтировании, если они еще не загружены
-    React.useEffect(() => {
-        if (allProducts.length === 0) {
-            fetchProducts();
-        }
-    }, [fetchProducts, allProducts.length]);
+    // Данные из TanStack Query
+    const { data: allProducts = [], isLoading, error, refetch } = useWines();
 
     const searchParams = useSearchParams();
     const toggleFilter = useUIStore((state) => state.toggleFilter);
@@ -248,10 +241,10 @@ function CatalogContent() {
                                     {t("api_error")}
                                 </h3>
                                 <p className="text-zinc-500 mb-8 max-w-sm text-center">
-                                    {error === 'No products found in the database.' ? t('api_empty') : error}
+                                    {error instanceof Error && error.message === 'No products found in the database.' ? t('api_empty') : (error as Error)?.message || String(error)}
                                 </p>
                                 <button
-                                    onClick={() => fetchProducts()}
+                                    onClick={() => refetch()}
                                     className="px-8 py-3 bg-wine-dark dark:bg-wine-gold text-white rounded-full font-bold hover:scale-105 active:scale-95 transition-transform"
                                 >
                                     {t('hero_cta')}

@@ -13,22 +13,14 @@ import Link from 'next/link';
 import { useAuth } from '@/lib/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 
-import { getEvents } from '@/lib/data/events';
+import { useEvents } from '@/lib/hooks/useEvents';
 import EventCardSkeleton from '@/components/ui/Skeletons/EventCardSkeleton';
 
 export default function EventsPage() {
     const { t } = useTranslation();
     const { isLoggedIn, setAuthModalOpen } = useAuth();
-    const [isLoading, setIsLoading] = useState(true);
     const router = useRouter();
-
-    const events = getEvents();
-
-    // Симуляция загрузки для отображения скелетонов (улучшает UX и подчеркивает систему скелетонов)
-    useEffect(() => {
-        const timer = setTimeout(() => setIsLoading(false), 1000);
-        return () => clearTimeout(timer);
-    }, []);
+    const { data: events = [], isLoading } = useEvents();
 
     return (
         <div className="min-h-screen bg-white dark:bg-zinc-950 pt-32 pb-24">
