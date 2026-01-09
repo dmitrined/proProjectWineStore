@@ -78,7 +78,19 @@ export default function AISommelierPage() {
 
         // Имитация работы ИИ: фильтрация и выбор вин
         setTimeout(() => {
-            const sourceWines = wines.filter((w): w is Wine => 'grapeVariety' in w);
+            let processedWines: Wine[] = [];
+
+            // Обработка данных из useInfiniteQuery или обычного массива
+            if (Array.isArray(wines)) {
+                // Если это массив (старая версия или пустой)
+                processedWines = wines as Wine[];
+            } else if (wines && 'pages' in wines) {
+                // Если это InfiniteData
+                processedWines = (wines as any).pages.flatMap((page: any) => page.data);
+            }
+
+            const sourceWines = processedWines.filter((w): w is Wine => 'grapeVariety' in w);
+
             // Случайный выбор 2-х вин
             const randomWines = [...sourceWines].sort(() => 0.5 - Math.random()).slice(0, 2);
 
