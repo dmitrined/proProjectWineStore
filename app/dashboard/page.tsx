@@ -34,10 +34,21 @@ function DashboardContent() {
     const tabParam = searchParams.get('tab');
     const { user, logout, isLoggedIn } = useAuth();
     const { orders } = useOrders();
-    const { data: wines = [], isLoading: isWinesLoading } = useWines();
+    const { data: winesData = [], isLoading: isWinesLoading } = useWines();
+
+    // Flatten wines data
+    const flattenedWines = React.useMemo(() => {
+        if (Array.isArray(winesData)) return winesData;
+        if (winesData && 'pages' in winesData) {
+            // @ts-ignore
+            return (winesData as any).pages.flatMap((page: any) => page.data);
+        }
+        return [];
+    }, [winesData]);
+
     const wishlist = useWishlistStore(state => state.wishlist);
     // Фильтруем только вина (исключаем события) для отображения в wishlist
-    const wishlistedWines = wines.filter((wine): wine is Wine =>
+    const wishlistedWines = flattenedWines.filter((wine): wine is Wine =>
         wishlist.includes(wine.id) && 'grapeVariety' in wine
     );
 
@@ -45,7 +56,7 @@ function DashboardContent() {
     const updateQuantity = useCartStore(state => state.updateQuantity);
     const removeFromCart = useCartStore(state => state.removeFromCart);
     const cartWines = items.map((item: { id: string; quantity: number }) => {
-        const wine = wines.find(w => w.id === item.id);
+        const wine = flattenedWines.find((w: Wine) => w.id === item.id);
         return wine ? { ...wine, quantity: item.quantity } : null;
     }).filter((item): item is Wine & { quantity: number } => item !== null);
 
