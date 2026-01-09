@@ -11,6 +11,7 @@ import { Providers } from "./providers";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import BottomNav from "@/components/layout/BottomNav";
+import CookieConsent from "@/components/layout/CookieConsent";
 
 
 // Настройка современного шрифта без засечек Geist
@@ -82,6 +83,7 @@ export default function RootLayout({
 
           {/* Нижняя навигация для мобильных устройств */}
           <BottomNav />
+          <CookieConsent />
         </Providers>
       </body>
     </html>

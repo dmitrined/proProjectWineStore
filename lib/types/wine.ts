@@ -32,18 +32,16 @@ export interface Wine {
     quality_level?: string; // Классификация (VDP, Qualitätswein)
     edition?: string;       // Особая серия (Edition P, Edition C,)
 
-    // ТЕРРУАР И ПРОИСХОЖДЕНИЕ
-    location?: string;      // Название виноградника (например, "Fellbacher Lämmler")
-    soil?: string;          // Тип почвы (например, "Gipskeuper")
-    producer?: string;      // Винодельня (по умолчанию Fellbacher Weingärtner)
-    temp?: string;          // Температура подачи (например, "16-18°C")
+    
 
     // ДАННЫЕ ДЛЯ AI И МАРКЕТИНГА
     rating?: number;        // Средняя оценка пользователей (4.5, 5.0)
     recommended_dishes?: string[]; // Массив блюд. Ключевое поле для логики AI-сомелье
     tags?: string[];        // Теги для быстрого поиска ("Bestseller", "New", "Organic")
+    temp?: string;          // Температура подачи (например, "16-18°C")
 
     // СИСТЕМНЫЕ ПОЛЯ
     is_favorite?: boolean;  // Локальное состояние для UI (сердечко), не хранится в основной таблице вин
     created_at?: string;    // ISO дата создания. Позволяет сортировать по "Новинкам"
+
 }

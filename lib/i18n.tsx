@@ -222,6 +222,8 @@ const translations: Translations = {
     strength_strong: { de: "Stark", en: "Strong" },
     social_login_with: { de: "Oder weiter mit", en: "Or continue with" },
     passwords_not_matching: { de: "Passwörter stimmen nicht überein", en: "Passwords do not match" },
+    auth_age_verification: { de: "Ich bestätige, dass ich über 18 Jahre alt bin", en: "I confirm that I am over 18 years old" },
+    auth_age_error: { de: "Sie müssen über 18 Jahre alt sein, um sich zu registrieren", en: "You must be over 18 years old to register" },
 
     // НАША КОМАНДА (Our Team)
     team_hero_title: { de: "Unser Team", en: "Our Team" },
@@ -499,6 +501,20 @@ const translations: Translations = {
     ai_restart: { de: "Neue Suche", en: "New Search" },
     ai_home_description: { de: "Unsicher bei der Weinauswahl? Lassen Sie sich von unserem AI-Sommelier basierend auf Stimmung und Essen zum perfekten Wein führen.", en: "Not sure which wine to choose? Let our AI Sommelier guide you to the perfect bottle based on your mood and meal." },
     ai_home_cta: { de: "Sommelier fragen", en: "Ask the Sommelier" },
+
+    // COOKIE CONSENT
+    cookie_title: { de: "Cookie-Einstellungen", en: "Cookie Settings" },
+    cookie_desc: { de: "Wir nutzen Cookies, um Ihnen die bestmögliche Erfahrung auf unserer Seite zu bieten. Dazu gehören notwendige Cookies sowie solche für Analysen und Marketing.", en: "We use cookies to ensure you get the best experience on our website. This includes necessary cookies as well as those used for analytics and marketing." },
+    cookie_accept_all: { de: "Alle akzeptieren", en: "Accept All" },
+    cookie_reject_all: { de: "Nur Notwendige", en: "Reject All" },
+    cookie_settings: { de: "Einstellungen", en: "Settings" },
+    cookie_save: { de: "Speichern", en: "Save Preferences" },
+    cookie_cat_necessary: { de: "Notwendig", en: "Necessary" },
+    cookie_cat_necessary_desc: { de: "Essenzielle Funktionen für die Webseite.", en: "Essential functions for the website." },
+    cookie_cat_analytics: { de: "Analysen", en: "Analytics" },
+    cookie_cat_analytics_desc: { de: "Helfen uns zu verstehen, wie Besucher die Seite nutzen.", en: "Help us understand how visitors use the site." },
+    cookie_cat_marketing: { de: "Marketing", en: "Marketing" },
+    cookie_cat_marketing_desc: { de: "Für personalisierte Werbung und Angebote.", en: "For personalized advertising and offers." },
 };
 
 // Интерфейс контекста языка

@@ -36,8 +36,6 @@ function DashboardContent() {
     const { orders } = useOrders();
     const { data: winesData = [], isLoading: isWinesLoading } = useWines();
 
-    // Flatten wines data
-    // Flatten wines data with strict typing
     const flattenedWines = React.useMemo<Wine[]>(() => {
         if (Array.isArray(winesData)) {
             return winesData as Wine[];

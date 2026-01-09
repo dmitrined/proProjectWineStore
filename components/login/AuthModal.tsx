@@ -32,6 +32,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
+    const [ageVerified, setAgeVerified] = useState(false);
 
     /**
      * Оценка сложности пароля (от 0 до 3).
@@ -79,6 +80,12 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
 
         if (!isLogin && password !== confirmPassword) {
             setError(t("passwords_not_matching"));
+
+            return;
+        }
+
+        if (!isLogin && !ageVerified) {
+            setError(t("auth_age_error"));
             return;
         }
 
@@ -200,6 +207,37 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                                     className="w-full pl-12 pr-4 py-4 bg-zinc-50 dark:bg-zinc-800/50 rounded-2xl border-2 border-transparent focus:border-wine-gold outline-none transition-all dark:text-white"
                                 />
                             </div>
+
+                        )}
+
+                        {!isLogin && (
+                            <div className="flex items-center gap-3 px-2">
+                                <div className="relative flex items-center">
+                                    <input
+                                        required
+                                        id="age-verification"
+                                        type="checkbox"
+                                        checked={ageVerified}
+                                        onChange={(e) => setAgeVerified(e.target.checked)}
+                                        className="peer h-5 w-5 cursor-pointer appearance-none rounded-md border-2 border-zinc-300 dark:border-zinc-700 checked:border-wine-gold checked:bg-wine-gold transition-all"
+                                    />
+                                    <svg
+                                        className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-3.5 h-3.5 text-white opacity-0 peer-checked:opacity-100 transition-opacity"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke="currentColor"
+                                        strokeWidth="4"
+                                    >
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <label
+                                    htmlFor="age-verification"
+                                    className="text-sm text-zinc-600 dark:text-zinc-400 cursor-pointer select-none"
+                                >
+                                    {t("auth_age_verification")}
+                                </label>
+                            </div>
                         )}
 
                         {error && (
@@ -268,7 +306,7 @@ export default function AuthModal({ isOpen, onClose }: AuthModalProps) {
                         </button>
                     </div>
                 </div>
-            </div>
-        </div>
+            </div >
+        </div >
     );
 }

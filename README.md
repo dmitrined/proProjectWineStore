@@ -87,6 +87,7 @@ proProjectWineStore/
 │   │   └── EventList.tsx
 │   ├── layout/
 │   │   ├── BottomNav.tsx
+│   │   ├── CookieConsent.tsx
 │   │   ├── Footer.tsx
 │   │   └── Header.tsx
 │   ├── login/
