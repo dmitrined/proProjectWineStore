@@ -37,18 +37,21 @@ function DashboardContent() {
     const { data: winesData = [], isLoading: isWinesLoading } = useWines();
 
     // Flatten wines data
-    const flattenedWines = React.useMemo(() => {
-        if (Array.isArray(winesData)) return winesData;
+    // Flatten wines data with strict typing
+    const flattenedWines = React.useMemo<Wine[]>(() => {
+        if (Array.isArray(winesData)) {
+            return winesData as Wine[];
+        }
         if (winesData && 'pages' in winesData) {
-            // @ts-ignore
-            return (winesData as any).pages.flatMap((page: any) => page.data);
+            const infiniteData = winesData as unknown as { pages: { data: Wine[] }[] };
+            return infiniteData.pages.flatMap((page) => page.data);
         }
         return [];
     }, [winesData]);
 
     const wishlist = useWishlistStore(state => state.wishlist);
     // Фильтруем только вина (исключаем события) для отображения в wishlist
-    const wishlistedWines = flattenedWines.filter((wine): wine is Wine =>
+    const wishlistedWines = flattenedWines.filter((wine: Wine) =>
         wishlist.includes(wine.id) && 'grapeVariety' in wine
     );
 
