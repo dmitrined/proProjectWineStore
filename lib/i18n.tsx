@@ -28,12 +28,7 @@ const translations: Translations = {
     nav_about_us: { de: "Über uns", en: "About Us" },
     about_we_about_us: { de: "Wir über uns", en: "Who We Are" },
     about_team: { de: "Unser Team", en: "Our Team" },
-    about_impressions: { de: "Impressionen", en: "Impressions" },
     about_next_generation: { de: "next Generation", en: "Next Generation" },
-    about_awards: { de: "Ausgezeichnet", en: "Awards" },
-    about_worth_reading: { de: "Lesenswert", en: "Worth Reading" },
-    about_partners: { de: "Unsere Partner", en: "Our Partners" },
-    about_business_vfb: { de: "Businesspartner VfB Stuttgart", en: "Business Partner VfB Stuttgart" },
     contact_info_hours: { de: "Kontakte & Öffnungszeiten", en: "Contacts & Opening Hours" },
     contact_directions: { de: "Anfahrt", en: "Directions" },
     contact_jobs: { de: "Jobs", en: "Jobs" },
@@ -125,6 +120,8 @@ const translations: Translations = {
     adjust_filters: { de: "Versuchen Sie, Ihre Filter или Suchbegriffe anzupassen.", en: "Try adjusting your filters or search terms." },
     clear_filters: { de: "Alle Filter löschen", en: "Clear all filters" },
     filter_clear_all: { de: "Alle Filter löschen", en: "Clear all filters" },
+    load_more: { de: "Mehr laden", en: "Load More" },
+    loading: { de: "Laden...", en: "Loading..." },
 
     // ФИЛЬТРЫ И СОРТИРОВКА (Filters & Sorting)
     filter_category: { de: "Kategorie", en: "Category" },
@@ -325,44 +322,8 @@ const translations: Translations = {
     event_weinproben: { de: "Weinproben", en: "Wine Tastings" },
     event_weintreff: { de: "Weintreff", en: "Wine Meetup" },
     event_afterwork: { de: "Afterwork", en: "Afterwork" },
-    event_wein_weiter: { de: "Wein & Weiter", en: "Wine & More" },
-    event_wein_raetsel_tour: { de: "Wein(Rätsel)Tour", en: "Wine Mystery Tour" },
 
-    // Kellerblicke Event Page (Страница события Kellerblicke)
-    kellerblicke_title: { de: "Kellerblicke", en: "Cellar Views" },
-    kellerblicke_subtitle: { de: "Entdecken Sie die Welt der Fellbacher Weine", en: "Discover the World of Fellbacher Wines" },
-    kellerblicke_description: { de: "Schauen Sie hinter die Kulissen der Weinmacher und machen Sie sich ein Bild von der Arbeit unseres Kellermeisters, der mit seinem Team und durch Sorgfalt und Liebe zum Detail ausgezeichnete Weine erzeugt. Jeden Samstag können Weinbegeisterte und die, die es werden möchten, an einer Kellerführung inklusive 3er Weinprobe teilnehmen.", en: "Look behind the scenes of the winemakers and get an impression of the work of our cellar master, who produces excellent wines with his team through care and attention to detail. Every Saturday, wine enthusiasts and those who want to become one can participate in a cellar tour including a 3-wine tasting." },
-    kellerblicke_registration_note: { de: "Anmeldung bis Veranstaltungstag 13 Uhr möglich.", en: "Registration possible until 1 PM on the event day." },
-    kellerblicke_duration: { de: "Dauer ca. 1 Std.", en: "Duration approx. 1 hour" },
-    kellerblicke_price_per_person: { de: "12€ / Person", en: "12€ / Person" },
-    kellerblicke_event_period: { de: "4. April 2026 bis 14. November 2026", en: "April 4, 2026 to November 14, 2026" },
-    kellerblicke_every_saturday: { de: "Jeden Samstag", en: "Every Saturday" },
-    kellerblicke_book_now: { de: "Jetzt buchen", en: "Book Now" },
-    kellerblicke_contact_info: { de: "Kontakt & Anmeldung", en: "Contact & Registration" },
-    kellerblicke_what_included: { de: "Was ist enthalten?", en: "What's Included?" },
-    kellerblicke_included_tour: { de: "Kellerführung mit Kellermeister", en: "Cellar tour with cellar master" },
-    kellerblicke_included_tasting: { de: "3er Weinprobe", en: "3-wine tasting" },
-    kellerblicke_included_insights: { de: "Einblicke in die Weinproduktion", en: "Insights into wine production" },
-    kellerblicke_included_qa: { de: "Fragen & Antworten", en: "Q&A Session" },
-    kellerblicke_tour_desc: { de: "Persönliche Führung durch unseren Weinkeller", en: "Personal tour through our wine cellar" },
-    kellerblicke_tasting_desc: { de: "Verkostung von drei ausgewählten Weinen", en: "Tasting of three selected wines" },
-    kellerblicke_insights_desc: { de: "Blick hinter die Kulissen der Weinherstellung", en: "Behind-the-scenes look at wine production" },
-    kellerblicke_qa_desc: { de: "Zeit für Ihre Fragen an den Kellermeister", en: "Time for your questions to the cellar master" },
-    kellerblicke_contact_text: { de: "Melden Sie sich telefonisch atau per E-Mail an. Wir freuen uns auf Ihren Besuch!", en: "Register by phone or email. We look forward to your visit!" },
-    kellerblicke_secure_spot: { de: "Sichern Sie sich Ihren Platz", en: "Secure your spot" },
-    price_label: { de: "Preis", en: "Price" },
-    period_label: { de: "Zeitraum", en: "Period" },
-    registration_label: { de: "Anmeldung", en: "Registration" },
-    registration_time: { de: "Bis 13:00 Uhr", en: "Until 1:00 PM" },
-    registration_day: { de: "am Veranstaltungstag", en: "on the event day" },
-    spots_available: { de: "Verfügbar", en: "Available" },
-    spots_left: { de: "{count} Plätze frei", en: "{count} spots left" },
-    category_wine_tasting: { de: "Weinprobe", en: "Wine Tasting" },
-    category_experience: { de: "Erlebnis", en: "Experience" },
-    category_culinary: { de: "Kulinarik", en: "Culinary" },
-    category_cellar_tour: { de: "Kellerführung", en: "Cellar Tour" },
-    by_arrangement: { de: "Nach Vereinbarung", en: "By Arrangement" },
-
+    // Kellerblicke Keys - Removed as unused
     // Weinfeste Event Page (Страница события Weinfeste)
     weinfeste_title: { de: "Weinfeste", en: "Wine Festivals" },
     weinfeste_subtitle: { de: "Feiern Sie mit uns die Tradition", en: "Celebrate the tradition with us" },
@@ -447,42 +408,8 @@ const translations: Translations = {
     theme_deluxe: { de: "Feierabend Deluxe", en: "Afterwork Deluxe" },
     theme_boss: { de: "Bosse beben – Hier steht der Chef hinter’m Tresen", en: "Bosses Quake – The Boss is Behind the Bar" },
 
-
-
-    // Wein & Weiter Event Page
-    weinweiter_title: { de: "Wein & Weiter", en: "Wine & More" },
-    weinweiter_subtitle: { de: "Warum nur mitnehmen, wenn man auch bei uns genießen kann?", en: "Why just take away when you can enjoy with us?" },
-    weinweiter_description: { de: "Schauen Sie doch einfach bei Ihrer Wanderung über den Kappelberg auf ein Glas Wein in der Neuen Kelter vorbei. In unserem Offenausschank können Sie aus einem Jahreszeiten entsprechenden Sortiment Ihren Lieblingswein glas- und flaschenweise wählen. Passend zum Wein bieten wir eine Auswahl an kleinen Snacks. Einfach während unserer Öffnungszeiten vorbei schauen und verwöhnen lassen!", en: "Just stop by for a glass of wine at the New Wine Press House during your hike over the Kappelberg. In our open bar, you can choose your favorite wine by the glass or bottle from a seasonal assortment. We offer a selection of small snacks to match the wine. Just drop by during our opening hours and let us spoil you!" },
-    weinweiter_location_time: { de: "Ganzjährig in und vor der Neuen Kelter. Mo bis Sa 9:00 bis 18:30 Uhr.", en: "Year-round in and in front of the New Wine Press House. Mon to Sat 9:00 AM to 6:30 PM." },
-    weinweiter_partner_title: { de: "Wir sind Partner von bwegtPlus", en: "We are a partner of bwegtPlus" },
-    weinweiter_discount_desc: { de: "Bei uns erhalten Sie folgende Vergünstigung: 1 Euro Rabatt im Ausschank „Wein und Weiter“ (Mo-Sa 9:00-18:30 Uhr).", en: "With us you get the following discount: 1 Euro discount at the 'Wine & More' bar (Mon-Sat 9:00 AM - 6:30 PM)." },
-    weinweiter_condition: { de: "Voraussetzung: Vorlage eines tagesaktuellen bwtarif-Tickets, D-Tickets oder D-Tickets JugendBW.", en: "Requirement: Presentation of a valid bwtarif ticket, D-Ticket, or D-Ticket JugendBW." },
-    weinweiter_snacks_label: { de: "Passende Snacks", en: "Matching Snacks" },
-    weinweiter_seasonal_wines: { de: "Saisonales Sortiment", en: "Seasonal Assortment" },
-    weinweiter_open_bar: { de: "Offenausschank", en: "Open Bar" },
-
-
-    // Wein(Rätsel)Tour Event Page
-    weinraetsel_title: { de: "Wein(Rätsel)Tour mit Bollerwagen", en: "Wine (Puzzle) Tour with Handcart" },
-    weinraetsel_subtitle: { de: "Das neue Highlight im Weinberg", en: "The new highlight in the vineyard" },
-    weinraetsel_description: { de: "Wir packen je nach Gruppengröße einen Bollerwagen mit Wein, Wasser sowie einem leckeren Vesper und schon kann man einen Tag im Weinberg genießen. Wählt man eine von drei Routen und entlang der Tour können spannende Fragen beantwortet werden. Hat man das Lösungswort, gibt es noch eine Flasche Gewinnerwein zum Abschied von uns.", en: "Depending on the group size, we pack a handcart with wine, water, and a delicious snack, and you can enjoy a day in the vineyard. Choose one of three routes and answer exciting questions along the tour. If you find the solution word, you will get a bottle of winner wine as a farewell gift." },
-    weinraetsel_variant_s_label: { de: "Variante S (bis 6 Personen)", en: "Variant S (up to 6 people)" },
-    weinraetsel_variant_s_price: { de: "119,- Euro", en: "119.- Euro" },
-    weinraetsel_variant_m_label: { de: "Variante M (bis 8 Personen)", en: "Variant M (up to 8 people)" },
-    weinraetsel_variant_m_price: { de: "159,- Euro", en: "159.- Euro" },
-    weinraetsel_variant_l_label: { de: "Variante L (bis 10 Personen)", en: "Variant L (up to 10 people)" },
-    weinraetsel_variant_l_price: { de: "199,- Euro", en: "199.- Euro" },
-    weinraetsel_routes_title: { de: "Unsere Touren im Überblick", en: "Our Tours at a Glance" },
-    weinraetsel_route_blue: { de: "Blaue Tour", en: "Blue Tour" },
-    weinraetsel_route_yellow: { de: "Gelbe Tour", en: "Yellow Tour" },
-    weinraetsel_route_red: { de: "Rote Tour", en: "Red Tour" },
-    weinraetsel_availability: { de: "Montag bis Samstag ab 9.00 Uhr. Rückgabe bis 18.00 Uhr.", en: "Monday to Saturday from 9:00 AM. Return by 6:00 PM." },
-    weinraetsel_deposit: { de: "50,00 € Pfand", en: "50.00 € Deposit" },
-    weinraetsel_booking_note: { de: "Bitte mindestens 3 Tage vorher buchen/absagen.", en: "Please book/cancel at least 3 days in advance." },
-    weinraetsel_contact_phone: { de: "0711 / 57 88 03 – 0", en: "0711 / 57 88 03 – 0" },
-    weinraetsel_contact_email: { de: "veranstaltungen@fellbacher-weine.de", en: "veranstaltungen@fellbacher-weine.de" },
-    weinraetsel_winter_special: { de: "Im Winter auch als Glühwein(Rätsel)Tour verfügbar", en: "In winter also available as Mulled Wine (Puzzle) Tour" },
-    weinraetsel_winter_desc: { de: "Wenn’s draußen kalt wird, wird’s bei uns gemütlich: Unser Winter-Bollerwagen ist prall gefüllt mit Glühwein, süßen Naschereien und weihnachtlichem Flair.", en: "When it gets cold outside, it gets cozy with us: Our winter handcart is filled with mulled wine, sweet treats, and Christmas flair." },
+    // Wein & Weiter Keys - Removed as unused
+    // Wein(Rätsel)Tour Keys - Removed as unused
 
     // БРОНИРОВАНИЕ (Booking Flow)
     booking_title: { de: "Degustation buchen", en: "Book a Tasting" },

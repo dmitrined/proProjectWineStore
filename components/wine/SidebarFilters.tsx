@@ -1,7 +1,7 @@
 /**
  * НАЗНАЧЕНИЕ: Боковая панель фильтров каталога (Sidebar Filters).
  * ЗАВИСИМОСТИ: i18n, next/navigation, Zustand, framer-motion, FilterSection.
- * ОСОБЕННОСТИ: Динамическое построение опций, управление через URL, адаптивность (Mobile Drawer).
+ * ОСОБЕННОСТИ: Динамическое построение опций через API Facets, управление через URL, адаптивность (Mobile Drawer).
  */
 
 "use client";
@@ -9,21 +9,20 @@
 import React, { useMemo, useState } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 import { useTranslation } from '@/lib/i18n';
-import { Wine } from '@/lib/types/wine';
-import { Event } from '@/lib/types/event';
 import { useUIStore } from '@/lib/store/useUIStore';
+import { useWineFacets } from '@/lib/hooks/useWines';
 import { X, Grid3x3, Grape, ChevronLeft, ChevronRight, Search, SlidersHorizontal, ArrowUpDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FilterSection } from './FilterSection';
 
 interface Props {
-    products: (Wine | Event)[];
+    // products prop removed as we use useWineFacets now
 }
 
 /**
  * Компонент сайдбара с фильтрами.
  */
-export default function SidebarFilters({ products }: Props) {
+export default function SidebarFilters({ }: Props) {
     const { t } = useTranslation();
     const router = useRouter();
     const pathname = usePathname();
@@ -38,9 +37,26 @@ export default function SidebarFilters({ products }: Props) {
     const [grapeSearch, setGrapeSearch] = useState('');
     const [expandedSection, setExpandedSection] = useState<string | null>('category');
 
-    // --- 1. Динамическое извлечение опций из списка продуктов ---
+    // --- 1. Параметры URL ---
+    const currentCategory = searchParams.get('category');
+    const currentTag = searchParams.get('tag');
+    const currentGrape = searchParams.get('grape');
+    const currentFlavor = searchParams.get('flavor');
+    const currentQuality = searchParams.get('quality');
+    const currentSort = searchParams.get('sort') || 'price_asc';
+    const currentSearch = searchParams.get('search') || '';
+    const currentType = searchParams.get('type');
+
+    // --- 2. Получение фасетов (опций) ---
+    const { data: facetsData } = useWineFacets({
+        category: currentCategory || undefined,
+        search: currentSearch || undefined,
+        tag: currentTag || undefined,
+        type: currentType || undefined
+    });
+
     const options = useMemo(() => {
-        // Категории, соответствующие shopCategories в Header
+        // Категории (статичные, так как это навигация высокого уровня)
         const categories = [
             { name: t('nav_red_wines'), slug: 'red', type: 'category' },
             { name: t('nav_white_wines'), slug: 'white', type: 'category' },
@@ -54,37 +70,10 @@ export default function SidebarFilters({ products }: Props) {
             { name: t('nav_shop_presents'), slug: 'geschenke', type: 'category' },
         ];
 
-        // Список сортов винограда
-        const grapes = Array.from(new Set(
-            products
-                .filter(p => 'grapeVariety' in p)
-                .map(p => (p as Wine).grapeVariety)
-        )).filter(Boolean).sort();
-
-        // Список вкусов (feinherb, fruchtig, trocken)
-        const allowedFlavors = ['feinherb', 'fruchtig', 'trocken'];
-        const flavors = Array.from(new Set(
-            products
-                .filter(p => 'flavor' in p && p.flavor)
-                .map(p => (p as Wine).flavor?.toLowerCase())
-        )).filter(f => f && allowedFlavors.includes(f)).sort() as string[];
-
-        // Уровни качества и Серии (Edition >C<, >P<, >S<, Literweine)
-        const allowedQuality = ['edition >c<', 'edition >p<', 'edition >s<', 'literweine'];
-        const qualityLevels = Array.from(new Set(
-            products.map(p => {
-                if (!('type' in p)) return '';
-                const wine = p as Wine;
-                const q = wine.quality_level?.toLowerCase() || '';
-                const ed = wine.edition?.toLowerCase() || '';
-
-                if ((q + ed).includes('edition') && (q + ed).includes('c')) return 'edition >c<';
-                if ((q + ed).includes('edition') && (q + ed).includes('p')) return 'edition >p<';
-                if ((q + ed).includes('edition') && (q + ed).includes('s')) return 'edition >s<';
-                if (q.includes('liter')) return 'literweine';
-                return '';
-            })
-        )).filter(q => q && allowedQuality.includes(q)).sort() as string[];
+        // Опции из API или пустые массивы
+        const grapes = facetsData?.grapes || [];
+        const flavors = (facetsData?.flavors || []) as string[];
+        const qualityLevels = facetsData?.qualityLevels || [];
 
         // Опции сортировки
         const sorting = [
@@ -94,16 +83,9 @@ export default function SidebarFilters({ products }: Props) {
         ];
 
         return { categories, grapes, flavors, qualityLevels, sorting };
-    }, [products, t]);
+    }, [t, facetsData]);
 
-    // --- 2. Обработчики URL ---
-    const currentCategory = searchParams.get('category');
-    const currentTag = searchParams.get('tag');
-    const currentGrape = searchParams.get('grape');
-    const currentFlavor = searchParams.get('flavor');
-    const currentQuality = searchParams.get('quality');
-    const currentSort = searchParams.get('sort') || 'price_asc';
-    const currentSearch = searchParams.get('search') || '';
+    // --- 3. Обработчики URL ---
 
     /**
      * Переключение параметров в URL.
@@ -142,7 +124,7 @@ export default function SidebarFilters({ products }: Props) {
         );
     }, [options.grapes, grapeSearch]);
 
-    // --- 3. Вспомогательная функция для рендеринга контента ---
+    // --- 4. Вспомогательная функция для рендеринга контента ---
     const renderFilterContent = () => (
         <div className="space-y-2">
             {/* Поиск */}

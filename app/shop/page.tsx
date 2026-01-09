@@ -1,18 +1,17 @@
 /**
  * НАЗНАЧЕНИЕ: Страница каталога вин (Shop).
  * ЗАВИСИМОСТИ: HeroUI, Lucide React, i18n Context, Wines Context, SidebarFilters.
- * ОСОБЕННОСТИ: Client Component (useSearchParams), Динамическая фильтрация через URL.
+ * ОСОБЕННОСТИ: Client Component, Пагинация (Infinite Scroll), Серверная фильтрация (через API).
  */
 
 "use client";
 
-import React, { useMemo, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { useSearchParams, useRouter, usePathname } from 'next/navigation';
-import { SlidersHorizontal } from 'lucide-react';
+import { SlidersHorizontal, ChevronDown } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
 import { useWines } from '@/lib/hooks/useWines';
 import { useUIStore } from '@/lib/store/useUIStore';
-import { Wine } from '@/lib/types/wine';
 
 import ProductCard from '@/components/wine/ProductCard';
 import WineCardSkeleton from '@/components/ui/Skeletons/WineCardSkeleton';
@@ -23,133 +22,49 @@ function CatalogContent() {
     const { t } = useTranslation();
     const router = useRouter();
     const pathname = usePathname();
-
-    // Данные из TanStack Query
-    const { data: allProducts = [], isLoading, error, refetch } = useWines();
-
     const searchParams = useSearchParams();
     const toggleFilter = useUIStore((state) => state.toggleFilter);
 
     // --- 1. Парсинг параметров URL ---
-    const searchQuery = searchParams.get('search') || '';
-    const category = searchParams.get('category');
-    const tag = searchParams.get('tag');
-    const grape = searchParams.get('grape');
-    const flavor = searchParams.get('flavor');
-    const quality = searchParams.get('quality');
-    const type = searchParams.get('type');
+    const searchQuery = searchParams.get('search') || undefined;
+    const category = searchParams.get('category') || undefined;
+    const tag = searchParams.get('tag') || undefined;
+    const grape = searchParams.get('grape') || undefined;
+    const flavor = searchParams.get('flavor') || undefined;
+    const quality = searchParams.get('quality') || undefined;
+    const type = searchParams.get('type') || undefined;
     const sortBy = searchParams.get('sort') || 'price_asc';
+
+    // --- 2. Получение данных (Infinite Scroll) ---
+    const {
+        data,
+        fetchNextPage,
+        hasNextPage,
+        isFetchingNextPage,
+        isLoading,
+        error,
+        refetch
+    } = useWines({
+        search: searchQuery,
+        category,
+        tag,
+        grape,
+        flavor,
+        quality,
+        type,
+        sort: sortBy
+    });
+
+    // Плоский список продуктов из всех загруженных страниц
+    const allProducts = data?.pages.flatMap((page) => page.data) || [];
 
     const updateParams = (newParams: URLSearchParams) => {
         router.push(`${pathname}?${newParams.toString()}`);
     };
 
-    // --- 2. Логика фильтрации и сортировки ---
-    const filteredProducts = useMemo(() => {
-        // Фильтруем только вина (наличие сорта винограда)
-        let result = allProducts.filter(p => 'grapeVariety' in p) as Wine[];
-
-        // 2.1 Поиск (Название, Описание, Сорт)
-        if (searchQuery) {
-            const query = searchQuery.toLowerCase();
-            result = result.filter(p => {
-                const name = (p.name || '').toLowerCase();
-                const description = (p.description || '').toLowerCase();
-                const grape = (p.grapeVariety || '').toLowerCase();
-
-                return name.includes(query) || description.includes(query) || grape.includes(query);
-            });
-        }
-
-        // 2.2 Категория
-        if (category) {
-            result = result.filter(p => {
-                const typeMap: Record<string, string> = {
-                    'rot': 'red',
-                    'weiss': 'white',
-                    'rose': 'rose',
-                    'prickelndes': 'sparkling',
-                    'weinpakete': 'package',
-                    'alkoholfrei': 'alcohol_free'
-                };
-
-                // 1. Проверка по маппингу типов
-                if (typeMap[category] && p.type === typeMap[category]) {
-                    return true;
-                }
-
-                // 2. Прямая проверка типа
-                if (p.type?.toLowerCase() === category.toLowerCase()) {
-                    return true;
-                }
-
-                return false;
-            });
-        }
-
-        // 2.3 Теги
-        if (tag) {
-            result = result.filter(p => {
-                if (p.tags && Array.isArray(p.tags)) {
-                    // Теги хранятся как массив строк, проверяем наличие (кейс-независимо для надежности)
-                    return p.tags.some((t) => t.toLowerCase() === tag.toLowerCase());
-                }
-                return false;
-            });
-        }
-
-        // 2.4 Тип продукта
-        if (type) {
-            result = result.filter(p => p.type === type);
-        }
-
-        // 2.5 Сорт винограда (только для вин)
-        if (grape) {
-            result = result.filter(p => p.grapeVariety === grape);
-        }
-
-        // 2.6 Вкус (только для вин)
-        if (flavor) {
-            result = result.filter(p => p.flavor?.toLowerCase() === flavor.toLowerCase());
-        }
-
-        // 2.7 Уровень качества / Серия
-        if (quality) {
-            const q = quality.toLowerCase();
-            const isEdition = q.includes('edition');
-            const letter = isEdition ? q.split(' ').pop()?.replace(/[><]/g, '') : '';
-
-            result = result.filter(p => {
-                const pq = p.quality_level?.toLowerCase() || '';
-                // Проверяем поле edition если оно есть
-                const ped = p.edition?.toLowerCase() || '';
-
-                if (q === 'literweine') return pq.includes('liter');
-                if (isEdition && letter) {
-                    return (pq.includes('edition') && pq.includes(letter)) || (ped.includes('edition') && ped.includes(letter));
-                }
-                return pq.includes(q) || ped.includes(q);
-            });
-        }
-
-        // 2.8 Сортировка
-        result.sort((a, b) => {
-            const getPrice = (item: Wine) => typeof item.price === 'number' ? item.price : parseFloat(item.price || '0');
-            const getDate = (item: Wine) => item.year || 0;
-
-            switch (sortBy) {
-                case 'price_asc': return getPrice(a) - getPrice(b);
-                case 'price_desc': return getPrice(b) - getPrice(a);
-                case 'newest': return getDate(b) - getDate(a);
-                default: return 0;
-            }
-        });
-
-        return result;
-    }, [allProducts, searchQuery, category, tag, type, grape, flavor, quality, sortBy]);
-
-    // --- 3. Данные для активных фильтров ---
-    const activeFiltersData = useMemo(() => {
+    // --- 3. Данные для активных фильтров (для UI) ---
+    // (Логика отображения чипсов осталась прежней)
+    const activeFiltersData = React.useMemo(() => {
         const list = [];
         if (category) {
             const typeMap: Record<string, string> = {
@@ -164,7 +79,7 @@ function CatalogContent() {
             const displayValue = technicalType ? t('wine_type_' + technicalType) : category;
             list.push({ key: 'category', label: t('filter_category'), value: category, displayValue });
         }
-        if (tag) list.push({ key: 'tag', label: t('filter_tag'), value: tag, displayValue: tag });
+        if (tag) list.push({ key: 'tag', label: t('filter_tag'), value: tag, displayValue: t(`nav_shop_${tag.toLowerCase()}`) !== `nav_shop_${tag.toLowerCase()}` ? t(`nav_shop_${tag.toLowerCase()}`) : tag });
         if (type) list.push({ key: 'type', label: t('product_type'), value: type, displayValue: t('wine_type_' + type) });
         if (grape) list.push({ key: 'grape', label: t('filter_grape'), value: grape, displayValue: grape });
         if (flavor) list.push({ key: 'flavor', label: t('product_characteristic_flavor'), value: flavor, displayValue: t(`flavor_${flavor.toLowerCase()}`) });
@@ -191,8 +106,8 @@ function CatalogContent() {
 
                 <div className="flex flex-col lg:flex-row gap-8">
 
-                    {/* Боковые фильтры (Динамические) */}
-                    <SidebarFilters products={allProducts} />
+                    {/* Боковые фильтры */}
+                    <SidebarFilters />
 
                     {/* Основной контент */}
                     <div className="flex-1">
@@ -225,14 +140,15 @@ function CatalogContent() {
                             }}
                         />
 
-                        {/* Grid */}
-                        {isLoading && filteredProducts.length === 0 ? (
+                        {/* Состояние загрузки (Скелетоны) */}
+                        {isLoading ? (
                             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
                                 {[...Array(6)].map((_, i) => (
                                     <WineCardSkeleton key={i} />
                                 ))}
                             </div>
                         ) : error ? (
+                            // Состояние ошибки
                             <div className="flex flex-col items-center justify-center py-20 bg-wine-dark/5 dark:bg-wine-gold/5 rounded-3xl border border-dashed border-wine-gold/30">
                                 <div className="w-16 h-16 bg-wine-gold/10 rounded-full flex items-center justify-center mb-6">
                                     <SlidersHorizontal className="w-8 h-8 text-wine-gold" />
@@ -250,13 +166,35 @@ function CatalogContent() {
                                     {t('hero_cta')}
                                 </button>
                             </div>
-                        ) : filteredProducts.length > 0 ? (
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6">
-                                {filteredProducts.map((product) => (
-                                    <ProductCard key={product.id} product={product} />
-                                ))}
-                            </div>
+                        ) : allProducts.length > 0 ? (
+                            <>
+                                {/* Сетка товаров */}
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 mb-12">
+                                    {allProducts.map((product) => (
+                                        <ProductCard key={product.id} product={product} />
+                                    ))}
+                                </div>
+
+                                {/* Кнопка "Загрузить еще" */}
+                                {hasNextPage && (
+                                    <div className="flex justify-center pt-4 pb-12">
+                                        <button
+                                            onClick={() => fetchNextPage()}
+                                            disabled={isFetchingNextPage}
+                                            className="group flex items-center gap-2 px-8 py-3 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 text-wine-dark dark:text-white rounded-full font-bold shadow-sm hover:shadow-md hover:border-wine-gold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                                        >
+                                            {isFetchingNextPage ? (
+                                                <div className="w-5 h-5 border-2 border-wine-gold border-t-transparent rounded-full animate-spin" />
+                                            ) : (
+                                                <ChevronDown className="w-5 h-5 group-hover:translate-y-0.5 transition-transform" />
+                                            )}
+                                            {isFetchingNextPage ? t('loading') : t('load_more')}
+                                        </button>
+                                    </div>
+                                )}
+                            </>
                         ) : (
+                            // Пустое состояние
                             <div className="flex flex-col items-center justify-center py-20 bg-white dark:bg-zinc-900 rounded-3xl border border-dashed border-zinc-200 dark:border-zinc-800">
                                 <div className="w-12 h-12 bg-zinc-100 rounded-full flex items-center justify-center mb-4">
                                     <SlidersHorizontal className="w-6 h-6 text-zinc-300" />
