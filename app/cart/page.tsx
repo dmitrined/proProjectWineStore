@@ -19,7 +19,17 @@ import { Wine } from '@/lib/types/wine';
 export default function CartPage() {
     const { t } = useTranslation();
     const { items, updateQuantity, removeFromCart, getTotalPrice } = useCartStore();
-    const { data: allProducts = [] } = useWines();
+    const { data: winesData = [] } = useWines();
+
+    // Flatten wines data from infinite query or array
+    const allProducts = React.useMemo(() => {
+        if (Array.isArray(winesData)) return winesData;
+        if (winesData && 'pages' in winesData) {
+            // @ts-ignore
+            return winesData.pages.flatMap(page => page.data);
+        }
+        return [];
+    }, [winesData]);
 
     const totalPrice = getTotalPrice(allProducts);
     const shippingCost = totalPrice > 100 ? 0 : 6.90;

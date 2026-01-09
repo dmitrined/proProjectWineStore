@@ -7,6 +7,14 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { UnifiedProduct } from '../types';
+import { PaginatedResponse } from '../api/products';
+import { Wine } from '../types/wine';
+import { InfiniteData } from '@tanstack/react-query';
+
+// Type guard for InfiniteData
+function isInfiniteData(data: any): data is InfiniteData<PaginatedResponse<Wine>> {
+    return data && 'pages' in data && Array.isArray(data.pages);
+}
 
 // Интерфейс элемента корзины
 export interface CartItem {
@@ -25,7 +33,7 @@ interface CartState {
     clearCart: () => void;
 
     // Вычисляемые значения (геттеры)
-    getTotalPrice: (products: UnifiedProduct[]) => number;
+    getTotalPrice: (products: UnifiedProduct[] | InfiniteData<PaginatedResponse<Wine>>) => number;
     getItemCount: () => number;
     isInCart: (productId: string) => boolean;
 }
@@ -93,9 +101,17 @@ export const useCartStore = create<CartState>()(
              * Расчет общей стоимости товаров в корзине.
              * Теперь принимает список продуктов как аргумент.
              */
-            getTotalPrice: (products: UnifiedProduct[]) => {
+            getTotalPrice: (products: UnifiedProduct[] | InfiniteData<PaginatedResponse<Wine>>) => {
+                let flattenedProducts: UnifiedProduct[] = [];
+
+                if (Array.isArray(products)) {
+                    flattenedProducts = products;
+                } else if (isInfiniteData(products)) {
+                    flattenedProducts = products.pages.flatMap((page) => page.data);
+                }
+
                 return get().items.reduce((total, item) => {
-                    const product = products.find(w => w.id === item.id);
+                    const product = flattenedProducts.find(w => w.id === item.id);
                     if (!product) return total;
 
                     // Безопасное получение цены для вина или мероприятия

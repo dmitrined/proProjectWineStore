@@ -59,9 +59,19 @@ export default function Header() {
   const cartDropdownRef = useRef<HTMLDivElement>(null);
   const cartButtonRef = useRef<HTMLButtonElement>(null);
 
+  // Flatten wines data for UI usage
+  const flattenedWines = React.useMemo(() => {
+    if (Array.isArray(wines)) return wines;
+    if (wines && 'pages' in wines) {
+      // @ts-ignore
+      return (wines as any).pages.flatMap((page: any) => page.data);
+    }
+    return [];
+  }, [wines]);
+
   // Количество товаров и общая сумма
   const cartCount = items.reduce((total, item) => total + item.quantity, 0);
-  const totalPrice = getTotalPrice(wines);
+  const totalPrice = getTotalPrice(flattenedWines);
 
   // Эффект скролла
   useEffect(() => {
@@ -185,7 +195,7 @@ export default function Header() {
                 <CartDropdown
                   t={t}
                   items={items}
-                  wines={wines}
+                  wines={flattenedWines}
                   getItemCount={() => cartCount}
                   totalPrice={totalPrice}
                   updateQuantity={updateQuantity}

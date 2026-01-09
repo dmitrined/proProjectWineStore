@@ -37,9 +37,19 @@ export default function WineDetailPage() {
         setMounted(true);
     }, []);
 
+    const flattenedProducts = React.useMemo(() => {
+        if (Array.isArray(allProducts)) {
+            return allProducts;
+        } else if (allProducts && 'pages' in allProducts) {
+            // @ts-ignore
+            return allProducts.pages.flatMap((page: any) => page.data);
+        }
+        return [];
+    }, [allProducts]);
+
     // Поиск конкретного вина по slug
     const wine = React.useMemo(() => {
-        const item = allProducts.find((p) => {
+        const item = flattenedProducts.find((p) => {
             // Проверяем что это вино
             if ('grapeVariety' in p) {
                 const wineItem = p as Wine;
@@ -53,7 +63,7 @@ export default function WineDetailPage() {
             return item as Wine;
         }
         return undefined;
-    }, [allProducts, wineId]);
+    }, [flattenedProducts, wineId]);
 
     // Состояние избранного (всегда вызываем хук, даже если вино не найдено)
     const isFavorite = useWishlistStore(
