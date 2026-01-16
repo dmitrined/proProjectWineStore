@@ -103,13 +103,7 @@ export default function Header() {
     { label: t("nav_red_wines"), path: "/shop?category=red" },
     { label: t("nav_white_wines"), path: "/shop?category=white" },
     { label: t("wine_type_rose"), path: "/shop?category=rose" },
-    { label: t("nav_shop_federle"), path: "/shop?category=federle" },
-    { label: t("nav_shop_vfb"), path: "/shop?tag=vfb" },
-    { label: t("nav_shop_packages"), path: "/shop?category=package" },
     { label: t("wine_type_sparkling"), path: "/shop?category=sparkling" },
-    { label: t("nav_shop_alles_gewoehnlich"), path: "/shop?category=magnum-sondereditionen" },
-    { label: t("nav_shop_vouchers"), path: "/shop?category=gutscheine" },
-    { label: t("nav_shop_presents"), path: "/shop?category=geschenke" },
   ];
 
   const eventCategories = [

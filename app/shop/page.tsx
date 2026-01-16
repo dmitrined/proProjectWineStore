@@ -67,16 +67,7 @@ function CatalogContent() {
     const activeFiltersData = React.useMemo(() => {
         const list = [];
         if (category) {
-            const typeMap: Record<string, string> = {
-                'rot': 'red',
-                'weiss': 'white',
-                'rose': 'rose',
-                'prickelndes': 'sparkling',
-                'weinpakete': 'package',
-                'alkoholfrei': 'alcohol_free'
-            };
-            const technicalType = typeMap[category];
-            const displayValue = technicalType ? t('wine_type_' + technicalType) : category;
+            const displayValue = t('wine_type_' + category) !== 'wine_type_' + category ? t('wine_type_' + category) : category;
             list.push({ key: 'category', label: t('filter_category'), value: category, displayValue });
         }
         if (tag) list.push({ key: 'tag', label: t('filter_tag'), value: tag, displayValue: t(`nav_shop_${tag.toLowerCase()}`) !== `nav_shop_${tag.toLowerCase()}` ? t(`nav_shop_${tag.toLowerCase()}`) : tag });

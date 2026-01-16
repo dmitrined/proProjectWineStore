@@ -61,13 +61,7 @@ export default function SidebarFilters({ }: Props) {
             { name: t('nav_red_wines'), slug: 'red', type: 'category' },
             { name: t('nav_white_wines'), slug: 'white', type: 'category' },
             { name: t('wine_type_rose'), slug: 'rose', type: 'category' },
-            { name: t('nav_shop_federle'), slug: 'federle', type: 'category' },
-            { name: t('nav_shop_vfb'), slug: 'vfb', type: 'tag' },
-            { name: t('nav_shop_packages'), slug: 'package', type: 'category' },
             { name: t('wine_type_sparkling'), slug: 'sparkling', type: 'category' },
-            { name: t('nav_shop_alles_gewoehnlich'), slug: 'magnum-sondereditionen', type: 'category' },
-            { name: t('nav_shop_vouchers'), slug: 'gutscheine', type: 'category' },
-            { name: t('nav_shop_presents'), slug: 'geschenke', type: 'category' },
         ];
 
         // Опции из API или пустые массивы

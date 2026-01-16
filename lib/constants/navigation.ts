@@ -9,12 +9,10 @@ export const getNavigationData = (t: (key: string) => string) => {
     ];
 
     const shopCategories = [
-        { label: t("nav_all_wines"), path: "/shop" },
-        { label: t("nav_red_wines"), path: "/shop?type=Rotwein" },
-        { label: t("nav_white_wines"), path: "/shop?type=Weißwein" },
-        { label: t("wine_type_rose"), path: "/shop?type=Roséwein" },
-        { label: t("wine_type_sparkling"), path: "/shop?type=Sekt" },
-        { label: t("wine_type_alcohol_free"), path: "/shop?type=Alkoholfrei" },
+        { label: t("nav_red_wines"), path: "/shop?category=red" },
+        { label: t("nav_white_wines"), path: "/shop?category=white" },
+        { label: t("wine_type_rose"), path: "/shop?category=rose" },
+        { label: t("wine_type_sparkling"), path: "/shop?category=sparkling" },
     ];
 
     const eventCategories = [

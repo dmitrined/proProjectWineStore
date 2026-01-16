@@ -56,25 +56,7 @@ function applyFilters(products: Wine[], params: FetchWinesParams): Wine[] {
 
     // 2. Категория
     if (params.category) {
-        result = result.filter(p => {
-            const typeMap: Record<string, string> = {
-                'rot': 'red',
-                'weiss': 'white',
-                'rose': 'rose',
-                'prickelndes': 'sparkling',
-                'weinpakete': 'package',
-                'alkoholfrei': 'alcohol_free'
-            };
-            // 1. Проверка по маппингу типов
-            if (typeMap[params.category!] && p.type === typeMap[params.category!]) {
-                return true;
-            }
-            // 2. Прямая проверка типа
-            if (p.type?.toLowerCase() === params.category!.toLowerCase()) {
-                return true;
-            }
-            return false;
-        });
+        result = result.filter(p => p.type?.toLowerCase() === params.category!.toLowerCase());
     }
 
     // 3. Теги
@@ -151,8 +133,8 @@ export const fetchWines = async (params: FetchWinesParams = {}): Promise<Paginat
     // Фильтруем только товары с сортами (вино) или по логике, которая была в page.tsx
     // (В page.tsx: result = allProducts.filter(p => 'grapeVariety' in p))
     // Но мы оставим более общую логику, если вдруг появятся не-вина
-    const winesOnly = baseData.filter(p => 'grapeVariety' in p); 
-    
+    const winesOnly = baseData.filter(p => 'grapeVariety' in p);
+
     // Применяем фильтры
     const filtered = applyFilters(winesOnly, params);
 
@@ -186,19 +168,19 @@ export const fetchWineFacets = async (params: FetchWinesParams = {}) => {
     // Для фасетов мы обычно хотим применить ВСЕ фильтры КРОМЕ того, для которого считаем фасеты.
     // Но для упрощения (как в большинстве магазинов) применим просто все фильтры категории/поиска,
     // чтобы показать "что доступно внутри этой категории".
-    
+
     const facetBaseParams = {
         category: params.category,
         search: params.search,
         tag: params.tag,
         type: params.type
     };
-    
+
     const facetContext = applyFilters(winesOnly, facetBaseParams);
 
     // Сбор уникальных значений
     const grapes = Array.from(new Set(facetContext.map(p => p.grapeVariety).filter(Boolean))).sort();
-    
+
     const allowedFlavors = ['feinherb', 'fruchtig', 'trocken'];
     const flavors = Array.from(new Set(
         facetContext.map(p => p.flavor?.toLowerCase()).filter(f => f && allowedFlavors.includes(f))
@@ -207,13 +189,13 @@ export const fetchWineFacets = async (params: FetchWinesParams = {}) => {
     const allowedQuality = ['edition >c<', 'edition >p<', 'edition >s<', 'literweine'];
     const qualityLevels = Array.from(new Set(
         facetContext.map(p => {
-             const q = p.quality_level?.toLowerCase() || '';
-             const ed = p.edition?.toLowerCase() || '';
-             if ((q + ed).includes('edition') && (q + ed).includes('c')) return 'edition >c<';
-             if ((q + ed).includes('edition') && (q + ed).includes('p')) return 'edition >p<';
-             if ((q + ed).includes('edition') && (q + ed).includes('s')) return 'edition >s<';
-             if (q.includes('liter')) return 'literweine';
-             return '';
+            const q = p.quality_level?.toLowerCase() || '';
+            const ed = p.edition?.toLowerCase() || '';
+            if ((q + ed).includes('edition') && (q + ed).includes('c')) return 'edition >c<';
+            if ((q + ed).includes('edition') && (q + ed).includes('p')) return 'edition >p<';
+            if ((q + ed).includes('edition') && (q + ed).includes('s')) return 'edition >s<';
+            if (q.includes('liter')) return 'literweine';
+            return '';
         })
     )).filter(q => q && allowedQuality.includes(q)).sort();
 
