@@ -102,3 +102,11 @@ DEVELOPMENT_STANDARDS.md
 3.  **Логика**: Внедряй изменения, обновляя API слой и Хуки.
 4.  **UI/I18n**: Обнови верстку и вынеси тексты в переводы.
 5.  **Mobile Check**: Проверь отображение на ширине 375px.
+
+## ☕️ 10. Backend Standards (Spring Boot/Java)
+1. **Документирование**: Каждый Java-класс начинается с Javadoc на РУССКОМ (/** НАЗНАЧЕНИЕ: ... ЗАВИСИМОСТИ: ... ОСОБЕННОСТИ: ... */). Комментируй методы/логику на русском.
+2. **Типизация**: Избегай raw types/Object. Используй generics, records (Java 21), Lombok (@Data, @Builder).
+3. **API Design**: RESTful endpoints (Controller с @RestController). DTO для request/response (mapstruct для mapping). Validation с @Valid.
+4. **DB/Данные**: JPA entities, repositories. Миграции через Flyway. Нет прямых SQL — только через JPA.
+5. **AI Integration**: Используй Spring AI для Gemini. Embeddings в pgvector. Обогащай контекст запросов (user prefs + DB data).
+6. **Security/GDPR**: JWT auth (Spring Security). Consent checks в API для analytics/marketing.

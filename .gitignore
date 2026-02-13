@@ -14,8 +14,8 @@
 /coverage
 
 # next.js
-/.next/
-/out/
+.next/
+out/
 
 # production
 /build
@@ -23,7 +23,9 @@
 # misc
 .DS_Store
 *.pem
-
+.turbo/
+.vscode/
+target/
 # debug
 npm-debug.log*
 yarn-debug.log*

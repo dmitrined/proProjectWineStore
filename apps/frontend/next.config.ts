@@ -32,6 +32,14 @@ const nextConfig: NextConfig = {
     ],
   },
   turbopack: {},
+  async rewrites() {
+    return [
+      {
+        source: '/api/:path*',
+        destination: 'http://localhost:8080/api/:path*',
+      },
+    ];
+  },
 };
 
 // @ts-expect-error - next-pwa types are slightly incompatible with latest NextConfig

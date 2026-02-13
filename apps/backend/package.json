@@ -1,0 +1,12 @@
+{
+    "name": "backend",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "dev": "./mvnw spring-boot:run",
+        "build": "./mvnw clean package -DskipTests",
+        "start": "java -jar target/store-0.0.1-SNAPSHOT.jar",
+        "test": "./mvnw test",
+        "lint": "./mvnw checkstyle:check"
+    }
+}

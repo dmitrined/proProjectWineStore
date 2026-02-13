@@ -31,7 +31,7 @@ interface SommelierStep {
 export default function AISommelierPage() {
     const { t } = useTranslation();
     const router = useRouter();
-    const { data: wines = [] } = useWines();
+    const { data: wines = [] } = useWines({});
 
     const [state, setState] = useState<SommelierStep>({
         current: 'mood',
