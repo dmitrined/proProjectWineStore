@@ -13,27 +13,18 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ShoppingCart, ArrowLeft, Trash2, Plus, Minus, ShieldCheck, Truck, CreditCard } from 'lucide-react';
 import { useTranslation } from '@/lib/i18n';
 import { useCartStore } from '@/lib/store/useCartStore';
-import { useWines } from '@/lib/hooks/useWines';
+import { useCart } from '@/lib/hooks/useCart';
 import { Wine } from '@/lib/types/wine';
 
 export default function CartPage() {
     const { t } = useTranslation();
-    const { items, updateQuantity, removeFromCart, getTotalPrice } = useCartStore();
-    const { data: winesData = [] } = useWines();
+    const { items, updateQuantity, removeFromCart } = useCartStore();
+    const { data: cartBackend, isLoading: isCartLoading } = useCart();
 
-    // Flatten wines data from infinite query or array
-    const allProducts = React.useMemo(() => {
-        if (Array.isArray(winesData)) return winesData;
-        if (winesData && 'pages' in winesData) {
-            // @ts-ignore
-            return winesData.pages.flatMap(page => page.data);
-        }
-        return [];
-    }, [winesData]);
-
-    const totalPrice = getTotalPrice(allProducts);
-    const shippingCost = totalPrice > 100 ? 0 : 6.90;
+    const totalPrice = cartBackend?.totalAmount || 0;
+    const shippingCost = totalPrice > 100 || totalPrice === 0 ? 0 : 6.90;
     const finalTotal = totalPrice + shippingCost;
+    const allProducts = cartBackend?.items || [];
 
     return (
         <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950 pt-24 pb-20 md:pt-32 md:pb-32">
@@ -79,8 +70,15 @@ export default function CartPage() {
                         <div className="lg:col-span-2 space-y-4">
                             <AnimatePresence mode="popLayout">
                                 {items.map((item) => {
-                                    const product = allProducts.find(w => w.id === item.id) as Wine | undefined;
-                                    if (!product) return null;
+                                    const product = allProducts.find((p: any) => String(p.productId) === String(item.id));
+                                    if (!product && !isCartLoading) return null;
+
+                                    // Fallback for loading state
+                                    const displayName = product?.name || "Loading...";
+                                    const displayPrice = product?.unitPrice || 0;
+                                    const subtotal = product?.subtotal || 0;
+                                    const imageUrl = product?.imageUrl || "";
+                                    const available = product?.available ?? true;
 
                                     return (
                                         <motion.div
@@ -94,8 +92,8 @@ export default function CartPage() {
                                             {/* Изображение */}
                                             <div className="w-20 md:w-32 h-28 md:h-40 bg-zinc-50 dark:bg-zinc-800/50 rounded-2xl overflow-hidden flex-shrink-0 flex items-center justify-center p-3">
                                                 <Image
-                                                    src={product.image}
-                                                    alt={product.name}
+                                                    src={imageUrl || 'https://placehold.co/600x800/png?text=Wine'}
+                                                    alt={displayName}
                                                     width={120}
                                                     height={160}
                                                     className="h-full w-auto object-contain group-hover:scale-110 transition-transform duration-500"
@@ -107,7 +105,7 @@ export default function CartPage() {
                                                 <div>
                                                     <div className="flex justify-between gap-4 mb-2">
                                                         <h3 className="text-sm md:text-xl font-bold dark:text-white leading-tight serif">
-                                                            {product.name}
+                                                            {displayName}
                                                         </h3>
                                                         <button
                                                             onClick={() => removeFromCart(item.id)}
@@ -116,9 +114,11 @@ export default function CartPage() {
                                                             <Trash2 className="w-4 h-4 md:w-5 md:h-5" />
                                                         </button>
                                                     </div>
-                                                    <p className="text-[10px] md:text-xs text-zinc-500 font-medium uppercase tracking-widest">
-                                                        {product.grapeVariety}
-                                                    </p>
+                                                    {!available && (
+                                                        <p className="text-[10px] md:text-xs text-red-500 font-black uppercase tracking-widest">
+                                                            {t("cart_out_of_stock")}
+                                                        </p>
+                                                    )}
                                                 </div>
 
                                                 <div className="flex items-end justify-between mt-4">
@@ -146,19 +146,11 @@ export default function CartPage() {
                                                             {t("cart_price")}
                                                         </p>
                                                         <div className="flex flex-col items-end">
-                                                            {product.sale && product.sale_price ? (
-                                                                <>
-                                                                    <p className="text-lg md:text-2xl font-black text-red-600 dark:text-red-500 serif italic">
-                                                                        {(product.sale_price * item.quantity).toFixed(2).replace('.', ',')} €
-                                                                    </p>
-                                                                    <p className="text-[10px] md:text-xs text-zinc-400 line-through decoration-red-500/30">
-                                                                        {(product.price * item.quantity).toFixed(2).replace('.', ',')} €
-                                                                    </p>
-                                                                </>
-                                                            ) : (
-                                                                <p className="text-lg md:text-2xl font-black text-wine-dark dark:text-white serif italic">
-                                                                    {(product.price * item.quantity).toFixed(2).replace('.', ',')} €
-                                                                </p>
+                                                            <p className="text-lg md:text-2xl font-black text-wine-dark dark:text-white serif italic">
+                                                                {subtotal.toFixed(2).replace('.', ',')} €
+                                                            </p>
+                                                            {product && product.unitPrice === 0 && !isCartLoading && (
+                                                                <p className="text-[10px] text-red-500 italic">Price unavailable</p>
                                                             )}
                                                         </div>
                                                     </div>

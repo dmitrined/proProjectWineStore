@@ -3,18 +3,19 @@ package com.wine.store.dto;
 import java.math.BigDecimal;
 
 /**
- * НАЗНАЧЕНИЕ: Параметры поиска вин.
- * СООТВЕТСТВИЕ: Frontend интерфейс FetchWinesParams.
+ * НАЗНАЧЕНИЕ: Параметры поиска и фильтрации вин.
+ * ИСПОЛЬЗУЕТСЯ В: WineController, WineSpecification.
  */
 public record WineSearchRequest(
         String search,
-        String category,
-        String grape,
-        String flavor,
-        String quality,
+        String category, // RED, WHITE, ROSE...
+        String type, // Alias for category
+        String grape, // Spätburgunder, Riesling...
+        String flavor, // TROCKEN, FEINHERB...
+        String quality, // VDP.GUTSWEIN...
+        String tag, // BIO, NEW...
         BigDecimal minPrice,
         BigDecimal maxPrice,
-        String sort,
-        String type, // Доп. поле для фильтрации по типу, если отличается от category
-        String tag) {
+        String sort // price_asc, newest...
+) {
 }

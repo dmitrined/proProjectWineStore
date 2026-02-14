@@ -131,3 +131,21 @@ export const fetchEvents = async (): Promise<Event[]> => {
         return [];
     }
 };
+/**
+ * Расчет стоимости корзины на бэкенде.
+ */
+export const calculateCart = async (items: { productId: number | string, quantity: number }[]) => {
+    try {
+        const res = await fetch('http://localhost:8080/api/cart/calculate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ items: items.map(i => ({ productId: Number(i.productId), quantity: i.quantity })) })
+        });
+        
+        if (!res.ok) throw new Error('Cart calculation failed');
+        return await res.json();
+    } catch (error) {
+        console.error("Cart calculation failed", error);
+        return null;
+    }
+};

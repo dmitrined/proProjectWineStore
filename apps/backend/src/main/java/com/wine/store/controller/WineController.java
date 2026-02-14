@@ -1,77 +1,44 @@
 package com.wine.store.controller;
 
-import com.wine.store.model.Wine;
-import com.wine.store.repository.WineRepository;
+import com.wine.store.dto.WineDTO;
+import com.wine.store.dto.WineSearchRequest;
+import com.wine.store.service.WineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import com.wine.store.dto.WineSearchRequest;
-import com.wine.store.dto.WineResponse;
-import com.wine.store.service.WineSpecification;
-import org.springframework.data.jpa.domain.Specification;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Optional;
+import java.util.List;
 
 /**
- * НАЗНАЧЕНИЕ: API для работы с винами.
- * ЗАВИСИМОСТИ: WineRepository.
+ * НАЗНАЧЕНИЕ: API для каталога вин.
  */
 @RestController
 @RequestMapping("/api/wines")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000") // Allow frontend dev server
 public class WineController {
 
-    private final WineRepository wineRepository;
+    private final WineService wineService;
 
     @GetMapping
-    public Page<WineResponse> getAllWines(
-            WineSearchRequest request,
-            Pageable pageable) {
-        Specification<Wine> spec = WineSpecification.getSpec(request);
-        Page<Wine> wines = wineRepository.findAll(spec, pageable);
-        return wines.map(this::mapToResponse);
+    public ResponseEntity<Page<WineDTO>> getWines(
+            WineSearchRequest filters,
+            @PageableDefault(size = 12) Pageable pageable) {
+        return ResponseEntity.ok(wineService.getAllWines(filters, pageable));
     }
 
-    private WineResponse mapToResponse(Wine wine) {
-        return new WineResponse(
-                wine.getId(),
-                wine.getName(),
-                wine.getSlug(),
-                wine.getPrice(),
-                wine.isSale(),
-                wine.getSalePrice(),
-                wine.getDescription(),
-                wine.getShortDescription(),
-                wine.getImage(),
-                wine.getType(),
-                wine.getStockStatus(),
-                wine.getStockQuantity(),
-                wine.getGrapeVariety(),
-                wine.getYear(),
-                wine.getAlcohol(),
-                wine.getAcidity(),
-                wine.getSugar(),
-                wine.getFlavor(),
-                wine.getQualityLevel(),
-                wine.getEdition(),
-                wine.getRating(),
-                wine.getRecommendedDishes(),
-                wine.getTags(),
-                wine.getTemp());
+    @GetMapping("/{slug}")
+    public ResponseEntity<WineDTO> getWine(@PathVariable String slug) {
+        return ResponseEntity.ok(wineService.getWineBySlug(slug));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Wine> getWineById(@PathVariable String id) {
-        Optional<Wine> wine = wineRepository.findById(id);
-        if (wine.isEmpty()) {
-            // Try to find by slug if UUID lookup fails (or if we treat ID as slug mixed)
-            // But for now, strict ID.
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(wine.get());
+    @GetMapping("/filters/grapes")
+    public ResponseEntity<List<String>> getGrapeVarieties() {
+        return ResponseEntity.ok(wineService.getAllGrapes());
     }
-
 }

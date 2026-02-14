@@ -1,0 +1,438 @@
+Используем JAVA_HOME=/Library/Java/JavaVirtualMachines/zulu-21.jdk/Contents/Home
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------------< com.wine:store >---------------------------
+[INFO] Building store 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.3.2:clean (default-clean) @ store ---
+[INFO] Deleting /Users/dmitrinedioglo/Documents/GitHub/ProProjectWineStore/apps/backend/target
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ store ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 6 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ store ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 35 source files with javac [debug parameters release 21] to target/classes
+[INFO] 
+[INFO] >>> spring-boot:3.3.5:run (default-cli) > test-compile @ store >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ store ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 6 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ store ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ store ---
+[INFO] skip non existing resourceDirectory /Users/dmitrinedioglo/Documents/GitHub/ProProjectWineStore/apps/backend/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ store ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] <<< spring-boot:3.3.5:run (default-cli) < test-compile @ store <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.3.5:run (default-cli) @ store ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.5)
+
+2026-02-14T18:10:05.323+01:00  INFO 14466 --- [pro-project-wine-store-backend] [           main] c.w.s.ProProjectWineStoreApplication     : Starting ProProjectWineStoreApplication using Java 21.0.9 with PID 14466 (/Users/dmitrinedioglo/Documents/GitHub/ProProjectWineStore/apps/backend/target/classes started by dmitrinedioglo in /Users/dmitrinedioglo/Documents/GitHub/ProProjectWineStore/apps/backend)
+2026-02-14T18:10:05.324+01:00  INFO 14466 --- [pro-project-wine-store-backend] [           main] c.w.s.ProProjectWineStoreApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-02-14T18:10:05.520+01:00  INFO 14466 --- [pro-project-wine-store-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-14T18:10:05.539+01:00  INFO 14466 --- [pro-project-wine-store-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 16 ms. Found 3 JPA repository interfaces.
+2026-02-14T18:10:05.693+01:00  INFO 14466 --- [pro-project-wine-store-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-02-14T18:10:05.698+01:00  INFO 14466 --- [pro-project-wine-store-backend] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-14T18:10:05.698+01:00  INFO 14466 --- [pro-project-wine-store-backend] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
+2026-02-14T18:10:05.714+01:00  INFO 14466 --- [pro-project-wine-store-backend] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-14T18:10:05.714+01:00  INFO 14466 --- [pro-project-wine-store-backend] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 378 ms
+2026-02-14T18:10:05.757+01:00  INFO 14466 --- [pro-project-wine-store-backend] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-14T18:10:05.773+01:00  INFO 14466 --- [pro-project-wine-store-backend] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2026-02-14T18:10:05.783+01:00  INFO 14466 --- [pro-project-wine-store-backend] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-14T18:10:05.873+01:00  INFO 14466 --- [pro-project-wine-store-backend] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-14T18:10:05.881+01:00  INFO 14466 --- [pro-project-wine-store-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-14T18:10:05.959+01:00  INFO 14466 --- [pro-project-wine-store-backend] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2026-02-14T18:10:05.959+01:00  INFO 14466 --- [pro-project-wine-store-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-14T18:10:05.967+01:00  WARN 14466 --- [pro-project-wine-store-backend] [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-14T18:10:06.286+01:00  INFO 14466 --- [pro-project-wine-store-backend] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: drop table if exists bookings cascade 
+Hibernate: drop table if exists events cascade 
+Hibernate: drop table if exists orders cascade 
+Hibernate: drop table if exists users cascade 
+Hibernate: drop table if exists wine_dishes cascade 
+Hibernate: drop table if exists wine_tags cascade 
+Hibernate: drop table if exists wines cascade 
+Hibernate: create table bookings (guests_count integer not null, total_price numeric(38,2), created_at timestamp(6), event_id bigint not null, id bigint generated by default as identity, customer_email varchar(255) not null, customer_name varchar(255) not null, customer_phone varchar(255), status enum ('CANCELLED','CONFIRMED','PENDING'), primary key (id))
+Hibernate: create table events (booked_spots integer, date date, price_per_person numeric(38,2), total_spots integer, id bigint generated by default as identity, description TEXT, image_url varchar(255), location varchar(255), slug varchar(255) not null unique, time varchar(255), title varchar(255) not null, category enum ('ONLINE','OTHER','RESTAURANT','WEINFEST','WEINPROBE'), primary key (id))
+Hibernate: create table orders (total_amount numeric(38,2), created_at timestamp(6), id uuid not null, user_id uuid, status varchar(255), primary key (id))
+Hibernate: create table users (id uuid not null, email varchar(255) not null unique, first_name varchar(255), last_name varchar(255), password varchar(255), role enum ('ADMIN','USER'), primary key (id))
+Hibernate: create table wine_dishes (wine_id bigint not null, dish varchar(255))
+Hibernate: create table wine_tags (wine_id bigint not null, tag varchar(255))
+Hibernate: create table wines (is_sale boolean not null, price numeric(38,2) not null, rating float(53), sale_price numeric(38,2), stock_quantity integer, year integer, id bigint generated by default as identity, acidity varchar(255), alcohol varchar(255), description TEXT, edition varchar(255), grape_variety varchar(255), image_url varchar(255), name varchar(255) not null, quality_level varchar(255), short_description TEXT, slug varchar(255) not null unique, sugar varchar(255), flavor enum ('FEINHERB','HALBTROCKEN','LIEBLICH','SUESS','TROCKEN'), stock_status enum ('IN_STOCK','ON_DEMAND','OUT_OF_STOCK'), type enum ('ALCOHOL_FREE','OTHER','PACKAGE','RED','ROSE','SPARKLING','WHITE'), primary key (id))
+2026-02-14T18:10:06.299+01:00  WARN 14466 --- [pro-project-wine-store-backend] [           main] o.h.t.s.i.ExceptionHandlerLoggedImpl     : GenerationTarget encountered exception accepting command : Error executing DDL "create table wines (is_sale boolean not null, price numeric(38,2) not null, rating float(53), sale_price numeric(38,2), stock_quantity integer, year integer, id bigint generated by default as identity, acidity varchar(255), alcohol varchar(255), description TEXT, edition varchar(255), grape_variety varchar(255), image_url varchar(255), name varchar(255) not null, quality_level varchar(255), short_description TEXT, slug varchar(255) not null unique, sugar varchar(255), flavor enum ('FEINHERB','HALBTROCKEN','LIEBLICH','SUESS','TROCKEN'), stock_status enum ('IN_STOCK','ON_DEMAND','OUT_OF_STOCK'), type enum ('ALCOHOL_FREE','OTHER','PACKAGE','RED','ROSE','SPARKLING','WHITE'), primary key (id))" via JDBC [Синтаксическая ошибка в выражении SQL "create table wines (is_sale boolean not null, price numeric(38,2) not null, rating float(53), sale_price numeric(38,2), stock_quantity integer, [*]year integer, id bigint generated by default as identity, acidity varchar(255), alcohol varchar(255), description TEXT, edition varchar(255), grape_variety varchar(255), image_url varchar(255), name varchar(255) not null, quality_level varchar(255), short_description TEXT, slug varchar(255) not null unique, sugar varchar(255), flavor enum ('FEINHERB','HALBTROCKEN','LIEBLICH','SUESS','TROCKEN'), stock_status enum ('IN_STOCK','ON_DEMAND','OUT_OF_STOCK'), type enum ('ALCOHOL_FREE','OTHER','PACKAGE','RED','ROSE','SPARKLING','WHITE'), primary key (id))"; ожидалось "identifier"
+Syntax error in SQL statement "create table wines (is_sale boolean not null, price numeric(38,2) not null, rating float(53), sale_price numeric(38,2), stock_quantity integer, [*]year integer, id bigint generated by default as identity, acidity varchar(255), alcohol varchar(255), description TEXT, edition varchar(255), grape_variety varchar(255), image_url varchar(255), name varchar(255) not null, quality_level varchar(255), short_description TEXT, slug varchar(255) not null unique, sugar varchar(255), flavor enum ('FEINHERB','HALBTROCKEN','LIEBLICH','SUESS','TROCKEN'), stock_status enum ('IN_STOCK','ON_DEMAND','OUT_OF_STOCK'), type enum ('ALCOHOL_FREE','OTHER','PACKAGE','RED','ROSE','SPARKLING','WHITE'), primary key (id))"; expected "identifier";]
+
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "create table wines (is_sale boolean not null, price numeric(38,2) not null, rating float(53), sale_price numeric(38,2), stock_quantity integer, year integer, id bigint generated by default as identity, acidity varchar(255), alcohol varchar(255), description TEXT, edition varchar(255), grape_variety varchar(255), image_url varchar(255), name varchar(255) not null, quality_level varchar(255), short_description TEXT, slug varchar(255) not null unique, sugar varchar(255), flavor enum ('FEINHERB','HALBTROCKEN','LIEBLICH','SUESS','TROCKEN'), stock_status enum ('IN_STOCK','ON_DEMAND','OUT_OF_STOCK'), type enum ('ALCOHOL_FREE','OTHER','PACKAGE','RED','ROSE','SPARKLING','WHITE'), primary key (id))" via JDBC [Синтаксическая ошибка в выражении SQL "create table wines (is_sale boolean not null, price numeric(38,2) not null, rating float(53), sale_price numeric(38,2), stock_quantity integer, [*]year integer, id bigint generated by default as identity, acidity varchar(255), alcohol varchar(255), description TEXT, edition varchar(255), grape_variety varchar(255), image_url varchar(255), name varchar(255) not null, quality_level varchar(255), short_description TEXT, slug varchar(255) not null unique, sugar varchar(255), flavor enum ('FEINHERB','HALBTROCKEN','LIEBLICH','SUESS','TROCKEN'), stock_status enum ('IN_STOCK','ON_DEMAND','OUT_OF_STOCK'), type enum ('ALCOHOL_FREE','OTHER','PACKAGE','RED','ROSE','SPARKLING','WHITE'), primary key (id))"; ожидалось "identifier"
+Syntax error in SQL statement "create table wines (is_sale boolean not null, price numeric(38,2) not null, rating float(53), sale_price numeric(38,2), stock_quantity integer, [*]year integer, id bigint generated by default as identity, acidity varchar(255), alcohol varchar(255), description TEXT, edition varchar(255), grape_variety varchar(255), image_url varchar(255), name varchar(255) not null, quality_level varchar(255), short_description TEXT, slug varchar(255) not null unique, sugar varchar(255), flavor enum ('FEINHERB','HALBTROCKEN','LIEBLICH','SUESS','TROCKEN'), stock_status enum ('IN_STOCK','ON_DEMAND','OUT_OF_STOCK'), type enum ('ALCOHOL_FREE','OTHER','PACKAGE','RED','ROSE','SPARKLING','WHITE'), primary key (id))"; expected "identifier";]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createTables(SchemaCreatorImpl.java:428) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createSequencesTablesConstraints(SchemaCreatorImpl.java:344) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:239) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:172) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:142) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:118) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:250) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429) ~[na:na]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:322) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:457) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1506) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75) ~[spring-orm-6.1.14.jar:6.1.14]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390) ~[spring-orm-6.1.14.jar:6.1.14]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-6.1.14.jar:6.1.14]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-6.1.14.jar:6.1.14]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366) ~[spring-orm-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1853) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1802) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:954) ~[spring-context-6.1.14.jar:6.1.14]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.14.jar:6.1.14]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.5.jar:3.3.5]
+	at com.wine.store.ProProjectWineStoreApplication.main(ProProjectWineStoreApplication.java:15) ~[classes/:na]
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "create table wines (is_sale boolean not null, price numeric(38,2) not null, rating float(53), sale_price numeric(38,2), stock_quantity integer, [*]year integer, id bigint generated by default as identity, acidity varchar(255), alcohol varchar(255), description TEXT, edition varchar(255), grape_variety varchar(255), image_url varchar(255), name varchar(255) not null, quality_level varchar(255), short_description TEXT, slug varchar(255) not null unique, sugar varchar(255), flavor enum ('FEINHERB','HALBTROCKEN','LIEBLICH','SUESS','TROCKEN'), stock_status enum ('IN_STOCK','ON_DEMAND','OUT_OF_STOCK'), type enum ('ALCOHOL_FREE','OTHER','PACKAGE','RED','ROSE','SPARKLING','WHITE'), primary key (id))"; ожидалось "identifier"
+Syntax error in SQL statement "create table wines (is_sale boolean not null, price numeric(38,2) not null, rating float(53), sale_price numeric(38,2), stock_quantity integer, [*]year integer, id bigint generated by default as identity, acidity varchar(255), alcohol varchar(255), description TEXT, edition varchar(255), grape_variety varchar(255), image_url varchar(255), name varchar(255) not null, quality_level varchar(255), short_description TEXT, slug varchar(255) not null unique, sugar varchar(255), flavor enum ('FEINHERB','HALBTROCKEN','LIEBLICH','SUESS','TROCKEN'), stock_status enum ('IN_STOCK','ON_DEMAND','OUT_OF_STOCK'), type enum ('ALCOHOL_FREE','OTHER','PACKAGE','RED','ROSE','SPARKLING','WHITE'), primary key (id))"; expected "identifier"; SQL statement:
+create table wines (is_sale boolean not null, price numeric(38,2) not null, rating float(53), sale_price numeric(38,2), stock_quantity integer, year integer, id bigint generated by default as identity, acidity varchar(255), alcohol varchar(255), description TEXT, edition varchar(255), grape_variety varchar(255), image_url varchar(255), name varchar(255) not null, quality_level varchar(255), short_description TEXT, slug varchar(255) not null unique, sugar varchar(255), flavor enum ('FEINHERB','HALBTROCKEN','LIEBLICH','SUESS','TROCKEN'), stock_status enum ('IN_STOCK','ON_DEMAND','OUT_OF_STOCK'), type enum ('ALCOHOL_FREE','OTHER','PACKAGE','RED','ROSE','SPARKLING','WHITE'), primary key (id)) [42001-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.message.DbException.getSyntaxError(DbException.java:261) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Parser.readIdentifier(Parser.java:5533) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Parser.parseTableColumnDefinition(Parser.java:8994) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Parser.parseCreateTable(Parser.java:8939) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Parser.parseCreate(Parser.java:6404) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Parser.parsePrepared(Parser.java:666) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Parser.parse(Parser.java:592) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Parser.parse(Parser.java:564) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Parser.prepareCommand(Parser.java:483) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:639) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:559) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1166) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:245) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231) ~[h2-2.2.224.jar:2.2.224]
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java) ~[HikariCP-5.1.0.jar:na]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	... 39 common frames omitted
+
+Hibernate: alter table if exists bookings add constraint FK2ww82bk3npaiyu9oeehwtt2q3 foreign key (event_id) references events
+Hibernate: alter table if exists wine_dishes add constraint FKma2w9sfu7lj6ka6jmlptkg8lw foreign key (wine_id) references wines
+2026-02-14T18:10:06.304+01:00  WARN 14466 --- [pro-project-wine-store-backend] [           main] o.h.t.s.i.ExceptionHandlerLoggedImpl     : GenerationTarget encountered exception accepting command : Error executing DDL "alter table if exists wine_dishes add constraint FKma2w9sfu7lj6ka6jmlptkg8lw foreign key (wine_id) references wines" via JDBC [Таблица "WINES" не найдена
+Table "WINES" not found;]
+
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table if exists wine_dishes add constraint FKma2w9sfu7lj6ka6jmlptkg8lw foreign key (wine_id) references wines" via JDBC [Таблица "WINES" не найдена
+Table "WINES" not found;]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createForeignKeys(SchemaCreatorImpl.java:305) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:251) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:172) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:142) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:118) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:250) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429) ~[na:na]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:322) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:457) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1506) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75) ~[spring-orm-6.1.14.jar:6.1.14]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390) ~[spring-orm-6.1.14.jar:6.1.14]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-6.1.14.jar:6.1.14]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-6.1.14.jar:6.1.14]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366) ~[spring-orm-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1853) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1802) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:954) ~[spring-context-6.1.14.jar:6.1.14]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.14.jar:6.1.14]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.5.jar:3.3.5]
+	at com.wine.store.ProProjectWineStoreApplication.main(ProProjectWineStoreApplication.java:15) ~[classes/:na]
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "WINES" не найдена
+Table "WINES" not found; SQL statement:
+alter table if exists wine_dishes add constraint FKma2w9sfu7lj6ka6jmlptkg8lw foreign key (wine_id) references wines [42102-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.message.DbException.get(DbException.java:223) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.message.DbException.get(DbException.java:199) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:204) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:74) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.ddl.AlterTable.update(AlterTable.java:46) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.CommandContainer.update(CommandContainer.java:169) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Command.executeUpdate(Command.java:256) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231) ~[h2-2.2.224.jar:2.2.224]
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java) ~[HikariCP-5.1.0.jar:na]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	... 38 common frames omitted
+
+Hibernate: alter table if exists wine_tags add constraint FKtmekyrsx8oihc8xt87avovtl3 foreign key (wine_id) references wines
+2026-02-14T18:10:06.305+01:00  WARN 14466 --- [pro-project-wine-store-backend] [           main] o.h.t.s.i.ExceptionHandlerLoggedImpl     : GenerationTarget encountered exception accepting command : Error executing DDL "alter table if exists wine_tags add constraint FKtmekyrsx8oihc8xt87avovtl3 foreign key (wine_id) references wines" via JDBC [Таблица "WINES" не найдена
+Table "WINES" not found;]
+
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "alter table if exists wine_tags add constraint FKtmekyrsx8oihc8xt87avovtl3 foreign key (wine_id) references wines" via JDBC [Таблица "WINES" не найдена
+Table "WINES" not found;]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:94) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.Helper.applySqlString(Helper.java:233) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.Helper.applySqlStrings(Helper.java:217) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createForeignKeys(SchemaCreatorImpl.java:305) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.createFromMetadata(SchemaCreatorImpl.java:251) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.performCreation(SchemaCreatorImpl.java:172) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:142) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.internal.SchemaCreatorImpl.doCreation(SchemaCreatorImpl.java:118) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.performDatabaseAction(SchemaManagementToolCoordinator.java:250) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.lambda$process$5(SchemaManagementToolCoordinator.java:144) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at java.base/java.util.HashMap.forEach(HashMap.java:1429) ~[na:na]
+	at org.hibernate.tool.schema.spi.SchemaManagementToolCoordinator.process(SchemaManagementToolCoordinator.java:141) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.boot.internal.SessionFactoryObserverForSchemaExport.sessionFactoryCreated(SessionFactoryObserverForSchemaExport.java:37) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.internal.SessionFactoryObserverChain.sessionFactoryCreated(SessionFactoryObserverChain.java:35) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.internal.SessionFactoryImpl.<init>(SessionFactoryImpl.java:322) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.boot.internal.SessionFactoryBuilderImpl.build(SessionFactoryBuilderImpl.java:457) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.jpa.boot.internal.EntityManagerFactoryBuilderImpl.build(EntityManagerFactoryBuilderImpl.java:1506) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.springframework.orm.jpa.vendor.SpringHibernateJpaPersistenceProvider.createContainerEntityManagerFactory(SpringHibernateJpaPersistenceProvider.java:75) ~[spring-orm-6.1.14.jar:6.1.14]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.createNativeEntityManagerFactory(LocalContainerEntityManagerFactoryBean.java:390) ~[spring-orm-6.1.14.jar:6.1.14]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.buildNativeEntityManagerFactory(AbstractEntityManagerFactoryBean.java:409) ~[spring-orm-6.1.14.jar:6.1.14]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.afterPropertiesSet(AbstractEntityManagerFactoryBean.java:396) ~[spring-orm-6.1.14.jar:6.1.14]
+	at org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean.afterPropertiesSet(LocalContainerEntityManagerFactoryBean.java:366) ~[spring-orm-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1853) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1802) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:522) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:337) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:234) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:335) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:205) ~[spring-beans-6.1.14.jar:6.1.14]
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:954) ~[spring-context-6.1.14.jar:6.1.14]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:625) ~[spring-context-6.1.14.jar:6.1.14]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:754) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:456) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:335) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.5.jar:3.3.5]
+	at com.wine.store.ProProjectWineStoreApplication.main(ProProjectWineStoreApplication.java:15) ~[classes/:na]
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "WINES" не найдена
+Table "WINES" not found; SQL statement:
+alter table if exists wine_tags add constraint FKtmekyrsx8oihc8xt87avovtl3 foreign key (wine_id) references wines [42102-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.message.DbException.get(DbException.java:223) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.message.DbException.get(DbException.java:199) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.ddl.AlterTableAddConstraint.tryUpdate(AlterTableAddConstraint.java:204) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.ddl.AlterTableAddConstraint.update(AlterTableAddConstraint.java:74) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.ddl.AlterTable.update(AlterTable.java:46) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.CommandContainer.update(CommandContainer.java:169) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Command.executeUpdate(Command.java:256) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:262) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:231) ~[h2-2.2.224.jar:2.2.224]
+	at com.zaxxer.hikari.pool.ProxyStatement.execute(ProxyStatement.java:94) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyStatement.execute(HikariProxyStatement.java) ~[HikariCP-5.1.0.jar:na]
+	at org.hibernate.tool.schema.internal.exec.GenerationTargetToDatabase.accept(GenerationTargetToDatabase.java:80) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	... 38 common frames omitted
+
+2026-02-14T18:10:06.306+01:00  INFO 14466 --- [pro-project-wine-store-backend] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-14T18:10:06.393+01:00  INFO 14466 --- [pro-project-wine-store-backend] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-14T18:10:06.537+01:00  WARN 14466 --- [pro-project-wine-store-backend] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-14T18:10:06.643+01:00  INFO 14466 --- [pro-project-wine-store-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-02-14T18:10:06.646+01:00  INFO 14466 --- [pro-project-wine-store-backend] [           main] c.w.s.ProProjectWineStoreApplication     : Started ProProjectWineStoreApplication in 1.431 seconds (process running for 1.546)
+Hibernate: select count(*) from wines w1_0
+2026-02-14T18:10:06.673+01:00  WARN 14466 --- [pro-project-wine-store-backend] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : SQL Error: 42102, SQLState: 42S02
+2026-02-14T18:10:06.673+01:00 ERROR 14466 --- [pro-project-wine-store-backend] [           main] o.h.engine.jdbc.spi.SqlExceptionHelper   : Таблица "WINES" не найдена
+Table "WINES" not found; SQL statement:
+select count(*) from wines w1_0 [42102-224]
+2026-02-14T18:10:06.676+01:00  INFO 14466 --- [pro-project-wine-store-backend] [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-02-14T18:10:06.680+01:00 ERROR 14466 --- [pro-project-wine-store-backend] [           main] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.dao.InvalidDataAccessResourceUsageException: could not prepare statement [Таблица "WINES" не найдена
+Table "WINES" not found; SQL statement:
+select count(*) from wines w1_0 [42102-224]] [select count(*) from wines w1_0]; SQL [select count(*) from wines w1_0]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.convertHibernateAccessException(HibernateJpaDialect.java:277) ~[spring-orm-6.1.14.jar:6.1.14]
+	at org.springframework.orm.jpa.vendor.HibernateJpaDialect.translateExceptionIfPossible(HibernateJpaDialect.java:241) ~[spring-orm-6.1.14.jar:6.1.14]
+	at org.springframework.orm.jpa.AbstractEntityManagerFactoryBean.translateExceptionIfPossible(AbstractEntityManagerFactoryBean.java:550) ~[spring-orm-6.1.14.jar:6.1.14]
+	at org.springframework.dao.support.ChainedPersistenceExceptionTranslator.translateExceptionIfPossible(ChainedPersistenceExceptionTranslator.java:61) ~[spring-tx-6.1.14.jar:6.1.14]
+	at org.springframework.dao.support.DataAccessUtils.translateIfNecessary(DataAccessUtils.java:335) ~[spring-tx-6.1.14.jar:6.1.14]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:160) ~[spring-tx-6.1.14.jar:6.1.14]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.14.jar:6.1.14]
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:165) ~[spring-data-jpa-3.3.5.jar:3.3.5]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.14.jar:6.1.14]
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97) ~[spring-aop-6.1.14.jar:6.1.14]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.14.jar:6.1.14]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:223) ~[spring-aop-6.1.14.jar:6.1.14]
+	at jdk.proxy2/jdk.proxy2.$Proxy132.count(Unknown Source) ~[na:na]
+	at com.wine.store.config.DataInitializer.loadWines(DataInitializer.java:38) ~[classes/:na]
+	at com.wine.store.config.DataInitializer.run(DataInitializer.java:33) ~[classes/:na]
+	at org.springframework.boot.SpringApplication.lambda$callRunner$5(SpringApplication.java:790) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.util.function.ThrowingConsumer$1.acceptWithException(ThrowingConsumer.java:83) ~[spring-core-6.1.14.jar:6.1.14]
+	at org.springframework.util.function.ThrowingConsumer.accept(ThrowingConsumer.java:60) ~[spring-core-6.1.14.jar:6.1.14]
+	at org.springframework.util.function.ThrowingConsumer$1.accept(ThrowingConsumer.java:88) ~[spring-core-6.1.14.jar:6.1.14]
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:798) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:789) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.lambda$callRunners$3(SpringApplication.java:774) ~[spring-boot-3.3.5.jar:3.3.5]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(ForEachOps.java:184) ~[na:na]
+	at java.base/java.util.stream.SortedOps$SizedRefSortingSink.end(SortedOps.java:357) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:510) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:499) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(ForEachOps.java:151) ~[na:na]
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(ForEachOps.java:174) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:234) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline.forEach(ReferencePipeline.java:596) ~[na:na]
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:774) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:342) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1363) ~[spring-boot-3.3.5.jar:3.3.5]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1352) ~[spring-boot-3.3.5.jar:3.3.5]
+	at com.wine.store.ProProjectWineStoreApplication.main(ProProjectWineStoreApplication.java:15) ~[classes/:na]
+Caused by: org.hibernate.exception.SQLGrammarException: could not prepare statement [Таблица "WINES" не найдена
+Table "WINES" not found; SQL statement:
+select count(*) from wines w1_0 [42102-224]] [select count(*) from wines w1_0]
+	at org.hibernate.exception.internal.SQLExceptionTypeDelegate.convert(SQLExceptionTypeDelegate.java:66) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl$StatementPreparationTemplate.prepareStatement(StatementPreparerImpl.java:194) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl.prepareQueryStatement(StatementPreparerImpl.java:155) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.lambda$list$0(JdbcSelectExecutor.java:85) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.executeQuery(DeferredResultSetAccess.java:231) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.getResultSet(DeferredResultSetAccess.java:167) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.sql.results.jdbc.internal.JdbcValuesResultSetImpl.advanceNext(JdbcValuesResultSetImpl.java:265) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.sql.results.jdbc.internal.JdbcValuesResultSetImpl.processNext(JdbcValuesResultSetImpl.java:145) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.sql.results.jdbc.internal.AbstractJdbcValues.next(AbstractJdbcValues.java:19) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.sql.results.internal.RowProcessingStateStandardImpl.next(RowProcessingStateStandardImpl.java:67) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:204) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:33) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.doExecuteQuery(JdbcSelectExecutorStandardImpl.java:211) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.executeQuery(JdbcSelectExecutorStandardImpl.java:83) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:76) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:65) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.lambda$new$2(ConcreteSqmSelectQueryPlan.java:139) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.withCacheableSqmInterpretation(ConcreteSqmSelectQueryPlan.java:382) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.performList(ConcreteSqmSelectQueryPlan.java:302) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.query.sqm.internal.QuerySqmImpl.doList(QuerySqmImpl.java:526) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.query.spi.AbstractSelectionQuery.list(AbstractSelectionQuery.java:423) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.query.spi.AbstractSelectionQuery.getSingleResult(AbstractSelectionQuery.java:555) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.count(SimpleJpaRepository.java:613) ~[spring-data-jpa-3.3.5.jar:3.3.5]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:355) ~[spring-aop-6.1.14.jar:6.1.14]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker$RepositoryFragmentMethodInvoker.lambda$new$0(RepositoryMethodInvoker.java:277) ~[spring-data-commons-3.3.5.jar:3.3.5]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:170) ~[spring-data-commons-3.3.5.jar:3.3.5]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158) ~[spring-data-commons-3.3.5.jar:3.3.5]
+	at org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments.invoke(RepositoryComposition.java:516) ~[spring-data-commons-3.3.5.jar:3.3.5]
+	at org.springframework.data.repository.core.support.RepositoryComposition.invoke(RepositoryComposition.java:285) ~[spring-data-commons-3.3.5.jar:3.3.5]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor.invoke(RepositoryFactorySupport.java:628) ~[spring-data-commons-3.3.5.jar:3.3.5]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.14.jar:6.1.14]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:173) ~[spring-data-commons-3.3.5.jar:3.3.5]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:148) ~[spring-data-commons-3.3.5.jar:3.3.5]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.14.jar:6.1.14]
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:70) ~[spring-data-commons-3.3.5.jar:3.3.5]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.14.jar:6.1.14]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:379) ~[spring-tx-6.1.14.jar:6.1.14]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119) ~[spring-tx-6.1.14.jar:6.1.14]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184) ~[spring-aop-6.1.14.jar:6.1.14]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138) ~[spring-tx-6.1.14.jar:6.1.14]
+	... 29 common frames omitted
+Caused by: org.h2.jdbc.JdbcSQLSyntaxErrorException: Таблица "WINES" не найдена
+Table "WINES" not found; SQL statement:
+select count(*) from wines w1_0 [42102-224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.message.DbException.get(DbException.java:223) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.message.DbException.get(DbException.java:199) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Parser.getTableOrViewNotFoundDbException(Parser.java:8055) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Parser.getTableOrViewNotFoundDbException(Parser.java:8035) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Parser.readTableOrView(Parser.java:8024) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Parser.readTablePrimary(Parser.java:1788) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Parser.readTableReference(Parser.java:2268) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Parser.parseSelectFromPart(Parser.java:2718) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Parser.parseSelect(Parser.java:2824) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Parser.parseQueryPrimary(Parser.java:2708) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Parser.parseQueryTerm(Parser.java:2564) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Parser.parseQueryExpressionBody(Parser.java:2543) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Parser.parseQueryExpressionBodyAndEndOfQuery(Parser.java:2536) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Parser.parseQueryExpression(Parser.java:2529) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Parser.parseQuery(Parser.java:2498) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Parser.parsePrepared(Parser.java:627) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Parser.parse(Parser.java:592) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Parser.parse(Parser.java:564) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.command.Parser.prepareCommand(Parser.java:483) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:639) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:559) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1166) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:93) ~[h2-2.2.224.jar:2.2.224]
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:316) ~[h2-2.2.224.jar:2.2.224]
+	at com.zaxxer.hikari.pool.ProxyConnection.prepareStatement(ProxyConnection.java:328) ~[HikariCP-5.1.0.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyConnection.prepareStatement(HikariProxyConnection.java) ~[HikariCP-5.1.0.jar:na]
+	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl$5.doPrepare(StatementPreparerImpl.java:153) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl$StatementPreparationTemplate.prepareStatement(StatementPreparerImpl.java:183) ~[hibernate-core-6.5.3.Final.jar:6.5.3.Final]
+	... 69 common frames omitted
+
+2026-02-14T18:10:06.687+01:00  INFO 14466 --- [pro-project-wine-store-backend] [           main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+Hibernate: drop table if exists bookings cascade 
+Hibernate: drop table if exists events cascade 
+Hibernate: drop table if exists orders cascade 
+Hibernate: drop table if exists users cascade 
+Hibernate: drop table if exists wine_dishes cascade 
+Hibernate: drop table if exists wine_tags cascade 
+Hibernate: drop table if exists wines cascade 
+2026-02-14T18:10:06.689+01:00  INFO 14466 --- [pro-project-wine-store-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-14T18:10:06.690+01:00  INFO 14466 --- [pro-project-wine-store-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  2.980 s
+[INFO] Finished at: 2026-02-14T18:10:06+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.3.5:run (default-cli) on project store: Process terminated with exit code: 1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

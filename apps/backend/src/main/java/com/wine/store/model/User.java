@@ -33,9 +33,5 @@ public class User {
     private String lastName;
 
     @Enumerated(EnumType.STRING)
-    private Role role;
-
-    public enum Role {
-        USER, ADMIN
-    }
+    private UserRole userRole;
 }

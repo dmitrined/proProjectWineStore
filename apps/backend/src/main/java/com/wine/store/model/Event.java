@@ -1,18 +1,25 @@
 package com.wine.store.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import org.hibernate.annotations.UuidGenerator;
 
 /**
- * НАЗНАЧЕНИЕ: Сущность Мероприятия.
+ * НАЗНАЧЕНИЕ: Сущность мероприятия (дегустация, фестиваль).
  * ЗАВИСИМОСТИ: JPA, Lombok.
- * ОСОБЕННОСТИ: Соответствует TypeScript интерфейсу Event.
+ * ОСОБЕННОСТИ: Отображается на таблицу "events".
  */
 @Entity
 @Table(name = "events")
@@ -21,10 +28,9 @@ import org.hibernate.annotations.UuidGenerator;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Event {
-
     @Id
-    @UuidGenerator
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false)
     private String title;
@@ -32,23 +38,28 @@ public class Event {
     @Column(nullable = false, unique = true)
     private String slug;
 
-    private LocalDate date;
-
-    private String time;
-
-    private String location;
-
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    private Integer spots;
+    private String imageUrl;
 
-    private BigDecimal price;
+    // Дата и Время
+    private LocalDate date;
+    private String time;
 
-    private String image;
+    private String location; // "Uhlandstraße 12"
 
-    private String category;
+    // Бронирование
+    private BigDecimal pricePerPerson;
+    private Integer totalSpots;
 
-    @Column(name = "is_full")
-    private boolean isFull;
+    @Builder.Default
+    private Integer bookedSpots = 0;
+
+    @Enumerated(EnumType.STRING)
+    private EventCategory category; // WEINFEST, WEINPROBE...
+
+    public boolean isFull() {
+        return bookedSpots >= totalSpots;
+    }
 }

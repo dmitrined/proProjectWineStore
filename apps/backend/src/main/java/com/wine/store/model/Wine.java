@@ -1,18 +1,28 @@
 package com.wine.store.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * НАЗНАЧЕНИЕ: Сущность Вина для хранения в БД.
+ * НАЗНАЧЕНИЕ: Сущность вина в каталоге.
  * ЗАВИСИМОСТИ: JPA, Lombok.
- * ОСОБЕННОСТИ: Соответствует TypeScript интерфейсу Wine.
+ * ОСОБЕННОСТИ: Отображается на таблицу "wines".
  */
 @Entity
 @Table(name = "wines")
@@ -21,76 +31,66 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Wine {
-
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    // Основная информация
     @Column(nullable = false)
     private String name;
 
     @Column(nullable = false, unique = true)
-    private String slug;
-
-    @Column(nullable = false)
-    private BigDecimal price;
-
-    private boolean sale;
-
-    @Column(name = "sale_price")
-    private BigDecimal salePrice;
+    private String slug; // Для SEO URL
 
     @Column(columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "short_description", columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT")
     private String shortDescription;
 
-    private String image;
+    private String imageUrl;
 
+    // Цена и Наличие
     @Column(nullable = false)
-    private String type; // red, white, etc.
+    private BigDecimal price;
 
-    @Column(name = "stock_status")
-    private String stockStatus;
+    private BigDecimal salePrice;
+    private boolean isSale;
 
-    @Column(name = "stock_quantity")
+    @Enumerated(EnumType.STRING)
+    private StockStatus stockStatus; // IN_STOCK, OUT_OF_STOCK
+
     private Integer stockQuantity;
 
-    @Column(name = "grape_variety")
-    private String grapeVariety;
+    // Характеристики
+    @Enumerated(EnumType.STRING)
+    private WineType type; // RED, WHITE, ROSE, SPARKLING...
 
-    @Column(name = "production_year")
-    private Integer year;
+    private String grapeVariety; // Spätburgunder
+    @Column(name = "release_year")
+    private Integer releaseYear;
 
-    private String alcohol;
-    private String acidity;
-    private String sugar;
-    private String flavor;
+    // Технические данные
+    private String alcohol; // 13.5%
+    private String acidity; // 5.6 g/l
+    private String sugar; // 2.0 g/l
 
-    @Column(name = "quality_level")
-    private String qualityLevel;
+    @Enumerated(EnumType.STRING)
+    private WineFlavor flavor; // TROCKEN, FEINHERB...
 
-    private String edition;
+    private String qualityLevel; // VDP.GUTSWEIN
+    private String edition; // Edition C
 
+    // AI & Meta
     private Double rating;
 
     @ElementCollection
     @CollectionTable(name = "wine_dishes", joinColumns = @JoinColumn(name = "wine_id"))
     @Column(name = "dish")
-    private List<String> recommendedDishes;
+    private List<String> recommendedDishes; // ["Steak", "Pasta"]
 
     @ElementCollection
     @CollectionTable(name = "wine_tags", joinColumns = @JoinColumn(name = "wine_id"))
     @Column(name = "tag")
-    private List<String> tags;
-
-    private String temp;
-
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-    }
+    private List<String> tags; // ["Bio", "New"]
 }

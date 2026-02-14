@@ -1,34 +1,43 @@
 package com.wine.store.controller;
 
-import com.wine.store.model.Event;
-import com.wine.store.repository.EventRepository;
+import com.wine.store.dto.BookingRequest;
+import com.wine.store.dto.EventDTO;
+import com.wine.store.service.EventService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 /**
- * НАЗНАЧЕНИЕ: API для работы с мероприятиями.
- * ЗАВИСИМОСТИ: EventRepository.
+ * НАЗНАЧЕНИЕ: API для событий и бронирования.
  */
 @RestController
 @RequestMapping("/api/events")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
 public class EventController {
 
-    private final EventRepository eventRepository;
+    private final EventService eventService;
 
     @GetMapping
-    public List<Event> getAllEvents() {
-        return eventRepository.findAll();
+    public ResponseEntity<List<EventDTO>> getUpcomingEvents() {
+        return ResponseEntity.ok(eventService.getUpcomingEvents());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Event> getEventById(@PathVariable String id) {
-        return eventRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    @GetMapping("/{slug}")
+    public ResponseEntity<EventDTO> getEvent(@PathVariable String slug) {
+        return ResponseEntity.ok(eventService.getEventBySlug(slug));
+    }
+
+    @PostMapping("/bookings")
+    public ResponseEntity<Void> createBooking(@RequestBody @Valid BookingRequest request) {
+        eventService.createBooking(request);
+        return ResponseEntity.ok().build();
     }
 }

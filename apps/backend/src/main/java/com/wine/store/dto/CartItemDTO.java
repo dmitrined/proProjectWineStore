@@ -1,0 +1,9 @@
+package com.wine.store.dto;
+
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
+public record CartItemDTO(
+        @NotNull Long productId,
+        @NotNull @Min(1) Integer quantity) {
+}
