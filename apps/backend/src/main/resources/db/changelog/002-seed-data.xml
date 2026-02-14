@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <changeSet id="2-seed-data" author="junie">
+    <changeSet id="2-seed-data" author="Dmitri Nedioglo">
         <!-- Wines -->
         <insert tableName="wines">
             <column name="name" value="Riesling Trocken 2022"/>

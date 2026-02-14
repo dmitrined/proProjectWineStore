@@ -2,10 +2,13 @@ package com.wine.store.service;
 
 import com.wine.store.dto.WineDTO;
 import com.wine.store.dto.WineSearchRequest;
+import com.wine.store.mapper.WineMapper;
 import com.wine.store.model.Wine;
 import com.wine.store.repository.WineRepository;
 import com.wine.store.service.spec.WineSpecification;
+import com.wine.store.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -19,22 +22,25 @@ import java.util.List;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class WineService {
-
     private final WineRepository wineRepository;
+    private final WineMapper wineMapper;
 
     @Transactional(readOnly = true)
     public Page<WineDTO> getAllWines(WineSearchRequest request, Pageable pageable) {
+        log.info("Fetching wines with filters: {} and pageable: {}", request, pageable);
         Specification<Wine> spec = WineSpecification.getSpec(request);
         Page<Wine> wines = wineRepository.findAll(spec, pageable);
-        return wines.map(this::convertToDto);
+        return wines.map(wineMapper::toDto);
     }
 
     @Transactional(readOnly = true)
     public WineDTO getWineBySlug(String slug) {
+        log.info("Fetching wine by slug: {}", slug);
         return wineRepository.findBySlug(slug)
-                .map(this::convertToDto)
-                .orElseThrow(() -> new RuntimeException("Wine not found: " + slug));
+                .map(wineMapper::toDto)
+                .orElseThrow(() -> new ResourceNotFoundException("Wine not found: " + slug));
     }
 
     @Transactional(readOnly = true)
@@ -45,46 +51,14 @@ public class WineService {
     @Transactional(readOnly = true)
     public List<WineDTO> getFeaturedWines() {
         return wineRepository.findByFeaturedTrue().stream()
-                .map(this::convertToDto)
+                .map(wineMapper::toDto)
                 .toList();
     }
 
     @Transactional(readOnly = true)
     public List<WineDTO> getTopRatedWines() {
         return wineRepository.findTop10ByOrderByRatingDesc().stream()
-                .map(this::convertToDto)
+                .map(wineMapper::toDto)
                 .toList();
-    }
-
-    private WineDTO convertToDto(Wine wine) {
-        return WineDTO.builder()
-                .id(wine.getId())
-                .name(wine.getName())
-                .slug(wine.getSlug())
-                .description(wine.getDescription())
-                .shortDescription(wine.getShortDescription())
-                .imageUrl(wine.getImageUrl())
-                .price(wine.getPrice())
-                .salePrice(wine.getSalePrice())
-                .isSale(wine.isSale())
-                .stockStatus(wine.getStockStatus())
-                .stockQuantity(wine.getStockQuantity())
-                .type(wine.getType())
-                .grapeVariety(wine.getGrapeVariety())
-                .winery(wine.getWinery())
-                .region(wine.getRegion())
-                .country(wine.getCountry())
-                .year(wine.getReleaseYear())
-                .alcohol(wine.getAlcohol())
-                .acidity(wine.getAcidity())
-                .sugar(wine.getSugar())
-                .flavor(wine.getFlavor())
-                .qualityLevel(wine.getQualityLevel())
-                .edition(wine.getEdition())
-                .rating(wine.getRating())
-                .recommendedDishes(wine.getRecommendedDishes())
-                .tags(wine.getTags())
-                .featured(wine.isFeatured())
-                .build();
     }
 }

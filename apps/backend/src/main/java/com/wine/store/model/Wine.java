@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -42,10 +43,12 @@ public class Wine {
     @Column(nullable = false, unique = true)
     private String slug; // Для SEO URL
 
-    @Column(columnDefinition = "CLOB")
+    @Column(columnDefinition = "TEXT")
+    @Lob
     private String description;
 
-    @Column(columnDefinition = "CLOB")
+    @Column(columnDefinition = "TEXT")
+    @Lob
     private String shortDescription;
 
     private String imageUrl;

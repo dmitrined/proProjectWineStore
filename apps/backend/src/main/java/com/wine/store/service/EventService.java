@@ -2,12 +2,17 @@ package com.wine.store.service;
 
 import com.wine.store.dto.BookingRequest;
 import com.wine.store.dto.EventDTO;
+import com.wine.store.mapper.EventMapper;
 import com.wine.store.model.Booking;
 import com.wine.store.model.BookingStatus;
 import com.wine.store.model.Event;
 import com.wine.store.repository.BookingRepository;
 import com.wine.store.repository.EventRepository;
+import com.wine.store.exception.AppException;
+import com.wine.store.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,37 +26,42 @@ import java.util.stream.Collectors;
  */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class EventService {
 
     private final EventRepository eventRepository;
     private final BookingRepository bookingRepository;
+    private final EventMapper eventMapper;
 
     @Transactional(readOnly = true)
     public List<EventDTO> getUpcomingEvents() {
+        log.info("Fetching upcoming events");
         return eventRepository.findByDateAfterOrderByDateAsc(LocalDate.now().minusDays(1))
                 .stream()
-                .map(this::convertToDto)
+                .map(eventMapper::toDto)
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
     public EventDTO getEventBySlug(String slug) {
+        log.info("Fetching event by slug: {}", slug);
         return eventRepository.findBySlug(slug)
-                .map(this::convertToDto)
-                .orElseThrow(() -> new RuntimeException("Event not found: " + slug));
+                .map(eventMapper::toDto)
+                .orElseThrow(() -> new ResourceNotFoundException("Event not found: " + slug));
     }
 
     @Transactional
     public void createBooking(BookingRequest request) {
-        Event event = eventRepository.findById(request.eventId())
-                .orElseThrow(() -> new RuntimeException("Event not found"));
+        log.info("Creating booking for event ID: {} for guests: {}", request.eventId(), request.guests());
+        int updatedRows = eventRepository.incrementBookedSpots(request.eventId(), request.guests());
 
-        if (event.getBookedSpots() + request.guests() > event.getTotalSpots()) {
-            throw new RuntimeException("Not enough spots available");
+        if (updatedRows == 0) {
+            log.warn("Failed to create booking - not enough spots for event ID: {}", request.eventId());
+            throw new AppException("Not enough spots available or event not found", HttpStatus.CONFLICT);
         }
 
-        event.setBookedSpots(event.getBookedSpots() + request.guests());
-        eventRepository.save(event);
+        Event event = eventRepository.findById(request.eventId())
+                .orElseThrow(() -> new ResourceNotFoundException("Event not found"));
 
         BigDecimal totalPrice = event.getPricePerPerson().multiply(BigDecimal.valueOf(request.guests()));
 
@@ -67,23 +77,5 @@ public class EventService {
 
         bookingRepository.save(booking);
         // todo: send email confirmation
-    }
-
-    private EventDTO convertToDto(Event event) {
-        return EventDTO.builder()
-                .id(event.getId())
-                .title(event.getTitle())
-                .slug(event.getSlug())
-                .description(event.getDescription())
-                .imageUrl(event.getImageUrl())
-                .date(event.getDate())
-                .time(event.getTime())
-                .location(event.getLocation())
-                .pricePerPerson(event.getPricePerPerson())
-                .totalSpots(event.getTotalSpots())
-                .bookedSpots(event.getBookedSpots())
-                .isFull(event.isFull())
-                .category(event.getCategory())
-                .build();
     }
 }
