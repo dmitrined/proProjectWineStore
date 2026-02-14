@@ -42,10 +42,10 @@ public class Wine {
     @Column(nullable = false, unique = true)
     private String slug; // Для SEO URL
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "CLOB")
     private String description;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "CLOB")
     private String shortDescription;
 
     private String imageUrl;
@@ -67,6 +67,10 @@ public class Wine {
     private WineType type; // RED, WHITE, ROSE, SPARKLING...
 
     private String grapeVariety; // Spätburgunder
+    private String winery;
+    private String region;
+    private String country;
+
     @Column(name = "release_year")
     private Integer releaseYear;
 
@@ -78,8 +82,8 @@ public class Wine {
     @Enumerated(EnumType.STRING)
     private WineFlavor flavor; // TROCKEN, FEINHERB...
 
-    private String qualityLevel; // VDP.GUTSWEIN
-    private String edition; // Edition C
+    private String edition; // Edition C...
+    private String qualityLevel;
 
     // AI & Meta
     private Double rating;
@@ -92,5 +96,8 @@ public class Wine {
     @ElementCollection
     @CollectionTable(name = "wine_tags", joinColumns = @JoinColumn(name = "wine_id"))
     @Column(name = "tag")
-    private List<String> tags; // ["Bio", "New"]
+    private List<String> tags;
+
+    private boolean featured;
+
 }

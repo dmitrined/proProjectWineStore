@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -52,13 +53,15 @@ public class EventService {
         event.setBookedSpots(event.getBookedSpots() + request.guests());
         eventRepository.save(event);
 
+        BigDecimal totalPrice = event.getPricePerPerson().multiply(BigDecimal.valueOf(request.guests()));
+
         Booking booking = Booking.builder()
                 .event(event)
                 .customerName(request.name())
                 .customerEmail(request.email())
                 .customerPhone(request.phone())
                 .guestsCount(request.guests())
-                // .totalPrice(...) // logic to calculate price if needed
+                .totalPrice(totalPrice)
                 .status(BookingStatus.CONFIRMED)
                 .build();
 

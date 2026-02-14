@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1" author="junie">
+        <createTable tableName="users">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="VARCHAR(255)"/>
+            <column name="first_name" type="VARCHAR(255)"/>
+            <column name="last_name" type="VARCHAR(255)"/>
+            <column name="user_role" type="VARCHAR(50)"/>
+        </createTable>
+
+        <createTable tableName="wines">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="slug" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="description" type="CLOB"/>
+            <column name="short_description" type="CLOB"/>
+            <column name="image_url" type="VARCHAR(255)"/>
+            <column name="price" type="DECIMAL(19, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="sale_price" type="DECIMAL(19, 2)"/>
+            <column name="is_sale" type="BOOLEAN" defaultValueBoolean="false"/>
+            <column name="stock_status" type="VARCHAR(50)"/>
+            <column name="stock_quantity" type="INTEGER"/>
+            <column name="type" type="VARCHAR(50)"/>
+            <column name="grape_variety" type="VARCHAR(255)"/>
+            <column name="winery" type="VARCHAR(255)"/>
+            <column name="region" type="VARCHAR(255)"/>
+            <column name="country" type="VARCHAR(255)"/>
+            <column name="release_year" type="INTEGER"/>
+            <column name="alcohol" type="VARCHAR(50)"/>
+            <column name="acidity" type="VARCHAR(50)"/>
+            <column name="sugar" type="VARCHAR(50)"/>
+            <column name="flavor" type="VARCHAR(50)"/>
+            <column name="quality_level" type="VARCHAR(255)"/>
+            <column name="edition" type="VARCHAR(255)"/>
+            <column name="rating" type="DOUBLE PRECISION"/>
+            <column name="featured" type="BOOLEAN" defaultValueBoolean="false"/>
+        </createTable>
+
+        <createTable tableName="wine_dishes">
+            <column name="wine_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dish" type="VARCHAR(255)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="wine_dishes" baseColumnNames="wine_id" constraintName="fk_wine_dishes_wine"
+                                 referencedTableName="wines" referencedColumnNames="id" onDelete="CASCADE"/>
+
+        <createTable tableName="wine_tags">
+            <column name="wine_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tag" type="VARCHAR(255)"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="wine_tags" baseColumnNames="wine_id" constraintName="fk_wine_tags_wine"
+                                 referencedTableName="wines" referencedColumnNames="id" onDelete="CASCADE"/>
+
+        <createTable tableName="events">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="title" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="slug" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="description" type="CLOB"/>
+            <column name="image_url" type="VARCHAR(255)"/>
+            <column name="date" type="DATE"/>
+            <column name="time" type="VARCHAR(100)"/>
+            <column name="location" type="VARCHAR(255)"/>
+            <column name="price_per_person" type="DECIMAL(19, 2)"/>
+            <column name="total_spots" type="INTEGER"/>
+            <column name="booked_spots" type="INTEGER" defaultValueNumeric="0"/>
+            <column name="category" type="VARCHAR(50)"/>
+        </createTable>
+
+        <createTable tableName="bookings">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="event_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="customer_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="customer_email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="customer_phone" type="VARCHAR(255)"/>
+            <column name="guests_count" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="total_price" type="DECIMAL(19, 2)"/>
+            <column name="status" type="VARCHAR(50)"/>
+            <column name="created_at" type="TIMESTAMP"/>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="bookings" baseColumnNames="event_id" constraintName="fk_bookings_event"
+                                 referencedTableName="events" referencedColumnNames="id" onDelete="CASCADE"/>
+
+        <createTable tableName="orders">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="UUID"/>
+            <column name="total_amount" type="DECIMAL(19, 2)"/>
+            <column name="status" type="VARCHAR(50)"/>
+            <column name="first_name" type="VARCHAR(255)"/>
+            <column name="last_name" type="VARCHAR(255)"/>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="phone" type="VARCHAR(50)"/>
+            <column name="address" type="VARCHAR(255)"/>
+            <column name="city" type="VARCHAR(100)"/>
+            <column name="country" type="VARCHAR(100)"/>
+            <column name="zip_code" type="VARCHAR(20)"/>
+            <column name="created_at" type="TIMESTAMP"/>
+        </createTable>
+
+        <createTable tableName="order_items">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="order_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="wine_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="quantity" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="DECIMAL(19, 2)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addForeignKeyConstraint baseTableName="order_items" baseColumnNames="order_id" constraintName="fk_order_items_order"
+                                 referencedTableName="orders" referencedColumnNames="id" onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="order_items" baseColumnNames="wine_id" constraintName="fk_order_items_wine"
+                                 referencedTableName="wines" referencedColumnNames="id"/>
+    </changeSet>
+
+</databaseChangeLog>

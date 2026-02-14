@@ -32,6 +32,7 @@ public class DataInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
         loadWines();
         loadEvents();
+        log.info("Data initialization completed. Application is ready.");
     }
 
     private void loadWines() {
@@ -46,7 +47,7 @@ public class DataInitializer implements CommandLineRunner {
             List<WineJsonDto> wineDtos = objectMapper.readValue(inputStream, new TypeReference<>() {
             });
 
-            List<Wine> wines = wineDtos.stream().map(dto -> Wine.builder()
+            List<Wine> wines = (List<Wine>) wineDtos.stream().map(dto -> Wine.builder()
                     .name(dto.getName())
                     .slug(dto.getSlug())
                     .description(dto.getDescription())
@@ -58,7 +59,10 @@ public class DataInitializer implements CommandLineRunner {
                     .stockStatus(dto.getMappedStockStatus())
                     .stockQuantity(dto.getStockQuantity())
                     .type(dto.getMappedType())
-                    .grapeVariety(dto.getGrapeVariety())
+                    .grapeVariety(dto.getGrapeVariety() != null ? dto.getGrapeVariety() : dto.getGrapeVarietyCamel())
+                    .winery(dto.getWinery())
+                    .region(dto.getRegion())
+                    .country(dto.getCountry())
                     .releaseYear(dto.getYear())
                     .alcohol(dto.getAlcohol())
                     .acidity(dto.getAcidity())
@@ -67,8 +71,10 @@ public class DataInitializer implements CommandLineRunner {
                     .qualityLevel(dto.getQualityLevel())
                     .edition(dto.getEdition())
                     .rating(dto.getRating())
-                    .recommendedDishes(dto.getFoodPairing())
+                    .recommendedDishes(
+                            dto.getRecommendedDishes() != null ? dto.getRecommendedDishes() : dto.getFoodPairing())
                     .tags(dto.getTags())
+                    .featured(dto.isFeatured())
                     .build()).toList();
 
             wineRepository.saveAll(wines);

@@ -41,15 +41,19 @@ public class CartService {
                 continue;
             }
 
-            BigDecimal price = wine.isSale() && wine.getSalePrice() != null
+            BigDecimal price = (wine.isSale() && wine.getSalePrice() != null && wine.getSalePrice().compareTo(BigDecimal.ZERO) > 0)
                     ? wine.getSalePrice()
                     : wine.getPrice();
+
+            if (price == null) {
+                price = BigDecimal.ZERO;
+            }
 
             BigDecimal subtotal = price.multiply(BigDecimal.valueOf(itemReq.quantity()));
             totalAmount = totalAmount.add(subtotal);
 
             boolean isAvailable = wine.getStockStatus() == StockStatus.IN_STOCK
-                    && (wine.getStockQuantity() == null || wine.getStockQuantity() >= itemReq.quantity());
+                    && (wine.getStockQuantity() != null && wine.getStockQuantity() >= itemReq.quantity());
 
             if (!isAvailable)
                 allAvailable = false;

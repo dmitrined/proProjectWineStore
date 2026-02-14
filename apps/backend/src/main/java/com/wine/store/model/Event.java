@@ -38,7 +38,7 @@ public class Event {
     @Column(nullable = false, unique = true)
     private String slug;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "CLOB")
     private String description;
 
     private String imageUrl;

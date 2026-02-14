@@ -6,7 +6,6 @@ package com.wine.store.model;
 public enum EventCategory {
     WEINFEST,
     WEINPROBE,
-    RESTAURANT,
     ONLINE,
     OTHER
 }

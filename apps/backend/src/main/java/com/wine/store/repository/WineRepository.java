@@ -21,4 +21,8 @@ public interface WineRepository extends JpaRepository<Wine, Long>, JpaSpecificat
 
     @Query("SELECT DISTINCT w.grapeVariety FROM Wine w WHERE w.grapeVariety IS NOT NULL")
     List<String> findAllGrapeVarieties();
+
+    List<Wine> findByFeaturedTrue();
+
+    List<Wine> findTop10ByOrderByRatingDesc();
 }

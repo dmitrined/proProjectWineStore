@@ -33,6 +33,11 @@ public class WineJsonDto {
     private String type;
     @JsonProperty("grape_variety")
     private String grapeVariety;
+    @JsonProperty("grapeVariety") // handle both
+    private String grapeVarietyCamel;
+    private String winery;
+    private String region;
+    private String country;
     private Integer year;
     private String alcohol;
     private String acidity;
@@ -44,7 +49,10 @@ public class WineJsonDto {
     private Double rating;
     @JsonProperty("food_pairing")
     private List<String> foodPairing;
+    @JsonProperty("recommended_dishes")
+    private List<String> recommendedDishes;
     private List<String> tags;
+    private boolean featured;
 
     public StockStatus getMappedStockStatus() {
         if (stockStatus == null)

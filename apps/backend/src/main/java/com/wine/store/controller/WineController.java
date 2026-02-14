@@ -41,4 +41,14 @@ public class WineController {
     public ResponseEntity<List<String>> getGrapeVarieties() {
         return ResponseEntity.ok(wineService.getAllGrapes());
     }
+
+    @GetMapping("/featured")
+    public ResponseEntity<List<WineDTO>> getFeaturedWines() {
+        return ResponseEntity.ok(wineService.getFeaturedWines());
+    }
+
+    @GetMapping("/top-rated")
+    public ResponseEntity<List<WineDTO>> getTopRatedWines() {
+        return ResponseEntity.ok(wineService.getTopRatedWines());
+    }
 }

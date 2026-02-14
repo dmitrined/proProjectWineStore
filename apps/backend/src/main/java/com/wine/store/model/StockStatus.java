@@ -5,5 +5,6 @@ package com.wine.store.model;
  */
 public enum StockStatus {
     IN_STOCK,
-    OUT_OF_STOCK
+    OUT_OF_STOCK,
+    ON_DEMAND
 }

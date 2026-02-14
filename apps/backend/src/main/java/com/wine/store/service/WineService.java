@@ -42,6 +42,20 @@ public class WineService {
         return wineRepository.findAllGrapeVarieties();
     }
 
+    @Transactional(readOnly = true)
+    public List<WineDTO> getFeaturedWines() {
+        return wineRepository.findByFeaturedTrue().stream()
+                .map(this::convertToDto)
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<WineDTO> getTopRatedWines() {
+        return wineRepository.findTop10ByOrderByRatingDesc().stream()
+                .map(this::convertToDto)
+                .toList();
+    }
+
     private WineDTO convertToDto(Wine wine) {
         return WineDTO.builder()
                 .id(wine.getId())
@@ -57,6 +71,9 @@ public class WineService {
                 .stockQuantity(wine.getStockQuantity())
                 .type(wine.getType())
                 .grapeVariety(wine.getGrapeVariety())
+                .winery(wine.getWinery())
+                .region(wine.getRegion())
+                .country(wine.getCountry())
                 .year(wine.getReleaseYear())
                 .alcohol(wine.getAlcohol())
                 .acidity(wine.getAcidity())
@@ -67,6 +84,7 @@ public class WineService {
                 .rating(wine.getRating())
                 .recommendedDishes(wine.getRecommendedDishes())
                 .tags(wine.getTags())
+                .featured(wine.isFeatured())
                 .build();
     }
 }

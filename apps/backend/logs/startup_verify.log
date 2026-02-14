@@ -1,0 +1,122 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------------< com.wine:store >---------------------------
+[INFO] Building store 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.3.5:run (default-cli) > test-compile @ store >>>
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ store ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 6 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ store ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 37 source files with javac [debug parameters release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ store ---
+[INFO] skip non existing resourceDirectory /Users/dmitrinedioglo/Documents/GitHub/ProProjectWineStore/apps/backend/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ store ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] <<< spring-boot:3.3.5:run (default-cli) < test-compile @ store <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.3.5:run (default-cli) @ store ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.5)
+
+2026-02-14T18:40:25.209+01:00  INFO 22864 --- [pro-project-wine-store-backend] [           main] c.w.s.ProProjectWineStoreApplication     : Starting ProProjectWineStoreApplication using Java 21.0.9 with PID 22864 (/Users/dmitrinedioglo/Documents/GitHub/ProProjectWineStore/apps/backend/target/classes started by dmitrinedioglo in /Users/dmitrinedioglo/Documents/GitHub/ProProjectWineStore/apps/backend)
+2026-02-14T18:40:25.210+01:00  INFO 22864 --- [pro-project-wine-store-backend] [           main] c.w.s.ProProjectWineStoreApplication     : No active profile set, falling back to 1 default profile: "default"
+2026-02-14T18:40:25.456+01:00  INFO 22864 --- [pro-project-wine-store-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-14T18:40:25.482+01:00  INFO 22864 --- [pro-project-wine-store-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 22 ms. Found 3 JPA repository interfaces.
+2026-02-14T18:40:25.679+01:00  INFO 22864 --- [pro-project-wine-store-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-02-14T18:40:25.685+01:00  INFO 22864 --- [pro-project-wine-store-backend] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-14T18:40:25.686+01:00  INFO 22864 --- [pro-project-wine-store-backend] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
+2026-02-14T18:40:25.712+01:00  INFO 22864 --- [pro-project-wine-store-backend] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-14T18:40:25.713+01:00  INFO 22864 --- [pro-project-wine-store-backend] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 489 ms
+2026-02-14T18:40:25.769+01:00  INFO 22864 --- [pro-project-wine-store-backend] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-14T18:40:25.790+01:00  INFO 22864 --- [pro-project-wine-store-backend] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2026-02-14T18:40:25.801+01:00  INFO 22864 --- [pro-project-wine-store-backend] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-14T18:40:25.905+01:00  INFO 22864 --- [pro-project-wine-store-backend] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-14T18:40:25.916+01:00  INFO 22864 --- [pro-project-wine-store-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-14T18:40:25.996+01:00  INFO 22864 --- [pro-project-wine-store-backend] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2026-02-14T18:40:25.997+01:00  INFO 22864 --- [pro-project-wine-store-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-14T18:40:26.007+01:00  WARN 22864 --- [pro-project-wine-store-backend] [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-14T18:40:26.375+01:00  INFO 22864 --- [pro-project-wine-store-backend] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+Hibernate: drop table if exists bookings cascade 
+Hibernate: drop table if exists events cascade 
+Hibernate: drop table if exists order_items cascade 
+Hibernate: drop table if exists orders cascade 
+Hibernate: drop table if exists users cascade 
+Hibernate: drop table if exists wine_dishes cascade 
+Hibernate: drop table if exists wine_tags cascade 
+Hibernate: drop table if exists wines cascade 
+Hibernate: create table bookings (guests_count integer not null, total_price numeric(38,2), created_at timestamp(6), event_id bigint not null, id bigint generated by default as identity, customer_email varchar(255) not null, customer_name varchar(255) not null, customer_phone varchar(255), status enum ('CANCELLED','CONFIRMED','PENDING'), primary key (id))
+Hibernate: create table events (booked_spots integer, date date, price_per_person numeric(38,2), total_spots integer, id bigint generated by default as identity, description TEXT, image_url varchar(255), location varchar(255), slug varchar(255) not null unique, time varchar(255), title varchar(255) not null, category enum ('ONLINE','OTHER','WEINFEST','WEINPROBE'), primary key (id))
+Hibernate: create table order_items (price numeric(38,2) not null, quantity integer not null, id bigint generated by default as identity, wine_id bigint not null, order_id uuid not null, primary key (id))
+Hibernate: create table orders (total_amount numeric(38,2), created_at timestamp(6), id uuid not null, user_id uuid, address varchar(255), city varchar(255), country varchar(255), email varchar(255), first_name varchar(255), last_name varchar(255), phone varchar(255), status varchar(255), zip_code varchar(255), primary key (id))
+Hibernate: create table users (id uuid not null, email varchar(255) not null unique, first_name varchar(255), last_name varchar(255), password varchar(255), user_role enum ('ADMIN','USER'), primary key (id))
+Hibernate: create table wine_dishes (wine_id bigint not null, dish varchar(255))
+Hibernate: create table wine_tags (wine_id bigint not null, tag varchar(255))
+Hibernate: create table wines (featured boolean not null, is_sale boolean not null, price numeric(38,2) not null, rating float(53), release_year integer, sale_price numeric(38,2), stock_quantity integer, id bigint generated by default as identity, acidity varchar(255), alcohol varchar(255), country varchar(255), description TEXT, edition varchar(255), grape_variety varchar(255), image_url varchar(255), name varchar(255) not null, quality_level varchar(255), region varchar(255), short_description TEXT, slug varchar(255) not null unique, sugar varchar(255), winery varchar(255), flavor enum ('BRUT','FEINHERB','FRUCHTIG','HALBTROCKEN','TROCKEN'), stock_status enum ('IN_STOCK','ON_DEMAND','OUT_OF_STOCK'), type enum ('ALCOHOL_FREE','OTHER','PACKAGE','RED','ROSE','SPARKLING','WHITE'), primary key (id))
+Hibernate: alter table if exists bookings add constraint FK2ww82bk3npaiyu9oeehwtt2q3 foreign key (event_id) references events
+Hibernate: alter table if exists order_items add constraint FKbioxgbv59vetrxe0ejfubep1w foreign key (order_id) references orders
+Hibernate: alter table if exists order_items add constraint FKih8buj9cijyof4y1qdj7mo15k foreign key (wine_id) references wines
+Hibernate: alter table if exists wine_dishes add constraint FKma2w9sfu7lj6ka6jmlptkg8lw foreign key (wine_id) references wines
+Hibernate: alter table if exists wine_tags add constraint FKtmekyrsx8oihc8xt87avovtl3 foreign key (wine_id) references wines
+2026-02-14T18:40:26.395+01:00  INFO 22864 --- [pro-project-wine-store-backend] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-14T18:40:26.493+01:00  INFO 22864 --- [pro-project-wine-store-backend] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-14T18:40:26.652+01:00  WARN 22864 --- [pro-project-wine-store-backend] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-14T18:40:26.766+01:00  WARN 22864 --- [pro-project-wine-store-backend] [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-02-14T18:40:26.767+01:00  INFO 22864 --- [pro-project-wine-store-backend] [           main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+Hibernate: drop table if exists bookings cascade 
+Hibernate: drop table if exists events cascade 
+Hibernate: drop table if exists order_items cascade 
+Hibernate: drop table if exists orders cascade 
+Hibernate: drop table if exists users cascade 
+Hibernate: drop table if exists wine_dishes cascade 
+Hibernate: drop table if exists wine_tags cascade 
+Hibernate: drop table if exists wines cascade 
+2026-02-14T18:40:26.770+01:00  INFO 22864 --- [pro-project-wine-store-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-14T18:40:26.770+01:00  INFO 22864 --- [pro-project-wine-store-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-02-14T18:40:26.774+01:00  INFO 22864 --- [pro-project-wine-store-backend] [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-02-14T18:40:26.779+01:00 ERROR 22864 --- [pro-project-wine-store-backend] [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.727 s
+[INFO] Finished at: 2026-02-14T18:40:26+01:00
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:3.3.5:run (default-cli) on project store: Process terminated with exit code: 1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

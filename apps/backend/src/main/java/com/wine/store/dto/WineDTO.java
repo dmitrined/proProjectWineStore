@@ -31,6 +31,9 @@ public class WineDTO {
 
     private WineType type;
     private String grapeVariety;
+    private String winery;
+    private String region;
+    private String country;
     private Integer year;
 
     private String alcohol;
@@ -44,4 +47,5 @@ public class WineDTO {
     private Double rating;
     private List<String> recommendedDishes;
     private List<String> tags;
+    private boolean featured;
 }

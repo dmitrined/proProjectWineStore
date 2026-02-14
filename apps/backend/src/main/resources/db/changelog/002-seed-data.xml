@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="2-seed-data" author="junie">
+        <!-- Wines -->
+        <insert tableName="wines">
+            <column name="name" value="Riesling Trocken 2022"/>
+            <column name="slug" value="riesling-trocken-2022"/>
+            <column name="short_description" value="Классический немецкий рислинг с освежающей кислотностью."/>
+            <column name="description" value="Этот Riesling Trocken 2022 года происходит из лучших виноградников региона Мозель."/>
+            <column name="price" value="15.99"/>
+            <column name="is_sale" valueBoolean="false"/>
+            <column name="stock_status" value="IN_STOCK"/>
+            <column name="stock_quantity" valueNumeric="50"/>
+            <column name="type" value="WHITE"/>
+            <column name="grape_variety" value="Riesling"/>
+            <column name="winery" value="Schloss Johannisberg"/>
+            <column name="region" value="Mosel"/>
+            <column name="country" value="Germany"/>
+            <column name="release_year" valueNumeric="2022"/>
+            <column name="alcohol" value="12.5%"/>
+            <column name="flavor" value="TROCKEN"/>
+            <column name="rating" valueNumeric="4.5"/>
+            <column name="featured" valueBoolean="true"/>
+        </insert>
+
+        <insert tableName="wines">
+            <column name="name" value="Spätburgunder Red 2021"/>
+            <column name="slug" value="spatburgunder-red-2021"/>
+            <column name="short_description" value="Элегантное красное вино с нотами вишни и специй."/>
+            <column name="description" value="Превосходный немецкий Пино Нуар (Шпетбургундер) с мягкими танинами."/>
+            <column name="price" value="24.50"/>
+            <column name="sale_price" value="19.99"/>
+            <column name="is_sale" valueBoolean="true"/>
+            <column name="stock_status" value="IN_STOCK"/>
+            <column name="stock_quantity" valueNumeric="25"/>
+            <column name="type" value="RED"/>
+            <column name="grape_variety" value="Spätburgunder"/>
+            <column name="winery" value="Meyer-Näkel"/>
+            <column name="region" value="Ahr"/>
+            <column name="country" value="Germany"/>
+            <column name="release_year" valueNumeric="2021"/>
+            <column name="alcohol" value="13.5%"/>
+            <column name="flavor" value="TROCKEN"/>
+            <column name="rating" valueNumeric="4.8"/>
+            <column name="featured" valueBoolean="true"/>
+        </insert>
+
+        <!-- Tags for first wine (assuming ID 1) -->
+        <insert tableName="wine_tags">
+            <column name="wine_id" valueComputed="(SELECT id FROM wines WHERE slug = 'riesling-trocken-2022')"/>
+            <column name="tag" value="fresh"/>
+        </insert>
+        <insert tableName="wine_tags">
+            <column name="wine_id" valueComputed="(SELECT id FROM wines WHERE slug = 'riesling-trocken-2022')"/>
+            <column name="tag" value="mineral"/>
+        </insert>
+
+        <!-- Events -->
+        <insert tableName="events">
+            <column name="title" value="Большая дегустация рислингов"/>
+            <column name="slug" value="riesling-tasting-2026"/>
+            <column name="description" value="Присоединяйтесь к нам для исследования лучших рислингов Германии."/>
+            <column name="date" value="2026-06-15"/>
+            <column name="time" value="18:00"/>
+            <column name="location" value="WeinStore Berlin, Uhlandstraße 12"/>
+            <column name="price_per_person" value="45.00"/>
+            <column name="total_spots" valueNumeric="20"/>
+            <column name="booked_spots" valueNumeric="5"/>
+            <column name="category" value="WEINPROBE"/>
+        </insert>
+
+        <insert tableName="events">
+            <column name="title" value="Фестиваль летних вин"/>
+            <column name="slug" value="summer-wine-fest-2026"/>
+            <column name="description" value="Праздник вина, музыки и хорошего настроения под открытым небом."/>
+            <column name="date" value="2026-07-20"/>
+            <column name="time" value="14:00"/>
+            <column name="location" value="Park am Gleisdreieck"/>
+            <column name="price_per_person" value="15.00"/>
+            <column name="total_spots" valueNumeric="200"/>
+            <column name="booked_spots" valueNumeric="45"/>
+            <column name="category" value="WEINFEST"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

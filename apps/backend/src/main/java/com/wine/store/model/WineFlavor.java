@@ -6,5 +6,6 @@ package com.wine.store.model;
 public enum WineFlavor {
     TROCKEN,
     FEINHERB,
-    FRUCHTIG
+    FRUCHTIG,
+    BRUT
 }
