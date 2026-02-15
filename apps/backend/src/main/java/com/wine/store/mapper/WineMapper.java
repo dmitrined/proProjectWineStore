@@ -13,4 +13,8 @@ public interface WineMapper {
 
     @Mapping(source = "year", target = "releaseYear")
     Wine toEntity(WineDTO dto);
+
+    @Mapping(source = "year", target = "releaseYear")
+    @Mapping(target = "id", ignore = true)
+    void updateEntityFromDto(WineDTO dto, @org.mapstruct.MappingTarget Wine entity);
 }

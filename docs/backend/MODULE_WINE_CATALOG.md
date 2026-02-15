@@ -2,7 +2,7 @@
 
 Этот модуль отвечает за управление ассортиментом вин, фильтрацию и поиск.
 
-## 📦 Package: `com.fellbach.api.wine`
+## 📦 Package: `com.wine.store`
 
 ## 1. 🏗 Entities (Сущности)
 
@@ -23,8 +23,6 @@ public class Wine {
     
     @Column(columnDefinition = "TEXT")
     private String description;
-    @Column(columnDefinition = "TEXT")
-    private String shortDescription;
 
     private String imageUrl;
 
@@ -34,15 +32,17 @@ public class Wine {
     private boolean isSale;
     
     @Enumerated(EnumType.STRING)
-    private StockStatus stockStatus; // INSTOCK, OUTOFSTOCK
+    private StockStatus stockStatus; // IN_STOCK, OUT_OF_STOCK
     private Integer stockQuantity;
 
     // Характеристики
     @Enumerated(EnumType.STRING)
-    private WineType type; // RED, WHITE, ROSE, SPARKLING...
+    private WineType type; // RED, WHITE, ROSE, SPARKLING, ALCOHOL_FREE, PACKAGE, OTHER
     
     private String grapeVariety; // Spätburgunder
-    private Integer year;
+    
+    @Column(name = "release_year")
+    private Integer releaseYear; // 2022
     
     // Технические данные
     private String alcohol; // 13.5%
@@ -52,11 +52,11 @@ public class Wine {
     @Enumerated(EnumType.STRING)
     private WineFlavor flavor; // TROCKEN, FEINHERB...
     
-    private String qualityLevel; // VDP.GUTSWEIN
     private String edition;      // Edition C
-
+    
     // AI & Meta
     private Double rating;
+    private boolean featured;
     
     @ElementCollection
     private List<String> recommendedDishes; // ["Steak", "Pasta"]
@@ -69,20 +69,13 @@ public class Wine {
 ### Enums
 *   `WineType`: `RED`, `WHITE`, `ROSE`, `SPARKLING`, `ALCOHOL_FREE`, `PACKAGE`, `OTHER`
 *   `WineFlavor`: `TROCKEN`, `HALBTROCKEN`, `FEINHERB`, `LIEBLICH`, `SUESS`
-*   `StockStatus`: `IN_STOCK`, `OUT_OF_STOCK`, `ON_DEMAND`
+*   `StockStatus`: `IN_STOCK`, `OUT_OF_STOCK`
 
 ## 2. 🔄 DTOs (Data Transfer Objects)
 
 ### `WineDTO.java`
 Полная проекция вина для отправки на клиент.
-*   Поля идентичны `Wine` entity, но без тяжелых связей (если будут).
-
-### `WinePreviewDTO.java`
-Облегченная версия для списков (без полного описания и характеристик).
-*   `id`, `name`, `slug`, `price`, `imageUrl`, `type`, `grapeVariety`.
-
-### `WineSearchRequest.java`
-Параметры фильтрации (см. `SPRING_BOOT_FILTERING.md`).
+*   Поля идентичны `Wine` entity.
 
 ## 3. 🗄 Repositories
 
@@ -90,7 +83,7 @@ public class Wine {
 ```java
 public interface WineRepository extends JpaRepository<Wine, Long>, JpaSpecificationExecutor<Wine> {
     Optional<Wine> findBySlug(String slug);
-    List<Wine> findTop10ByOrderByCreatedAtDesc(); // New arrivals
+    // Dynamic filtering via Specifications
 }
 ```
 
@@ -99,16 +92,19 @@ public interface WineRepository extends JpaRepository<Wine, Long>, JpaSpecificat
 ### `WineService.java`
 Бизнес-логика каталога.
 
-*   `Page<WineDTO> getAllWines(WineSearchRequest request, Pageable pageable)` — основной метод каталога.
-*   `WineDTO getWineBySlug(String slug)` — для детальной страницы.
-*   `List<WineDTO> getRelatedWines(Long wineId)` — похожие товары (простая логика: тот же сорт/тип).
-*   `List<String> getAllGrapes()` — для заполнения фильтров в сайдбаре.
+*   `Page<WineDTO> getAllWines(WineSearchRequest request, Pageable pageable)` — получение вин с фильтрацией.
+*   `WineDTO getWineBySlug(String slug)` — детальная страница.
+*   `WineDTO createWine(WineDTO dto)` — создание (ADMIN).
+*   `WineDTO updateWine(String slug, WineDTO dto)` — обновление (ADMIN).
+*   `void deleteWine(String slug)` — удаление (ADMIN).
 
 ## 5. 🎮 Controllers
 
 ### `WineController.java`
 REST API эндпоинты.
 
-*   `GET /api/wines` — возвращает Page<WineDTO>
-*   `GET /api/wines/{slug}` — возвращает WineDTO
-*   `GET /api/wines/filters/facets` — возвращает доступные варианты (уникальные сорта, вкусы) для UI фильтров.
+*   `GET /api/wines` — список вин (Public)
+*   `GET /api/wines/{slug}` — детали (Public)
+*   `POST /api/wines` — создать (Admin)
+*   `PUT /api/wines/{slug}` — обновить (Admin)
+*   `DELETE /api/wines/{slug}` — удалить (Admin)

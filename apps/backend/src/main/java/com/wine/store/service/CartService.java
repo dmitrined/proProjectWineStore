@@ -6,6 +6,7 @@ import com.wine.store.dto.CartItemResponseDTO;
 import com.wine.store.model.StockStatus;
 import com.wine.store.model.Wine;
 import com.wine.store.repository.WineRepository;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,7 +31,11 @@ public class CartService {
         boolean allAvailable = true;
 
         for (var itemReq : request.items()) {
-            Wine wine = wineRepository.findById(itemReq.productId()).orElse(null);
+            if (itemReq.productId() == null) {
+                allAvailable = false;
+                continue;
+            }
+            Wine wine = wineRepository.findById(Objects.requireNonNull(itemReq.productId())).orElse(null);
 
             if (wine == null) {
                 // Если товар не найден, он недоступен
@@ -41,9 +46,10 @@ public class CartService {
                 continue;
             }
 
-            BigDecimal price = (wine.isSale() && wine.getSalePrice() != null && wine.getSalePrice().compareTo(BigDecimal.ZERO) > 0)
-                    ? wine.getSalePrice()
-                    : wine.getPrice();
+            BigDecimal price = (wine.isSale() && wine.getSalePrice() != null
+                    && wine.getSalePrice().compareTo(BigDecimal.ZERO) > 0)
+                            ? wine.getSalePrice()
+                            : wine.getPrice();
 
             if (price == null) {
                 price = BigDecimal.ZERO;

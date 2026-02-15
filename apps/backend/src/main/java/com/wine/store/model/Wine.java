@@ -47,10 +47,6 @@ public class Wine {
     @Lob
     private String description;
 
-    @Column(columnDefinition = "TEXT")
-    @Lob
-    private String shortDescription;
-
     private String imageUrl;
 
     // Цена и Наличие
@@ -70,9 +66,6 @@ public class Wine {
     private WineType type; // RED, WHITE, ROSE, SPARKLING...
 
     private String grapeVariety; // Spätburgunder
-    private String winery;
-    private String region;
-    private String country;
 
     @Column(name = "release_year")
     private Integer releaseYear;
@@ -86,7 +79,6 @@ public class Wine {
     private WineFlavor flavor; // TROCKEN, FEINHERB...
 
     private String edition; // Edition C...
-    private String qualityLevel;
 
     // AI & Meta
     private Double rating;

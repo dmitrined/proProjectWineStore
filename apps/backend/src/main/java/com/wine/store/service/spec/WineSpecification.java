@@ -33,7 +33,9 @@ public class WineSpecification {
                         cb.like(cb.lower(root.get("description")), pattern),
                         cb.like(cb.lower(root.get("grapeVariety")), pattern),
                         cb.like(cb.lower(root.join("tags", jakarta.persistence.criteria.JoinType.LEFT)), pattern)));
-                query.distinct(true);
+                if (query != null) {
+                    query.distinct(true);
+                }
             }
 
             // 2. Категория / Тип
@@ -70,9 +72,10 @@ public class WineSpecification {
             // 6. Качество (Quality)
             if (StringUtils.hasText(request.quality())) {
                 String q = request.quality().toLowerCase();
-                Predicate qualityMatch = cb.like(cb.lower(root.get("qualityLevel")), "%" + q + "%");
+                // Predicate qualityMatch = cb.like(cb.lower(root.get("qualityLevel")), "%" + q
+                // + "%"); // Removed
                 Predicate editionMatch = cb.like(cb.lower(root.get("edition")), "%" + q + "%");
-                predicates.add(cb.or(qualityMatch, editionMatch));
+                predicates.add(editionMatch); // Only search in edition
             }
 
             // 7. Диапазон цен

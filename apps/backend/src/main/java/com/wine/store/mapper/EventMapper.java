@@ -10,4 +10,8 @@ public interface EventMapper {
     EventDTO toDto(Event event);
 
     Event toEntity(EventDTO dto);
+
+    @org.mapstruct.Mapping(target = "id", ignore = true)
+    @org.mapstruct.Mapping(target = "bookedSpots", ignore = true)
+    void updateEntityFromDto(EventDTO dto, @org.mapstruct.MappingTarget Event entity);
 }

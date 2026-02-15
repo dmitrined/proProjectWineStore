@@ -1,11 +1,10 @@
 package com.wine.store.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.wine.store.dto.ErrorResponse;
+import com.wine.store.dto.ApiResponse;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -26,13 +25,8 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
-        ErrorResponse errorResponse = ErrorResponse.builder()
-                .status(HttpStatus.FORBIDDEN.value())
-                .error(HttpStatus.FORBIDDEN.getReasonPhrase())
-                .message("You do not have permission to access this resource")
-                .path(request.getRequestURI())
-                .build();
+        ApiResponse<Void> apiResponse = ApiResponse.error("You do not have permission to access this resource");
 
-        response.getWriter().write(objectMapper.writeValueAsString(errorResponse));
+        response.getWriter().write(objectMapper.writeValueAsString(apiResponse));
     }
 }

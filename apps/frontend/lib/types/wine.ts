@@ -13,7 +13,7 @@ export interface Wine {
     sale?: boolean;         // Флаг распродажи
     sale_price?: number;    // Цена со скидкой
     description: string;    // Развернутое описание для страницы товара
-    short_description: string; // Короткое описание для карточек в каталоге
+    short_description?: string; // Короткое описание для карточек в каталоге
     image: string;          // Основная ссылка на изображение
 
     // КАТЕГОРИЗАЦИЯ И СКЛАД
@@ -32,7 +32,7 @@ export interface Wine {
     quality_level?: string; // Классификация (VDP, Qualitätswein)
     edition?: string;       // Особая серия (Edition P, Edition C,)
 
-    
+
 
     // ДАННЫЕ ДЛЯ AI И МАРКЕТИНГА
     rating?: number;        // Средняя оценка пользователей (4.5, 5.0)

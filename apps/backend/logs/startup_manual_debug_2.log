@@ -1,0 +1,170 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ---------------------------< com.wine:store >---------------------------
+[INFO] Building store 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:3.3.5:run (default-cli) > test-compile @ store >>>
+[INFO] 
+[INFO] --- enforcer:3.5.0:enforce (enforce-java) @ store ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ store ---
+[INFO] Copying 3 resources from src/main/resources to target/classes
+[INFO] Copying 5 resources from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.13.0:compile (default-compile) @ store ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ store ---
+[INFO] skip non existing resourceDirectory /Users/dmitrinedioglo/Documents/GitHub/ProProjectWineStore/apps/backend/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ store ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:3.3.5:run (default-cli) < test-compile @ store <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.3.5:run (default-cli) @ store ---
+[INFO] Attaching agents: []
+18:32:00.302 [main] INFO com.wine.store.ProProjectWineStoreApplication -- Starting ProProjectWineStoreApplication...
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.5)
+
+2026-02-15T18:32:00.438+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] c.w.s.ProProjectWineStoreApplication     : Starting ProProjectWineStoreApplication using Java 21.0.9 with PID 70389 (/Users/dmitrinedioglo/Documents/GitHub/ProProjectWineStore/apps/backend/target/classes started by dmitrinedioglo in /Users/dmitrinedioglo/Documents/GitHub/ProProjectWineStore/apps/backend)
+2026-02-15T18:32:00.438+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] c.w.s.ProProjectWineStoreApplication     : The following 1 profile is active: "dev"
+2026-02-15T18:32:00.687+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-15T18:32:00.707+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 18 ms. Found 4 JPA repository interfaces.
+2026-02-15T18:32:00.866+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8080 (http)
+2026-02-15T18:32:00.871+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-02-15T18:32:00.871+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
+2026-02-15T18:32:00.888+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-02-15T18:32:00.888+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 438 ms
+2026-02-15T18:32:00.931+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-02-15T18:32:00.995+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:testdb user=SA
+2026-02-15T18:32:00.996+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-02-15T18:32:01.017+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.database                       : Set default schema name to PUBLIC
+2026-02-15T18:32:01.152+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.changelog                      : Creating database history table with name: PUBLIC.DATABASECHANGELOG
+2026-02-15T18:32:01.182+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.changelog                      : Reading from PUBLIC.DATABASECHANGELOG
+2026-02-15T18:32:01.218+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.lockservice                    : Successfully acquired change log lock
+2026-02-15T18:32:01.219+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.command                        : Using deploymentId: 1176721219
+2026-02-15T18:32:01.219+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.changelog                      : Reading from PUBLIC.DATABASECHANGELOG
+2026-02-15T18:32:01.235+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.ui                             : Running Changeset: db/changelog/001-initial-schema.xml::1::Dmitri Nedioglo
+2026-02-15T18:32:01.237+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.changelog                      : Table users created
+2026-02-15T18:32:01.240+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.changelog                      : Table wines created
+2026-02-15T18:32:01.241+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.changelog                      : Table wine_dishes created
+2026-02-15T18:32:01.242+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.changelog                      : Foreign key constraint added to wine_dishes (wine_id)
+2026-02-15T18:32:01.243+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.changelog                      : Table wine_tags created
+2026-02-15T18:32:01.244+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.changelog                      : Foreign key constraint added to wine_tags (wine_id)
+2026-02-15T18:32:01.245+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.changelog                      : Table events created
+2026-02-15T18:32:01.246+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.changelog                      : Table bookings created
+2026-02-15T18:32:01.247+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.changelog                      : Foreign key constraint added to bookings (event_id)
+2026-02-15T18:32:01.248+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.changelog                      : Table orders created
+2026-02-15T18:32:01.249+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.changelog                      : Table order_items created
+2026-02-15T18:32:01.250+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.changelog                      : Foreign key constraint added to order_items (order_id)
+2026-02-15T18:32:01.251+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.changelog                      : Foreign key constraint added to order_items (wine_id)
+2026-02-15T18:32:01.251+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.changelog                      : ChangeSet db/changelog/001-initial-schema.xml::1::Dmitri Nedioglo ran successfully in 15ms
+2026-02-15T18:32:01.253+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.ui                             : Running Changeset: db/changelog/002-seed-data.xml::2-seed-data-cleanup::Dmitri Nedioglo
+2026-02-15T18:32:01.253+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.changelog                      : ChangeSet db/changelog/002-seed-data.xml::2-seed-data-cleanup::Dmitri Nedioglo ran successfully in 0ms
+2026-02-15T18:32:01.255+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.util                           : UPDATE SUMMARY
+2026-02-15T18:32:01.255+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.util                           : Run:                          2
+2026-02-15T18:32:01.255+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.util                           : Previously run:               0
+2026-02-15T18:32:01.255+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.util                           : Filtered out:                 0
+2026-02-15T18:32:01.255+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.util                           : -------------------------------
+2026-02-15T18:32:01.255+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.util                           : Total change sets:            2
+2026-02-15T18:32:01.255+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.util                           : Update summary generated
+2026-02-15T18:32:01.256+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.command                        : Update command completed successfully.
+2026-02-15T18:32:01.256+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.ui                             : Liquibase: Update has been successful. Rows affected: 2
+2026-02-15T18:32:01.257+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.lockservice                    : Successfully released change log lock
+2026-02-15T18:32:01.257+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] liquibase.command                        : Command execution complete
+2026-02-15T18:32:01.279+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2026-02-15T18:32:01.293+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.5.3.Final
+2026-02-15T18:32:01.301+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2026-02-15T18:32:01.378+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-15T18:32:01.390+01:00  WARN 70389 --- [pro-project-wine-store-backend] [           main] org.hibernate.orm.deprecation            : HHH90000025: H2Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-15T18:32:01.713+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-15T18:32:01.724+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-15T18:32:01.790+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] o.s.d.j.r.query.QueryEnhancerFactory     : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-15T18:32:02.012+01:00  WARN 70389 --- [pro-project-wine-store-backend] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-02-15T18:32:02.025+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2026-02-15T18:32:02.025+01:00  WARN 70389 --- [pro-project-wine-store-backend] [           main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2026-02-15T18:32:02.187+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8080 (http) with context path '/'
+2026-02-15T18:32:02.191+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] c.w.s.ProProjectWineStoreApplication     : Started ProProjectWineStoreApplication in 1.859 seconds (process running for 1.966)
+2026-02-15T18:32:02.192+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] com.wine.store.config.DataInitializer    : Starting data initialization...
+Hibernate: select count(*) from wines w1_0
+2026-02-15T18:32:02.217+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] com.wine.store.config.DataInitializer    : Loading wines from JSON...
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wines (acidity,alcohol,country,description,edition,featured,flavor,grape_variety,image_url,is_sale,name,price,quality_level,rating,region,release_year,sale_price,short_description,slug,stock_quantity,stock_status,sugar,type,winery,id) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into wine_dishes (wine_id,dish) values (?,?)
+Hibernate: insert into wine_dishes (wine_id,dish) values (?,?)
+Hibernate: insert into wine_dishes (wine_id,dish) values (?,?)
+Hibernate: insert into wine_tags (wine_id,tag) values (?,?)
+Hibernate: insert into wine_tags (wine_id,tag) values (?,?)
+Hibernate: insert into wine_tags (wine_id,tag) values (?,?)
+Hibernate: insert into wine_dishes (wine_id,dish) values (?,?)
+Hibernate: insert into wine_dishes (wine_id,dish) values (?,?)
+Hibernate: insert into wine_dishes (wine_id,dish) values (?,?)
+Hibernate: insert into wine_dishes (wine_id,dish) values (?,?)
+Hibernate: insert into wine_dishes (wine_id,dish) values (?,?)
+Hibernate: insert into wine_dishes (wine_id,dish) values (?,?)
+Hibernate: insert into wine_dishes (wine_id,dish) values (?,?)
+Hibernate: insert into wine_dishes (wine_id,dish) values (?,?)
+2026-02-15T18:32:02.261+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] com.wine.store.config.DataInitializer    : Successfully loaded 30 wines.
+Hibernate: select count(*) from events e1_0
+2026-02-15T18:32:02.262+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] com.wine.store.config.DataInitializer    : Loading events from JSON...
+Hibernate: insert into events (booked_spots,category,date,description,image_url,location,price_per_person,slug,time,title,total_spots,id) values (?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into events (booked_spots,category,date,description,image_url,location,price_per_person,slug,time,title,total_spots,id) values (?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into events (booked_spots,category,date,description,image_url,location,price_per_person,slug,time,title,total_spots,id) values (?,?,?,?,?,?,?,?,?,?,?,default)
+Hibernate: insert into events (booked_spots,category,date,description,image_url,location,price_per_person,slug,time,title,total_spots,id) values (?,?,?,?,?,?,?,?,?,?,?,default)
+2026-02-15T18:32:02.267+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] com.wine.store.config.DataInitializer    : Successfully loaded 4 events.
+Hibernate: select count(*) from users u1_0
+2026-02-15T18:32:02.267+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] com.wine.store.config.DataInitializer    : Creating initial admin user...
+Hibernate: insert into users (email,first_name,last_name,password,user_role,id) values (?,?,?,?,?,?)
+2026-02-15T18:32:02.340+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] com.wine.store.config.DataInitializer    : Initial admin user created: admin@winestore.com / admin123
+2026-02-15T18:32:02.340+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] com.wine.store.config.DataInitializer    : Data initialization completed. Application is ready.
+2026-02-15T18:32:02.341+01:00  INFO 70389 --- [pro-project-wine-store-backend] [           main] c.w.s.ProProjectWineStoreApplication     : ProProjectWineStoreApplication logic is running.
+2026-02-15T18:32:35.395+01:00  INFO 70389 --- [pro-project-wine-store-backend] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-15T18:32:35.396+01:00  INFO 70389 --- [pro-project-wine-store-backend] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-02-15T18:32:35.397+01:00  INFO 70389 --- [pro-project-wine-store-backend] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  35.738 s
+[INFO] Finished at: 2026-02-15T18:32:35+01:00
+[INFO] ------------------------------------------------------------------------

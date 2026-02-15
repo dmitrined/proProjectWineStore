@@ -5,86 +5,210 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <changeSet id="2-seed-data" author="Dmitri Nedioglo">
-        <!-- Wines -->
+    <changeSet id="2-seed-wines" author="Dmitri Nedioglo">
+        <comment>Initial seed data for wines</comment>
+        
         <insert tableName="wines">
-            <column name="name" value="Riesling Trocken 2022"/>
-            <column name="slug" value="riesling-trocken-2022"/>
-            <column name="short_description" value="Классический немецкий рислинг с освежающей кислотностью."/>
-            <column name="description" value="Этот Riesling Trocken 2022 года происходит из лучших виноградников региона Мозель."/>
-            <column name="price" value="15.99"/>
-            <column name="is_sale" valueBoolean="false"/>
+            <column name="name" value="Pinot Noir Edition P"/>
+            <column name="slug" value="pinot-noir-edition-p-2022"/>
+            <column name="description" value="Ein Spätburgunder der Extraklasse! Finessenreich, elegant mit viel Frische und Aroma, gleichzeitig enorm dicht, komplex und nachhaltig. Im Barrique gereift."/>
+            <column name="image_url" value="https://placehold.co/600x800/png?text=Rotwein+Edition+P"/>
+            <column name="price" valueNumeric="22.50"/>
             <column name="stock_status" value="IN_STOCK"/>
-            <column name="stock_quantity" valueNumeric="50"/>
-            <column name="type" value="WHITE"/>
-            <column name="grape_variety" value="Riesling"/>
-            <column name="winery" value="Schloss Johannisberg"/>
-            <column name="region" value="Mosel"/>
-            <column name="country" value="Germany"/>
+            <column name="stock_quantity" valueNumeric="24"/>
+            <column name="type" value="RED"/>
+            <column name="grape_variety" value="Spätburgunder"/>
             <column name="release_year" valueNumeric="2022"/>
-            <column name="alcohol" value="12.5%"/>
+            <column name="alcohol" value="13.5%"/>
+            <column name="acidity" value="5.1 g/l"/>
+            <column name="sugar" value="1.8 g/l"/>
             <column name="flavor" value="TROCKEN"/>
-            <column name="rating" valueNumeric="4.5"/>
+            <column name="edition" value="Edition P"/>
+            <column name="rating" valueNumeric="4.9"/>
             <column name="featured" valueBoolean="true"/>
         </insert>
 
         <insert tableName="wines">
-            <column name="name" value="Spätburgunder Red 2021"/>
-            <column name="slug" value="spatburgunder-red-2021"/>
-            <column name="short_description" value="Элегантное красное вино с нотами вишни и специй."/>
-            <column name="description" value="Превосходный немецкий Пино Нуар (Шпетбургундер) с мягкими танинами."/>
-            <column name="price" value="24.50"/>
-            <column name="sale_price" value="19.99"/>
-            <column name="is_sale" valueBoolean="true"/>
+            <column name="name" value="Lemberger Edition C"/>
+            <column name="slug" value="lemberger-edition-c-2023"/>
+            <column name="description" value="Klassischer Lemberger mit tiefroter Farbe. Noten von Waldbeeren und Brombeeren. Samtige Tannine."/>
+            <column name="image_url" value="https://placehold.co/600x800/png?text=Rotwein+Edition+C"/>
+            <column name="price" valueNumeric="10.80"/>
             <column name="stock_status" value="IN_STOCK"/>
-            <column name="stock_quantity" valueNumeric="25"/>
+            <column name="stock_quantity" valueNumeric="85"/>
             <column name="type" value="RED"/>
-            <column name="grape_variety" value="Spätburgunder"/>
-            <column name="winery" value="Meyer-Näkel"/>
-            <column name="region" value="Ahr"/>
-            <column name="country" value="Germany"/>
-            <column name="release_year" valueNumeric="2021"/>
-            <column name="alcohol" value="13.5%"/>
+            <column name="grape_variety" value="Lemberger"/>
+            <column name="release_year" valueNumeric="2023"/>
+            <column name="alcohol" value="13.0%"/>
             <column name="flavor" value="TROCKEN"/>
+            <column name="edition" value="Edition C"/>
+            <column name="rating" valueNumeric="4.7"/>
+        </insert>
+
+        <insert tableName="wines">
+            <column name="name" value="2023 Trollinger trocken »Alte Reben«"/>
+            <column name="slug" value="trollinger-alte-reben-2023"/>
+            <column name="description" value="Der Klassiker aus Württemberg von alten Reben. Leicht, süffig und dennoch mit Struktur."/>
+            <column name="image_url" value="https://placehold.co/600x800/png?text=Trollinger"/>
+            <column name="price" valueNumeric="8.50"/>
+            <column name="stock_status" value="IN_STOCK"/>
+            <column name="stock_quantity" valueNumeric="150"/>
+            <column name="type" value="RED"/>
+            <column name="grape_variety" value="Trollinger"/>
+            <column name="release_year" valueNumeric="2023"/>
+            <column name="alcohol" value="11.5%"/>
+            <column name="flavor" value="TROCKEN"/>
+            <column name="rating" valueNumeric="4.4"/>
+        </insert>
+
+        <insert tableName="wines">
+            <column name="name" value="Riesling trocken Edition P"/>
+            <column name="slug" value="riesling-laemmler-2024"/>
+            <column name="description" value="Ein Riesling mit Charakter! Ausgeprägte Fruchtaromatik, leicht mineralische Noten."/>
+            <column name="image_url" value="https://placehold.co/600x800/png?text=Riesling+P"/>
+            <column name="price" valueNumeric="15.50"/>
+            <column name="stock_status" value="IN_STOCK"/>
+            <column name="stock_quantity" valueNumeric="120"/>
+            <column name="type" value="WHITE"/>
+            <column name="grape_variety" value="Riesling"/>
+            <column name="release_year" valueNumeric="2024"/>
+            <column name="alcohol" value="12.5%"/>
+            <column name="flavor" value="TROCKEN"/>
+            <column name="edition" value="Edition P"/>
             <column name="rating" valueNumeric="4.8"/>
             <column name="featured" valueBoolean="true"/>
         </insert>
 
-        <!-- Tags for first wine (assuming ID 1) -->
-        <insert tableName="wine_tags">
-            <column name="wine_id" valueComputed="(SELECT id FROM wines WHERE slug = 'riesling-trocken-2022')"/>
-            <column name="tag" value="fresh"/>
-        </insert>
-        <insert tableName="wine_tags">
-            <column name="wine_id" valueComputed="(SELECT id FROM wines WHERE slug = 'riesling-trocken-2022')"/>
-            <column name="tag" value="mineral"/>
+        <insert tableName="wines">
+            <column name="name" value="Grauburgunder Edition C"/>
+            <column name="slug" value="grauburgunder-c"/>
+            <column name="price" valueNumeric="10.50"/>
+            <column name="stock_status" value="IN_STOCK"/>
+            <column name="type" value="WHITE"/>
+            <column name="grape_variety" value="Grauburgunder"/>
+            <column name="release_year" valueNumeric="2023"/>
+            <column name="flavor" value="TROCKEN"/>
+            <column name="edition" value="Edition C"/>
+            <column name="image_url" value="https://placehold.co/600x800/png?text=Grauburgunder"/>
         </insert>
 
+        <insert tableName="wines">
+            <column name="name" value="Sauvignon Blanc"/>
+            <column name="slug" value="sauvignon-blanc"/>
+            <column name="price" valueNumeric="11.50"/>
+            <column name="stock_status" value="IN_STOCK"/>
+            <column name="type" value="WHITE"/>
+            <column name="grape_variety" value="Sauvignon Blanc"/>
+            <column name="release_year" valueNumeric="2024"/>
+            <column name="flavor" value="TROCKEN"/>
+            <column name="image_url" value="https://placehold.co/600x800/png?text=Sauvignon"/>
+        </insert>
+
+        <insert tableName="wines">
+            <column name="name" value="Lemberger Rosé Edition C"/>
+            <column name="slug" value="rose-edition-c"/>
+            <column name="price" valueNumeric="6.70"/>
+            <column name="sale_price" valueNumeric="5.50"/>
+            <column name="is_sale" valueBoolean="true"/>
+            <column name="stock_status" value="IN_STOCK"/>
+            <column name="type" value="ROSE"/>
+            <column name="grape_variety" value="Lemberger"/>
+            <column name="release_year" valueNumeric="2024"/>
+            <column name="flavor" value="TROCKEN"/>
+            <column name="edition" value="Edition C"/>
+            <column name="image_url" value="https://placehold.co/600x800/png?text=Rose+C"/>
+        </insert>
+        
+         <insert tableName="wines">
+            <column name="name" value="Muskattrollinger Rosé"/>
+            <column name="slug" value="muskat-rose"/>
+            <column name="price" valueNumeric="8.80"/>
+            <column name="stock_status" value="IN_STOCK"/>
+            <column name="type" value="ROSE"/>
+            <column name="grape_variety" value="Muskattrollinger"/>
+            <column name="release_year" valueNumeric="2024"/>
+            <column name="flavor" value="FRUCHTIG"/>
+            <column name="image_url" value="https://placehold.co/600x800/png?text=Muskattrollinger"/>
+        </insert>
+
+        <insert tableName="wines">
+            <column name="name" value="Riesling Sekt"/>
+            <column name="slug" value="riesling-sekt"/>
+            <column name="price" valueNumeric="11.50"/>
+            <column name="stock_status" value="IN_STOCK"/>
+            <column name="type" value="SPARKLING"/>
+            <column name="grape_variety" value="Riesling"/>
+            <column name="release_year" valueNumeric="2023"/>
+            <column name="flavor" value="TROCKEN"/>
+            <column name="image_url" value="https://placehold.co/600x800/png?text=Sekt+Riesling"/>
+        </insert>
+
+        <insert tableName="wines">
+            <column name="name" value="TRÈJUS Rot alkoholfrei"/>
+            <column name="slug" value="trejus-rot"/>
+            <column name="price" valueNumeric="7.90"/>
+            <column name="stock_status" value="IN_STOCK"/>
+            <column name="type" value="ALCOHOL_FREE"/>
+            <column name="grape_variety" value="Cuvée"/>
+            <column name="release_year" valueNumeric="2024"/>
+            <column name="flavor" value="FRUCHTIG"/>
+            <column name="image_url" value="https://placehold.co/600x800/png?text=Alkoholfrei+Rot"/>
+        </insert>
         <!-- Events -->
         <insert tableName="events">
-            <column name="title" value="Большая дегустация рислингов"/>
-            <column name="slug" value="riesling-tasting-2026"/>
-            <column name="description" value="Присоединяйтесь к нам для исследования лучших рислингов Германии."/>
-            <column name="date" value="2026-06-15"/>
-            <column name="time" value="18:00"/>
-            <column name="location" value="WeinStore Berlin, Uhlandstraße 12"/>
-            <column name="price_per_person" value="45.00"/>
-            <column name="total_spots" valueNumeric="20"/>
-            <column name="booked_spots" valueNumeric="5"/>
-            <column name="category" value="WEINPROBE"/>
+            <column name="title" value="Großes Weinfest 2025"/>
+            <column name="slug" value="weinfest-2025"/>
+            <column name="date" valueDate="2025-08-15"/>
+            <column name="time" value="18:00 - 23:00"/>
+            <column name="location" value="Weingut Fellfacher Hof"/>
+            <column name="description" value="Erleben Sie unser jährliches Weinfest mit Live-Musik, kulinarischen Köstlichkeiten und natürlich unseren besten Weinen."/>
+            <column name="total_spots" valueNumeric="200"/>
+            <column name="price_per_person" valueNumeric="10.00"/>
+            <column name="image_url" value="https://placehold.co/800x600/png?text=Weinfest"/>
+            <column name="category" value="WEINFEST"/>
+            <column name="booked_spots" valueNumeric="0"/>
         </insert>
 
         <insert tableName="events">
-            <column name="title" value="Фестиваль летних вин"/>
-            <column name="slug" value="summer-wine-fest-2026"/>
-            <column name="description" value="Праздник вина, музыки и хорошего настроения под открытым небом."/>
-            <column name="date" value="2026-07-20"/>
-            <column name="time" value="14:00"/>
-            <column name="location" value="Park am Gleisdreieck"/>
-            <column name="price_per_person" value="15.00"/>
-            <column name="total_spots" valueNumeric="200"/>
-            <column name="booked_spots" valueNumeric="45"/>
-            <column name="category" value="WEINFEST"/>
+            <column name="title" value="Exklusive Weinprobe"/>
+            <column name="slug" value="weinprobe-fruehjahr"/>
+            <column name="date" valueDate="2025-04-20"/>
+            <column name="time" value="19:00 - 21:00"/>
+            <column name="location" value="Verkostungsraum"/>
+            <column name="description" value="Probieren Sie unsere neuen Jahrgänge exklusiv vor dem offiziellen Verkaufsstart. Geführte Verkostung durch den Kellermeister."/>
+            <column name="total_spots" valueNumeric="20"/>
+            <column name="price_per_person" valueNumeric="35.00"/>
+            <column name="image_url" value="https://placehold.co/800x600/png?text=Weinprobe"/>
+            <column name="category" value="WEINPROBE"/>
+            <column name="booked_spots" valueNumeric="20"/>
+        </insert>
+
+        <insert tableName="events">
+            <column name="title" value="Kellerblicke: Hinter den Kulissen"/>
+            <column name="slug" value="kellerblicke-mai"/>
+            <column name="date" valueDate="2025-05-10"/>
+            <column name="time" value="14:00 - 16:00"/>
+            <column name="location" value="Weinkeller"/>
+            <column name="description" value="Eine spannende Führung durch unsere historischen Kellergewölbe und die moderne Produktion."/>
+            <column name="total_spots" valueNumeric="15"/>
+            <column name="price_per_person" valueNumeric="15.00"/>
+            <column name="image_url" value="https://placehold.co/800x600/png?text=Kellerblicke"/>
+            <column name="category" value="KELLERBLICKE"/>
+            <column name="booked_spots" valueNumeric="0"/>
+        </insert>
+
+        <insert tableName="events">
+            <column name="title" value="Afterwork Lounge"/>
+            <column name="slug" value="afterwork-juni"/>
+            <column name="date" valueDate="2025-06-05"/>
+            <column name="time" value="17:00 - 22:00"/>
+            <column name="location" value="Weingarten"/>
+            <column name="description" value="Entspannter Feierabend mit chilligen Beats, guten Weinen und kleinen Snacks."/>
+            <column name="total_spots" valueNumeric="50"/>
+            <column name="price_per_person" valueNumeric="0.00"/>
+            <column name="image_url" value="https://placehold.co/800x600/png?text=Afterwork"/>
+            <column name="category" value="AFTERWORK"/>
+            <column name="booked_spots" valueNumeric="0"/>
         </insert>
     </changeSet>
 

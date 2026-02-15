@@ -30,7 +30,7 @@
                 <constraints nullable="false" unique="true"/>
             </column>
             <column name="description" type="TEXT"/>
-            <column name="short_description" type="TEXT"/>
+
             <column name="image_url" type="VARCHAR(255)"/>
             <column name="price" type="DECIMAL(19, 2)">
                 <constraints nullable="false"/>
@@ -41,15 +41,13 @@
             <column name="stock_quantity" type="INTEGER"/>
             <column name="type" type="VARCHAR(50)"/>
             <column name="grape_variety" type="VARCHAR(255)"/>
-            <column name="winery" type="VARCHAR(255)"/>
-            <column name="region" type="VARCHAR(255)"/>
-            <column name="country" type="VARCHAR(255)"/>
+
             <column name="release_year" type="INTEGER"/>
             <column name="alcohol" type="VARCHAR(50)"/>
             <column name="acidity" type="VARCHAR(50)"/>
             <column name="sugar" type="VARCHAR(50)"/>
             <column name="flavor" type="VARCHAR(50)"/>
-            <column name="quality_level" type="VARCHAR(255)"/>
+
             <column name="edition" type="VARCHAR(255)"/>
             <column name="rating" type="DOUBLE PRECISION"/>
             <column name="featured" type="BOOLEAN" defaultValueBoolean="false"/>
