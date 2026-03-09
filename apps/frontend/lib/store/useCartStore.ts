@@ -119,9 +119,9 @@ export const useCartStore = create<CartState>()(
                         ? (typeof product.price === 'number' ? product.price : parseFloat(product.price))
                         : 0;
 
-                    // Если есть распродажа, используем sale_price
-                    if ('sale' in product && product.sale && 'sale_price' in product && product.sale_price) {
-                        price = product.sale_price;
+                    // Если есть распродажа, используем salePrice (только для вин)
+                    if ('isSale' in product && (product as Wine).isSale && (product as Wine).salePrice) {
+                        price = (product as Wine).salePrice as number;
                     }
 
                     return total + (price * item.quantity);

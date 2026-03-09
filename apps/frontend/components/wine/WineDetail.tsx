@@ -21,11 +21,11 @@ interface WineDetailProps {
 /**
  * Компонент изображения вина.
  */
-const WineDetailImage: React.FC<{ image: string; name: string; year?: number }> = ({ image, name }) => {
+const WineDetailImage: React.FC<{ imageUrl: string; name: string; releaseYear?: number }> = ({ imageUrl, name }) => {
     return (
         <div className="relative aspect-[4/5] md:aspect-[3/4] bg-zinc-50 dark:bg-zinc-900 rounded-3xl overflow-hidden flex items-center justify-center p-8 md:p-12 group">
             <img
-                src={image}
+                src={imageUrl}
                 alt={name}
                 className="h-full w-full object-contain transform group-hover:scale-105 transition-transform duration-700"
             />
@@ -145,7 +145,7 @@ const WineDetailPurchase: React.FC<{
     t: (key: string) => string;
 }> = ({ wine, isFavorite, onAddToCart, onToggleWishlist, t }) => {
     // Определение активной цены (с учетом распродажи)
-    const activePrice = wine.sale && wine.sale_price ? wine.sale_price : wine.price;
+    const activePrice = wine.isSale && wine.salePrice ? wine.salePrice : wine.price;
     const unitPrice = (activePrice / 0.75).toFixed(2).replace('.', ',');
 
     return (
@@ -157,10 +157,10 @@ const WineDetailPurchase: React.FC<{
                         {t("premium_price")}
                     </span>
                     <div className="flex flex-wrap items-baseline gap-4 mb-4">
-                        {wine.sale && wine.sale_price ? (
+                        {wine.isSale && wine.salePrice ? (
                             <>
                                 <span className="text-4xl md:text-5xl font-black serif italic text-red-500">
-                                    {wine.sale_price.toFixed(2).replace('.', ',')} €
+                                    {wine.salePrice.toFixed(2).replace('.', ',')} €
                                 </span>
                                 <span className="text-2xl md:text-3xl font-medium text-white/40 line-through decoration-red-500/50">
                                     {wine.price.toFixed(2).replace('.', ',')} €
@@ -241,9 +241,9 @@ export const WineDetail: React.FC<WineDetailProps> = ({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16">
             {/* Секция изображения */}
             <WineDetailImage
-                image={wine.image}
+                imageUrl={wine.imageUrl}
                 name={wine.name}
-                year={wine.year}
+                releaseYear={wine.releaseYear}
             />
 
             {/* Детали вина */}

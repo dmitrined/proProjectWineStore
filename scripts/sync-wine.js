@@ -28,8 +28,8 @@ function csvToJson(csv) {
     const headers = lines[0].split(',').map(h => h.trim());
     const result = [];
 
-    // Поля, которые должны быть массивами
-    const arrayFields = ['recommended_dishes', 'tags'];
+    // Поля, которые должны быть массивами (в соответствии с новым Wine.java)
+    const arrayFields = ['recommendedDishes', 'tags'];
 
     for (let i = 1; i < lines.length; i++) {
         const currentLine = parseCsvLine(lines[i]);
@@ -40,15 +40,18 @@ function csvToJson(csv) {
             let value = currentLine[index];
 
             if (arrayFields.includes(header)) {
-                // Разбиваем строку по точке с запятой, если поле должно быть массивом
+                // Массивы
                 obj[header] = value ? value.split(';').map(item => item.trim()) : [];
+            } else if (header === 'id' && value !== null) {
+                // ID всегда делаем строкой для фронтенда
+                obj[header] = value.toString();
             } else if (!isNaN(value) && value !== '' && value !== null) {
                 // Числа
                 obj[header] = Number(value);
-            } else if (value && value.toLowerCase() === 'true') {
+            } else if (value && (value.toLowerCase() === 'true' || value.toLowerCase() === 'yes')) {
                 // Булевы
                 obj[header] = true;
-            } else if (value && value.toLowerCase() === 'false') {
+            } else if (value && (value.toLowerCase() === 'false' || value.toLowerCase() === 'no')) {
                 // Булевы
                 obj[header] = false;
             } else {

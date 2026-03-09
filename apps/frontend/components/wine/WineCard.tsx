@@ -55,7 +55,7 @@ export default function WineCard({ wine }: Props) {
                     {!imageError ? (
                         <div className="relative h-full w-full transform group-hover:scale-110 transition-transform duration-700 flex items-center justify-center">
                             <img
-                                src={wine.image}
+                                src={wine.imageUrl}
                                 alt={wine.name}
                                 className="h-full w-full object-contain"
                                 onError={() => setImageError(true)}
@@ -74,18 +74,18 @@ export default function WineCard({ wine }: Props) {
                 </Link>
 
                 {/* Год урожая */}
-                {(mounted ? wine.year : true) && (
+                {(mounted ? wine.releaseYear : true) && (
                     <div className="absolute top-2 left-2 md:top-6 md:left-6 z-10">
                         <div className="px-2.5 py-1 md:px-3 md:py-1.5 rounded-xl bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md shadow-sm border border-zinc-100 dark:border-zinc-800">
                             <span className="text-[10px] md:text-sm font-black text-wine-dark dark:text-white serif italic">
-                                {wine.year || 'Year'}
+                                {wine.releaseYear || 'Year'}
                             </span>
                         </div>
                     </div>
                 )}
 
                 {/* Лейбл Распродажи (на изображении) */}
-                {mounted && wine.sale && (
+                {mounted && wine.isSale && (
                     <div className="absolute bottom-2 right-2 md:bottom-6 md:right-6 z-10 pointer-events-none">
                         <span className="text-[10px] md:text-sm font-black text-white uppercase tracking-widest bg-red-600 px-2 py-1 md:px-3 md:py-1.5 rounded-lg shadow-xl">
                             {t('product_sale')}
@@ -138,10 +138,10 @@ export default function WineCard({ wine }: Props) {
                 <div className="mt-2 md:mt-6 border-t border-zinc-100 dark:border-zinc-800 pt-2 md:pt-6">
                     <div className="flex flex-col mb-2 md:mb-4">
                         <div className="flex items-baseline gap-2">
-                            {mounted && wine.sale && wine.sale_price ? (
+                            {mounted && wine.isSale && wine.salePrice ? (
                                 <>
                                     <div className="text-red-600 dark:text-red-500 font-black text-lg md:text-3xl italic serif">
-                                        € {wine.sale_price.toFixed(2).replace('.', ',')}
+                                        € {wine.salePrice.toFixed(2).replace('.', ',')}
                                     </div>
                                     <div className="text-zinc-400 dark:text-zinc-600 font-medium text-xs md:text-sm line-through decoration-red-500/50">
                                         € {wine.price.toFixed(2).replace('.', ',')}
@@ -156,7 +156,7 @@ export default function WineCard({ wine }: Props) {
                         <div className="text-[9px] md:text-[10px] text-zinc-500 font-medium leading-relaxed mt-0.5 md:mt-2 space-y-0.5">
                             <p>{t('product_tax_inc')}</p>
                             <p>
-                                (€ {((mounted && wine.sale && wine.sale_price ? wine.sale_price : wine.price) / 0.75).toFixed(2).replace('.', ',')} {t('product_unit_price')})
+                                (€ {((mounted && wine.isSale && wine.salePrice ? wine.salePrice : wine.price) / 0.75).toFixed(2).replace('.', ',')} {t('product_unit_price')})
                             </p>
                             <p>{t('product_shipping_extra')}</p>
                         </div>

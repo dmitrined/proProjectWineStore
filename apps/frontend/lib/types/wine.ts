@@ -1,47 +1,36 @@
-/**
- * Интерфейс Wine — центральная модель данных проекта.
- * Спроектирован с учетом будущей интеграции с PostgreSQL и Java Spring Boot.
- */
 export interface Wine {
     // ИДЕНТИФИКАЦИЯ
-    id: string;             // UUID или уникальная строка. В БД будет Primary Key.
-    name: string;           // Полное название вина
-    slug: string;           // Человекочитаемый URL (например, "pinot-noir-2022")
+    id: string;             // Сохраняем string для совместимости с фронтендом
+    name: string;
+    slug: string;
+    description: string;
+    imageUrl: string;       // Переименовано из image
 
     // КОММЕРЧЕСКИЕ ДАННЫЕ
-    price: number;          // Цена. В Java/DB лучше использовать тип Decimal/BigDecimal
-    sale?: boolean;         // Флаг распродажи
-    sale_price?: number;    // Цена со скидкой
-    description: string;    // Развернутое описание для страницы товара
-    short_description?: string; // Короткое описание для карточек в каталоге
-    image: string;          // Основная ссылка на изображение
+    price: number;
+    salePrice?: number;     // Переименовано из sale_price
+    isSale: boolean;        // Переименовано из sale
 
     // КАТЕГОРИЗАЦИЯ И СКЛАД
-    // Строгое перечисление типов помогает избежать ошибок в фильтрах
-    type: 'red' | 'white' | 'rose' | 'sparkling' | 'alcohol_free' | 'package' | 'other';
-    stock_status: 'instock' | 'outofstock'; // Статус наличия для UI (кнопка купить/нет в наличии)
-    stock_quantity?: number;               // Точное кол-во на складе для контроля остатков
+    stockStatus: 'IN_STOCK' | 'OUT_OF_STOCK' | 'ON_DEMAND';
+    stockQuantity?: number;
+    type: 'RED' | 'WHITE' | 'ROSE' | 'SPARKLING' | 'ALCOHOL_FREE' | 'PACKAGE' | 'OTHER';
 
-    // ВИННЫЕ ХАРАКТЕРИСТИКИ (Техническая карта)
-    grapeVariety: string;   // Сорт винограда (например, "Spätburgunder")
-    year?: number;           // Год урожая
-    alcohol?: string;       // Крепость (например, "13.5%")
-    acidity?: string;       // Кислотность в г/л
-    sugar?: string;         // Сахар в г/л
-    flavor?: string;        // Вкусовой профиль (Trocken, Halbtrocken и т.д.)
-    quality_level?: string; // Классификация (VDP, Qualitätswein)
-    edition?: string;       // Особая серия (Edition P, Edition C,)
+    // ВИННЫЕ ХАРАКТЕРИСТИКИ
+    grapeVariety: string;
+    releaseYear?: number;   // Переименовано из year
+    alcohol?: string;
+    acidity?: string;
+    sugar?: string;
+    flavor?: 'TROCKEN' | 'FEINHERB' | 'FRUCHTIG' | 'BRUT';
+    edition?: string;
 
+    // AI & МАРКЕТИНГ
+    rating?: number;
+    recommendedDishes?: any[]; // Массив объектов Dish
+    tags?: string[];
+    featured: boolean;      // Новое поле
 
-
-    // ДАННЫЕ ДЛЯ AI И МАРКЕТИНГА
-    rating?: number;        // Средняя оценка пользователей (4.5, 5.0)
-    recommended_dishes?: string[]; // Массив блюд. Ключевое поле для логики AI-сомелье
-    tags?: string[];        // Теги для быстрого поиска ("Bestseller", "New", "Organic")
-    temp?: string;          // Температура подачи (например, "16-18°C")
-
-    // СИСТЕМНЫЕ ПОЛЯ
-    is_favorite?: boolean;  // Локальное состояние для UI (сердечко), не хранится в основной таблице вин
-    created_at?: string;    // ISO дата создания. Позволяет сортировать по "Новинкам"
-
+    // СИСТЕМНЫЕ ПОЛЯ (Опционально, если нужны на фронте)
+    created_at?: string;
 }
