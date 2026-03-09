@@ -3,6 +3,7 @@ package com.wine.store.service;
 import com.wine.store.dto.SommelierRequest;
 import com.wine.store.dto.SommelierResponse;
 import com.wine.store.mapper.WineMapper;
+import com.wine.store.model.Dish;
 import com.wine.store.model.Wine;
 import com.wine.store.repository.WineRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -54,7 +55,7 @@ public class AiSommelierService {
                         "ID: %d, Name: %s, Type: %s, Price: %s, Features: [Acidity: %s, Sugar: %s, Flavor: %s], Dishes: %s",
                         w.getId(), w.getName(), w.getType(), w.getPrice(),
                         w.getAcidity(), w.getSugar(), w.getFlavor(),
-                        w.getRecommendedDishes().stream().map(d -> d.getName()).toList()))
+                        w.getRecommendedDishes().stream().map(Dish::getName).toList()))
                 .collect(Collectors.joining("\n"));
 
         // 3. Формируем Запрос к AI

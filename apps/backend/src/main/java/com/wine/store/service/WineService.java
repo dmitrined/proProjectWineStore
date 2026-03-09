@@ -76,7 +76,6 @@ public class WineService {
     }
 
     @Transactional
-    @SuppressWarnings("null")
     public WineDTO updateWine(String slug, WineDTO wineDTO) {
         log.info("Updating wine with slug: {}", slug);
         Wine existingWine = wineRepository.findBySlug(slug)

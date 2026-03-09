@@ -33,4 +33,12 @@
         <dropTable tableName="wine_dishes" cascadeConstraints="true"/>
     </changeSet>
 
+    <changeSet id="4" author="Dmitri Nedioglo">
+        <addColumn tableName="dishes">
+            <column name="weight" type="INT"/>
+            <column name="dominant_taste" type="VARCHAR(255)"/>
+            <column name="cooking_method" type="VARCHAR(255)"/>
+        </addColumn>
+    </changeSet>
+
 </databaseChangeLog>

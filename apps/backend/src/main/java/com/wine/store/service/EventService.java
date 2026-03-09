@@ -95,7 +95,6 @@ public class EventService {
     }
 
     @Transactional
-    @SuppressWarnings("null")
     public EventDTO updateEvent(String slug, EventDTO eventDTO) {
         log.info("Updating event with slug: {}", slug);
         Event existingEvent = eventRepository.findBySlug(slug)

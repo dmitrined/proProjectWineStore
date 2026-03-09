@@ -35,5 +35,9 @@ public class Dish {
     @Enumerated(EnumType.STRING)
     private DishCategory category;
 
-    // TODO: Дополнительные параметры для ИИ: weight, dominantTaste, cookingMethod
+    private Integer weight;
+
+    private String dominantTaste;
+
+    private String cookingMethod;
 }
