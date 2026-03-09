@@ -90,7 +90,7 @@ public class WineDTO {
     private Double rating;
 
     @Schema(description = "Рекомендуемые блюда")
-    private List<String> recommendedDishes;
+    private List<DishDTO> recommendedDishes;
 
     @Schema(description = "Теги", example = "[\"fresh\", \"mineral\"]")
     private List<String> tags;

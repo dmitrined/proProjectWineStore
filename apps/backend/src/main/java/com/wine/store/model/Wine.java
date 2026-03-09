@@ -10,7 +10,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -83,10 +85,9 @@ public class Wine {
     // AI & Meta
     private Double rating;
 
-    @ElementCollection
-    @CollectionTable(name = "wine_dishes", joinColumns = @JoinColumn(name = "wine_id"))
-    @Column(name = "dish")
-    private List<String> recommendedDishes; // ["Steak", "Pasta"]
+    @ManyToMany
+    @JoinTable(name = "wine_dish", joinColumns = @JoinColumn(name = "wine_id"), inverseJoinColumns = @JoinColumn(name = "dish_id"))
+    private List<Dish> recommendedDishes;
 
     @ElementCollection
     @CollectionTable(name = "wine_tags", joinColumns = @JoinColumn(name = "wine_id"))

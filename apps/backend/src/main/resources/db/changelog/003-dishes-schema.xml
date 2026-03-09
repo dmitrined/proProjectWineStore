@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="3" author="Dmitri Nedioglo">
+        <createTable tableName="dishes">
+            <column name="id" type="BIGSERIAL">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="category" type="VARCHAR(50)"/>
+        </createTable>
+
+        <createTable tableName="wine_dish">
+            <column name="wine_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="dish_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="wine_dish" baseColumnNames="wine_id" constraintName="fk_wine_dish_wine"
+                                 referencedTableName="wines" referencedColumnNames="id" onDelete="CASCADE"/>
+        <addForeignKeyConstraint baseTableName="wine_dish" baseColumnNames="dish_id" constraintName="fk_wine_dish_dish"
+                                 referencedTableName="dishes" referencedColumnNames="id" onDelete="CASCADE"/>
+
+        <dropTable tableName="wine_dishes" cascadeConstraints="true"/>
+    </changeSet>
+
+</databaseChangeLog>
