@@ -60,3 +60,20 @@ dependencyManagement {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+// Load .env file and pass vars to bootRun
+def envFile = file('.env')
+def envVars = [:]
+if (envFile.exists()) {
+	envFile.readLines().each { line ->
+		if (line && !line.startsWith('#') && line.contains('=')) {
+			def (key, value) = line.split('=', 2)
+			envVars[key.trim()] = value.trim()
+		}
+	}
+}
+
+tasks.named('bootRun') {
+	environment(envVars)
+}
+
