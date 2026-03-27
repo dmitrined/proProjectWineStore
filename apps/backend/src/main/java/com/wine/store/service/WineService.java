@@ -10,7 +10,9 @@ import com.wine.store.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
@@ -31,9 +33,31 @@ public class WineService {
     @Transactional(readOnly = true)
     public @NonNull Page<WineDTO> getAllWines(WineSearchRequest request, @NonNull Pageable pageable) {
         log.info("Fetching wines with filters: {} and pageable: {}", request, pageable);
+
+        Sort sort = parseSort(request.sort());
+        Pageable effectivePageable = pageable;
+
+        if (sort.isSorted()) {
+            effectivePageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
+        }
+
         Specification<Wine> spec = WineSpecification.getSpec(request);
-        Page<Wine> wines = wineRepository.findAll(spec, pageable);
+        Page<Wine> wines = wineRepository.findAll(spec, effectivePageable);
         return wines.map(wineMapper::toDto);
+    }
+
+    private Sort parseSort(String sortStr) {
+        if (sortStr == null || sortStr.isBlank()) {
+            return Sort.unsorted();
+        }
+
+        return switch (sortStr.toLowerCase()) {
+            case "price_asc" -> Sort.by("price").ascending();
+            case "price_desc" -> Sort.by("price").descending();
+            case "newest" -> Sort.by("id").descending();
+            case "rating" -> Sort.by("rating").descending();
+            default -> Sort.unsorted();
+        };
     }
 
     @Transactional(readOnly = true)

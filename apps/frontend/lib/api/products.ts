@@ -36,12 +36,12 @@ export interface PaginatedResponse<T> {
 
 // --- MAPPERS ---
 
-function mapStockStatus(status: StockStatusDto): 'instock' | 'outofstock' {
+function mapStockStatus(status: StockStatusDto): Wine['stockStatus'] {
     switch (status) {
-        case 'IN_STOCK': return 'instock';
-        case 'OUT_OF_STOCK': return 'outofstock';
-        case 'ON_DEMAND': return 'outofstock'; // Treat ON_DEMAND as out of stock for now or add new UI state
-        default: return 'outofstock';
+        case 'IN_STOCK': return 'IN_STOCK';
+        case 'OUT_OF_STOCK': return 'OUT_OF_STOCK';
+        case 'ON_DEMAND': return 'ON_DEMAND';
+        default: return 'OUT_OF_STOCK';
     }
 }
 
@@ -49,8 +49,14 @@ function mapWineType(type: WineTypeDto): Wine['type'] {
     return type.toLowerCase() as Wine['type'];
 }
 
-function mapWineFlavor(flavor?: WineFlavorDto): string | undefined {
-    return flavor ? flavor.charAt(0) + flavor.slice(1).toLowerCase() : undefined; // "TROCKEN" -> "Trocken"
+function mapWineFlavor(flavor?: WineFlavorDto): Wine['flavor'] | undefined {
+    if (!flavor) return undefined;
+    const f = flavor.toUpperCase();
+    if (f === 'TROCKEN') return 'TROCKEN';
+    if (f === 'FEINHERB') return 'FEINHERB';
+    if (f === 'FRUCHTIG' || f.includes('LIEBLICH') || f.includes('MILD')) return 'FRUCHTIG';
+    if (f === 'BRUT') return 'BRUT';
+    return 'TROCKEN'; // fallback
 }
 
 function mapWineDtoToWine(dto: WineDto): Wine {
@@ -59,25 +65,25 @@ function mapWineDtoToWine(dto: WineDto): Wine {
         name: dto.name,
         slug: dto.slug,
         description: dto.description,
-        image: dto.image_url,
+        imageUrl: dto.image_url || '',
         price: dto.price,
-        sale_price: dto.sale_price,
-        sale: dto.is_sale,
-        stock_status: mapStockStatus(dto.stock_status),
-        stock_quantity: dto.stock_quantity,
+        salePrice: dto.sale_price,
+        isSale: dto.is_sale,
+        stockStatus: mapStockStatus(dto.stock_status),
+        stockQuantity: dto.stock_quantity,
         type: mapWineType(dto.type),
         grapeVariety: dto.grape_variety,
-        year: dto.year,
+        releaseYear: dto.year,
         alcohol: dto.alcohol,
         acidity: dto.acidity,
         sugar: dto.sugar,
         flavor: mapWineFlavor(dto.flavor),
         edition: dto.edition,
         rating: dto.rating,
-        recommended_dishes: dto.recommended_dishes,
+        recommendedDishes: dto.recommended_dishes,
         tags: dto.tags,
-        is_favorite: false, // Local state
-        created_at: new Date().toISOString() // Mock date if strictly needed, or backend should provide it
+        featured: false,
+        created_at: new Date().toISOString()
     };
 }
 

@@ -37,7 +37,7 @@ export default function ProductCard({ product }: Props) {
     const addToCart = useCartStore(state => state.addToCart);
     const updateQuantity = useCartStore(state => state.updateQuantity);
 
-    const { isLoggedIn, setAuthModalOpen } = useAuth();
+    const { setAuthModalOpen } = useAuth();
     const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
@@ -55,6 +55,9 @@ export default function ProductCard({ product }: Props) {
     const isWine = isWineItem(product);
     const isEvent = !isWine;
 
+    // Helpers to access properties safely
+    const wine = isWine ? (product as Wine) : null;
+    const event = isEvent ? (product as Event) : null;
 
     return (
         <motion.div
@@ -65,10 +68,10 @@ export default function ProductCard({ product }: Props) {
         >
             {/* Контейнер изображения */}
             <div className="relative h-64 md:h-auto md:aspect-[3/4] overflow-hidden bg-white dark:bg-zinc-900">
-                <Link href={isWine ? `/shop/${(product as Wine).slug}` : `/events/${product.id}`} className="block h-full w-full">
+                <Link href={isWine ? `/shop/${wine?.slug}` : `/events/${product.id}`} className="block h-full w-full">
                     <Image
-                        src={product.image}
-                        alt={isEvent ? (product as Event).title : (product as Wine).name}
+                        src={isWine ? (wine?.imageUrl || '/images/uberUns.jpg') : (event?.image || '/images/uberUns.jpg')}
+                        alt={isEvent ? (event?.title || 'Event') : (wine?.name || 'Wine')}
                         fill
                         className={`${isWine ? 'object-contain p-2' : 'object-cover'} group-hover:scale-105 transition-transform duration-500`}
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -76,21 +79,18 @@ export default function ProductCard({ product }: Props) {
                 </Link>
 
                 {/* Год урожая (только для вин) */}
-                {isWine && (mounted ? (product as Wine).year : true) && (
+                {isWine && mounted && wine?.releaseYear && (
                     <div className="absolute top-3 left-3 z-10">
                         <div className="px-2.5 py-1 rounded-lg bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md shadow-sm border border-zinc-100 dark:border-zinc-800">
                             <span className="text-[10px] md:text-xs font-black text-wine-dark dark:text-white serif italic">
-                                {isWine && (product as Wine).year ? (product as Wine).year : 'Year'}
+                                {wine.releaseYear}
                             </span>
                         </div>
                     </div>
                 )}
 
-                {/* Бейдж скидки (только для вин) */}
-                {/* Бейдж скидки удален так как нет regular_price */}
-
                 {/* Лейбл Распродажи (на изображении) */}
-                {mounted && isWine && (product as Wine).sale && (
+                {mounted && isWine && wine?.isSale && (
                     <div className="absolute bottom-4 right-3 z-10 pointer-events-none">
                         <span className="text-[10px] md:text-xs font-black text-white uppercase tracking-widest bg-red-600 px-2 py-1 rounded-md shadow-lg">
                             {t('product_sale')}
@@ -124,36 +124,34 @@ export default function ProductCard({ product }: Props) {
                 <div className="flex items-center justify-between text-[10px] md:text-xs text-zinc-500 font-bold uppercase tracking-widest min-h-[1.25rem]">
                     {isWine ? (
                         <div className="flex items-center gap-2">
-                            <span>{(product as Wine).grapeVariety}</span>
-                            {mounted && (product as Wine).flavor && (
+                            <span>{wine?.grapeVariety}</span>
+                            {mounted && wine?.flavor && (
                                 <>
                                     <span className="w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700" />
-                                    <span className="text-wine-gold">{t(`flavor_${(product as Wine).flavor?.toLowerCase()}`)}</span>
+                                    <span className="text-wine-gold">{t(`flavor_${wine.flavor.toLowerCase()}`)}</span>
                                 </>
                             )}
                         </div>
                     ) : (
                         <span className="flex items-center gap-1 text-wine-gold">
                             <Calendar className="w-3 h-3" />
-                            {(product as Event).date}
+                            {event?.date}
                         </span>
                     )}
                 </div>
 
                 {/* Заголовок и Серия */}
                 <div className="space-y-1">
-                    <Link href={isWine ? `/shop/${(product as Wine).slug}` : `/events/${product.id}`} className="block">
+                    <Link href={isWine ? `/shop/${wine?.slug}` : `/events/${product.id}`} className="block">
                         <h3 className="text-base md:text-lg font-bold text-wine-dark dark:text-white group-hover:text-wine-gold transition-colors line-clamp-1 serif leading-tight">
-                            {isEvent ? (product as Event).title : (product as Wine).name}
+                            {isEvent ? event?.title : wine?.name}
                         </h3>
                     </Link>
-                    {isWine && (
+                    {isWine && wine?.edition && (
                         <div className="min-h-[1.25rem]">
-                            {mounted && (product as Wine).edition && (
-                                <p className="text-[10px] md:text-xs font-medium text-zinc-400 dark:text-zinc-500 italic">
-                                    {(product as Wine).edition}
-                                </p>
-                            )}
+                            <p className="text-[10px] md:text-xs font-medium text-zinc-400 dark:text-zinc-500 italic">
+                                {wine.edition}
+                            </p>
                         </div>
                     )}
                 </div>
@@ -164,20 +162,18 @@ export default function ProductCard({ product }: Props) {
                         <div className="flex flex-col">
                             {/* Цена */}
                             <div className="flex items-baseline gap-2">
-                                {mounted && isWine && (product as Wine).sale && (product as Wine).sale_price ? (
+                                {mounted && isWine && wine?.isSale && wine?.salePrice ? (
                                     <>
                                         <div className="text-red-600 dark:text-red-500 font-black text-lg md:text-xl italic serif">
-                                            € {(product as Wine).sale_price!.toFixed(2).replace('.', ',')}
+                                            € {wine.salePrice.toFixed(2).replace('.', ',')}
                                         </div>
                                         <div className="text-zinc-400 dark:text-zinc-600 font-medium text-xs md:text-sm line-through decoration-red-500/50">
-                                            € {(product as Wine).price.toFixed(2).replace('.', ',')}
+                                            € {wine.price.toFixed(2).replace('.', ',')}
                                         </div>
                                     </>
                                 ) : (
                                     <div className="text-wine-dark dark:text-white font-black text-lg md:text-xl italic serif">
-                                        {typeof product.price === 'number'
-                                            ? `€ ${product.price.toFixed(2).replace('.', ',')}`
-                                            : product.price ? `€ ${parseFloat(product.price).toFixed(2).replace('.', ',')}` : '€ 0,00'}
+                                        € {product.price.toFixed(2).replace('.', ',')}
                                     </div>
                                 )}
                             </div>
@@ -186,7 +182,7 @@ export default function ProductCard({ product }: Props) {
                                 <div className="text-[9px] md:text-[10px] text-zinc-500 font-medium leading-tight mt-0.5">
                                     <p>{t('product_tax_inc')}</p>
                                     <p>
-                                        (€ {((isWine ? (mounted && (product as Wine).sale && (product as Wine).sale_price ? (product as Wine).sale_price! : (product as Wine).price) : 0) / 0.75).toFixed(2).replace('.', ',')} {t('product_unit_price')})
+                                        (€ {((mounted && wine?.isSale && wine?.salePrice ? wine.salePrice : wine?.price || 0) / 0.75).toFixed(2).replace('.', ',')} {t('product_unit_price')})
                                     </p>
                                     <p>{t('product_shipping_extra')}</p>
                                 </div>
@@ -260,4 +256,4 @@ export default function ProductCard({ product }: Props) {
             </div>
         </motion.div>
     );
-};
+}
